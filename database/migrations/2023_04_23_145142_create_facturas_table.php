@@ -1,0 +1,43 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('facturas', function (Blueprint $table) {
+           // $table->id();
+            $table->unsignedBigInteger('ejercicio');
+            $table->unsignedBigInteger('serie');
+            $table->unsignedBigInteger('numero')->unique(); //Migrar para señalar este campo como unico
+            $table->date('fecha_emision');
+            $table->integer('IVA');
+            $table->float('REQ');
+            $table->text('Observaciones');
+            $table->boolean('enviada');
+            //Relacion clave cliente.
+            $table->unsignedBigInteger('cliente_id')->nullable();
+            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('set null');;
+            //Clave ajena Usuario.
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            //Clave primaria.
+            $table->primary(['ejercicio', 'serie', 'numero'], 'ref_factura');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('facturas');
+    }
+};
