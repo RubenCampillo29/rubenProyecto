@@ -24,7 +24,6 @@ class ClienteController extends Controller
 
         return view('cliente\crearCliente');
         
-    
     }
 
     /**
@@ -103,6 +102,9 @@ class ClienteController extends Controller
      */
     public function destroy(Cliente $cliente)
     {
-        //
+        
+       
+
+
     }
 }

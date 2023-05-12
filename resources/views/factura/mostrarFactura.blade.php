@@ -40,7 +40,7 @@
             @endif
            <td>{{$factura['user_id']}}</td>
            <td>{{$factura['cliente_id']}}</td>
-           <td><a href="{{ route('factura.detalle', $factura['numero'])}}" >Detalle</a></td>
+           <td><a href="{{ route('factura.detalle', $factura['numero'])}}" >Ver</a></td>
 
     </tr>
     
