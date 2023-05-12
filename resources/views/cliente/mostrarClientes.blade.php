@@ -35,11 +35,15 @@
             @else
                <th>no</th>
             @endif
-            <td>
-            <a href="" class="btn btn-danger btn-sm">Eliminar</a>
-            </td>
+          
             <td><a href="{{ url('clientes/'.$cliente->id.'/edit') }}" class="btn btn-warning btn-sm">Editar</a></td>
-            
+            <td>
+            <form action="{{ url('clientes/'.$cliente->id) }}" method="post" >
+            @method("DELETE")
+            @csrf
+            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+            </form>   
+             </td>
            
 
     </tr>

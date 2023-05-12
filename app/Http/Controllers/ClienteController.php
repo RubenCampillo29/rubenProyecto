@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
+
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
@@ -22,8 +23,8 @@ class ClienteController extends Controller
     public function create()
     {
 
-        return view('cliente\crearCliente');
-        
+        return view('cliente\crearCliente'); 
+
     }
 
     /**
@@ -100,10 +101,13 @@ class ClienteController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cliente $cliente)
+    public function destroy($id)
     {
         
-       
+     $cliente = Cliente::find($id);
+     $cliente->delete();
+     return redirect('clientes');
+
 
 
     }
