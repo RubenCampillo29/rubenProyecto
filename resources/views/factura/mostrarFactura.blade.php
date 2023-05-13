@@ -20,6 +20,8 @@
     <th>id Usuario</th>
     <th>id Cliente</th>
     <th>Detalle </th>
+    <th>Eliminar</th>
+    <th>Editar</th>
     </tr> 
 
     @foreach($facturas as $factura)
@@ -41,6 +43,15 @@
            <td>{{$factura['user_id']}}</td>
            <td>{{$factura['cliente_id']}}</td>
            <td><a href="{{ route('factura.detalle', $factura['numero'])}}" >Ver</a></td>
+           <td><a href="{{ url('facturas/'.$factura.'/edit') }}" class="btn btn-warning btn-sm">Editar</a></td>
+           <td>
+            <form action="{{ url('facturas/'.$factura) }}" method="post" >
+            @method("DELETE")
+            @csrf
+            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+            </form>   
+            </td>
+
 
     </tr>
     

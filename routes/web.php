@@ -37,7 +37,7 @@ Route::get('cliente/factura{id}',[FacturaController::class,'factura'])->name('fa
 Route::get('/productos',[ProductoController::class, 'index'])->name('productos.index');
 
 
-//Rutas Detall
+//Rutas Detalle
 Route::resource('/DetalleFacturas',DetalleFacturaController::class);
 
 

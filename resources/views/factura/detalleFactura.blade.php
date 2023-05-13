@@ -60,7 +60,7 @@
                     <select class="form-control form-control-lg" name="product_id" id="product_id">
                       <option value="">-- Seleccione un Producto --</option>
                       @foreach($productos as $producto)
-                      	<option value="{{$producto['id']}}">{{$producto['nombre']}}</option> 
+                      	<option value="{{$producto['id']}}">{{$producto['descripcion']}}--{{$producto['precio']}}€</option> 
                         @endforeach
                    </select>
 				</div>

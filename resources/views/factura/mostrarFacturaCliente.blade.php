@@ -37,6 +37,7 @@
             @endif
            <td>{{$factura['user_id']}}</td>
            <td>{{$factura['cliente_id']}}</td>
+         
 
     </tr>
     
