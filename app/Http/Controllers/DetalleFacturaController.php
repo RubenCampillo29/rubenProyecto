@@ -43,12 +43,9 @@ class DetalleFacturaController extends Controller
         $detalle->save();
 
 
-        $productos = Producto::all();
-        $detalles = Detalle_Factura::where('numero_fact', $request->numero)->get(); 
-        $facturas = Factura::where('numero', $request->numero)->get();
+        return redirect()->route('factura.detalle', $detalle['numero_fact']);
         
-        return view('Factura\detalleFactura', compact('facturas', 'detalles','productos'));
- 
+        
         
     }
 
