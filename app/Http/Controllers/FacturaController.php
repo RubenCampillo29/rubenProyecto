@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Factura;
 use App\Models\Detalle_Factura;
 use App\Models\Producto;
+use App\Models\Cliente;
 
 class FacturaController extends Controller
 {
@@ -14,8 +15,9 @@ class FacturaController extends Controller
      */
     public function index()
     {
-        $factura  =  Factura::all();
-        return view('factura\mostrarFactura')->with('facturas', $factura);
+        $facturas  =  Factura::all();
+        $clientes = Cliente::all();
+        return view('factura\mostrarFactura', compact('facturas', 'clientes'));
     }
 
     /**
@@ -23,7 +25,9 @@ class FacturaController extends Controller
      */
     public function create()
     {
-        //
+
+        $clientes = Cliente::all();
+        return view('factura\crearFactura', compact('clientes'));
     }
 
     /**
@@ -31,11 +35,23 @@ class FacturaController extends Controller
      */
     public function store(Request $request)
     {
-        
-        
-        
-      
+        $factura = new Factura();
 
+
+        $factura->ejercicio = $request->input('ejercicio');
+        $factura->serie = $request->input('serie');
+        $factura->numero = $request->input('numero');
+        $factura->fecha_emision = $request->input('fecha_emision');
+        $factura->IVA = $request->input('IVA');
+        $factura->REQ = $request->input('REQ');
+        $factura->observaciones = $request->input('observaciones');
+        $factura->enviada = $request->input('enviada');
+        $factura->user_id = $request->input('user_id');
+        $factura->cliente_id = $request->input('cliente_id');
+
+        $factura->save();
+
+        return view("factura\mensageFactura", ['msg' => "Factura: $factura->numero guardada"]);
     }
 
     /**
@@ -59,38 +75,33 @@ class FacturaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        
-
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        
+        $factura = Factura::where('numero', $id)->delete();
+        
+       
+        return redirect('facturas');
     }
 
     public function clientes($id)
     {
-      $factura = Factura::where('cliente_id', $id)->get();
-      return view('factura\mostrarFacturaCliente')->with('facturas', $factura);
-      
+        $factura = Factura::where('cliente_id', $id)->get();
+        return view('factura\mostrarFacturaCliente')->with('facturas', $factura);
     }
 
 
     public function factura($id)
     {
-      $productos = Producto::all();
-      $detalles = Detalle_Factura::where('numero_fact', $id)->get(); 
-      $facturas = Factura::where('numero', $id)->get();
-      
-      return view('Factura\detalleFactura', compact('facturas', 'detalles','productos'));
-      
+        $productos = Producto::all();
+        $detalles = Detalle_Factura::where('numero_fact', $id)->get();
+        $facturas = Factura::where('numero', $id)->get();
+
+        return view('Factura\detalleFactura', compact('facturas', 'detalles', 'productos'));
     }
-
-
-
-
-
 }

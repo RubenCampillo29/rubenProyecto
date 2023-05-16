@@ -18,7 +18,7 @@
     <th>Observaciones</th>
     <th>Enviada</th>
     <th>id Usuario</th>
-    <th>id Cliente</th>
+    <th>Nombre</th>
     <th>Detalle </th>
     <th>Eliminar</th>
     <th>Editar</th>
@@ -41,11 +41,17 @@
                <td class='color_no'>no</td>
             @endif
            <td>{{$factura['user_id']}}</td>
-           <td>{{$factura['cliente_id']}}</td>
+           @foreach($clientes as $cliente)
+           @if($cliente['id'] == $factura['cliente_id'])
+           <td>{{$cliente['nombre']}}</td>
+           @endif
+           @endforeach
+
+
            <td><a href="{{ route('factura.detalle', $factura['numero'])}}" >Ver</a></td>
            <td><a href="{{ url('facturas/'.$factura.'/edit') }}" class="btn btn-warning btn-sm">Editar</a></td>
            <td>
-            <form action="{{ url('facturas/'.$factura) }}" method="post" >
+            <form action="{{ url('facturas/'.$factura->numero) }}" method="post" >
             @method("DELETE")
             @csrf
             <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
@@ -59,7 +65,7 @@
 
     </table>
 
-    <a href="">Crear</a>
+    <a href="{{url('facturas/create')}}" class="btn btn-primary btn-sm">Crear</a>
     <a href="{{route('inicio')}}">Volver</a></a>
 </div>
 
