@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Detalle_Factura;
 use App\Models\Factura;
 use App\Models\Producto;
+use App\Models\Cliente;
 
 class DetalleFacturaController extends Controller
 {
@@ -14,7 +15,11 @@ class DetalleFacturaController extends Controller
      */
     public function index()
     {
-        //
+
+        $detalles = Detalle_Factura::all();
+        //$cliente = Cliente::all();
+        return view('detalleFactura.mostrarDetalle')->with('detalles',$detalles);
+
     }
 
     /**
@@ -44,7 +49,6 @@ class DetalleFacturaController extends Controller
 
 
         return redirect()->route('factura.detalle', $detalle['numero_fact']);
-        
         
         
     }

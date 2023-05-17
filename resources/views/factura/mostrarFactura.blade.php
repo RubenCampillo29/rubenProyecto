@@ -20,8 +20,8 @@
     <th>id Usuario</th>
     <th>Nombre</th>
     <th>Detalle </th>
-    <th>Eliminar</th>
     <th>Editar</th>
+    <th>Eliminar</th>
     </tr> 
 
     @foreach($facturas as $factura)
@@ -48,8 +48,8 @@
            @endforeach
 
 
-           <td><a href="{{ route('factura.detalle', $factura['numero'])}}" >Ver</a></td>
-           <td><a href="{{ url('facturas/'.$factura.'/edit') }}" class="btn btn-warning btn-sm">Editar</a></td>
+           <td><a href="{{ route('factura.detalle', $factura['numero'])}}"class="btn btn-primary btn-sm" >Ver</a></td>
+           <td><a href="{{ url('facturas/'.$factura['numero'].'/edit') }}" class="btn btn-warning btn-sm">Editar</a></td>
            <td>
             <form action="{{ url('facturas/'.$factura->numero) }}" method="post" >
             @method("DELETE")
@@ -65,8 +65,8 @@
 
     </table>
 
-    <a href="{{url('facturas/create')}}" class="btn btn-primary btn-sm">Crear</a>
-    <a href="{{route('inicio')}}">Volver</a></a>
+    <a href="{{url('facturas/create')}}" class="btn btn-success btn-sm">Crear</a>
+    <a href="{{route('inicio')}}" class="btn btn-primary btn-sm">Inicio</a></a>
 </div>
 
 @endsection

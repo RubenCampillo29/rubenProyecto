@@ -65,9 +65,11 @@ class FacturaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
+    public function edit($numero)
+    { 
+        $clientes = Cliente::all();
+        $factura = Factura::where('numero',$numero)->get();
+        return view('factura.edit', compact('factura','clientes'));
     }
 
     /**
@@ -84,9 +86,8 @@ class FacturaController extends Controller
     {
         
         $factura = Factura::where('numero', $id)->delete();
-        
-       
         return redirect('facturas');
+
     }
 
     public function clientes($id)

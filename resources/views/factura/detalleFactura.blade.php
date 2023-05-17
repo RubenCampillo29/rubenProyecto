@@ -16,7 +16,6 @@
     <th>REQ</th>
     <th>Observaciones</th>
     <th>Enviada</th>
-    <th>id Usuario</th>
     <th>id Cliente</th>
     </tr> 
 
@@ -35,7 +34,6 @@
             @else
                <td>no</td>
             @endif
-           <td>{{$factura['user_id']}}</td>
            <td>{{$factura['cliente_id']}}</td>
 
     </tr>

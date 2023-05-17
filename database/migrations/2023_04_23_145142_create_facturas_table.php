@@ -12,10 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('facturas', function (Blueprint $table) {
-           // $table->id();
+
+            $table->id()->integer()->autoIncrement('id'); //Cuando vuelva a migrar debo de provar con in id
+            
             $table->unsignedBigInteger('ejercicio');
             $table->unsignedBigInteger('serie');
-            $table->unsignedBigInteger('numero')->unique(); //Migrar para señalar este campo como unico
+            $table->unsignedBigInteger('numero'); 
             $table->date('fecha_emision');
             $table->integer('IVA');
             $table->float('REQ');
