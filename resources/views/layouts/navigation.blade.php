@@ -14,10 +14,7 @@
 
 
 
-
-
 <nav>
-
 
 
 
@@ -54,9 +51,9 @@
     <div class="card" style="width: 18rem;">
         <img src="..." class="card-img-top" alt="...">
         <div class="card-body">
-            <h5 class="card-title">Todos los detalles</h5>
+            <h5 class="card-title">Enviar</h5>
             <p class="card-text"></p>
-            <a href="{{route('DetalleFacturas.index')}}" class="btn btn-primary">ver</a>
+            <a href="{{ route('factura.enviar')}}" class="btn btn-primary">ver</a>
         </div>
     </div>
 

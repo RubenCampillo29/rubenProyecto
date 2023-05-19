@@ -105,4 +105,14 @@ class FacturaController extends Controller
 
         return view('Factura\detalleFactura', compact('facturas', 'detalles', 'productos'));
     }
+
+    public function vistaEnviar()
+    {
+        
+        return view('factura\enviarFactura');
+
+
+    }
+
+
 }
