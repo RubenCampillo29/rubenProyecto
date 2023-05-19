@@ -111,7 +111,6 @@ class FacturaController extends Controller
         
         return view('factura\enviarFactura');
 
-
     }
 
 
