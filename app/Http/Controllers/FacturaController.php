@@ -114,4 +114,31 @@ class FacturaController extends Controller
     }
 
 
+    public function sqldatos($desde, $hasta,$estado ){
+
+        $resultados = Factura::select('*')
+        ->where('fecha_emision', '>', $desde)
+        ->where('fecha_emision', '<', $hasta)
+        ->where('enviada', $estado)
+        ->get();
+
+        return $resultados;
+
+    }
+
+
+    public function datosEnviar(Request $request)
+    {
+        $desde = $request->get('fecha_desde');
+        $hasta = $request->get('fecha_hasta');
+        $estado = $request->get('estado');
+
+        $facturas = $this->sqldatos( $desde,$hasta,$estado);
+
+        return view('Factura\enviarFactura', compact('facturas'));
+
+    }
+
+
+
 }
