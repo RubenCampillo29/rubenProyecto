@@ -21,4 +21,7 @@ class Factura extends Model
     {
         return $this->belongsTo('App\Models\user');
     }
+
+  
+
 }

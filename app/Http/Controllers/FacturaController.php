@@ -66,13 +66,13 @@ class FacturaController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit($numero)
-    { 
+    {
         $clientes = Cliente::all();
-        $factura = Factura::where('numero',$numero)->get();
-       
+        $factura = Factura::where('numero', $numero)->get();
 
-        
-        return view('factura.editf', compact('clientes','factura'));
+
+
+        return view('factura.editf', compact('clientes', 'factura'));
     }
 
     /**
@@ -82,11 +82,30 @@ class FacturaController extends Controller
     {
 
         $factura = Factura::where('ejercicio', $request->get('ejercicio'))
-                ->where('numero', $request->get('numero'))
-                ->where('serie', $request->get('serie'))
-                ->get();
+            ->where('numero', $request->get('numero'))
+            ->where('serie', $request->get('serie'))
+            ->get();
 
-        dd($factura);
+
+            Factura::where('ejercicio', $request->input('ejercicio'))
+            ->where('serie', $request->input('serie'))
+            ->where('numero', $request->input('numero'))
+            ->update([
+                'ejercicio' => $request->input('ejercicio'),
+                'serie' => $request->input('serie'),
+                'numero' => $request->input('numero'),
+                'fecha_emision' =>$request->input('fecha_emision'),
+                'IVA' => $request->input('IVA'),
+                'REQ' => $request->input('REQ'),
+                'observaciones'=> $request->input('observaciones'),
+                'enviada' => $request->input('enviada'),
+                'user_id' => $request->input('user_id'),
+                'cliente_id' => $request->input('cliente_id')
+            ]);
+
+
+    
+            return view("factura\mensageFactura", ['msg' => "Factura: Actualidada con Exito"]);
     }
 
     /**
@@ -94,10 +113,9 @@ class FacturaController extends Controller
      */
     public function destroy($id)
     {
-        
+
         $factura = Factura::where('numero', $id)->delete();
         return redirect('facturas');
-
     }
 
     public function clientes($id)
@@ -118,22 +136,21 @@ class FacturaController extends Controller
 
     public function vistaEnviar()
     {
-        
-        return view('factura\enviarFactura');
 
+        return view('factura\enviarFactura');
     }
 
 
-    public function sqldatos($desde, $hasta,$estado ){
+    public static function sqldatos($desde, $hasta, $estado)
+    {
 
         $resultados = Factura::select('*')
-        ->where('fecha_emision', '>', $desde)
-        ->where('fecha_emision', '<', $hasta)
-        ->where('enviada', $estado)
-        ->get();
+            ->where('fecha_emision', '>', $desde)
+            ->where('fecha_emision', '<', $hasta)
+            ->where('enviada', $estado)
+            ->get();
 
         return $resultados;
-
     }
 
 
@@ -143,12 +160,8 @@ class FacturaController extends Controller
         $hasta = $request->get('fecha_hasta');
         $estado = $request->get('estado');
 
-        $facturas = $this->sqldatos( $desde,$hasta,$estado);
+        $facturas = $this::sqldatos($desde, $hasta, $estado);
 
         return view('Factura\enviarFactura', compact('facturas'));
-
     }
-
-
-
 }

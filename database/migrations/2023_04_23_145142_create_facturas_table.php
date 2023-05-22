@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('facturas', function (Blueprint $table) {
 
-            $table->id()->integer()->autoIncrement('id'); //Cuando vuelva a migrar debo de provar con in id
+            //$table->id()->integer()->autoIncrement('id'); //Cuando vuelva a migrar debo de provar con in id
             
             $table->unsignedBigInteger('ejercicio');
             $table->unsignedBigInteger('serie');
@@ -32,6 +32,11 @@ return new class extends Migration
             //Clave primaria.
             $table->primary(['ejercicio', 'serie', 'numero'], 'ref_factura');
             $table->timestamps();
+
+            
+
+
+
         });
     }
 

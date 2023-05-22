@@ -15,23 +15,23 @@
 
 
       <div class="mb-3 row">
-        <label for="ejercicio" class="col-sm-2 col-form-label"><strong>Ejercicio</strong></label>
+        
         <div class="col-sm-5">
-          <input type="number" class="form-control" name="ejercicio" id="ejercicio" value="{{ $factura[0]->ejercicio }}">
+          <input type="hidden" class="form-control" name="ejercicio" id="ejercicio" value="{{ $factura[0]->ejercicio }}">
         </div>
       </div>
 
       <div class="mb-3 row">
-        <label for="serie" class="col-sm-2 col-form-label"><strong>Serie</strong></label>
+
         <div class="col-sm-5">
-          <input type="text" class="form-control" name="serie" id="serie" value="{{ $factura[0]->serie }}" required>
+          <input type="hidden" class="form-control" name="serie" id="serie" value="{{ $factura[0]->serie }}" required>
         </div>
       </div>
 
       <div class="mb-3 row">
-        <label for="numero" class="col-sm-2 col-form-label"><strong>Numero</strong></label>
+
         <div class="col-sm-5">
-          <input type="text" class="form-control" name="numero" id="numero" value="{{ $factura[0]->numero }}">
+          <input type="hidden" class="form-control" name="numero" id="numero" value="{{ $factura[0]->numero }}">
         </div>
       </div>
 
@@ -91,7 +91,7 @@
         <option value="">-- Seleccione un cliente --</option>
         @foreach($clientes as $cliente)
         @if($factura[0]->cliente_id == $cliente['id'])
-        <option value="{{'selected'}}" selected >{{$cliente['nombre']}}</option>
+        <option value="{{$cliente['id']}}" selected >{{$cliente['nombre']}}</option>
         @endif
         <option value="{{$cliente['id']}}">{{$cliente['nombre']}}</option>
         @endforeach
