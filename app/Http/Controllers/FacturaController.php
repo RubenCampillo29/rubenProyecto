@@ -80,6 +80,13 @@ class FacturaController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
+        $factura = Factura::where('ejercicio', $request->get('ejercicio'))
+                ->where('numero', $request->get('numero'))
+                ->where('serie', $request->get('serie'))
+                ->get();
+
+        dd($factura);
     }
 
     /**
