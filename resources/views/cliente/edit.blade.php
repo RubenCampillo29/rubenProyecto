@@ -6,9 +6,9 @@
 <main>
   <div class="container py-4">
     <h2>Editar Cliente</h2>
-
+      
     <form action="{{url('clientes/'.$cliente->id)}}" method="post">
-
+    
     @csrf
     @method("PUT")
 

@@ -61,8 +61,8 @@
     <th>id Usuario</th>
     <th>Nombre</th>
     <th>Detalle </th>
-    <th>Editar</th>
-    <th>Eliminar</th>
+    
+   
     </tr> 
 
     @foreach($facturas as $factura)
@@ -82,13 +82,8 @@
                <td class='color_no'>no</td>
             @endif
            <td>{{$factura['user_id']}}</td>
-         
-
-
-        
             
-             
-            </td>
+          </td>
 
 
     </tr>

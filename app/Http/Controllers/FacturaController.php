@@ -69,7 +69,10 @@ class FacturaController extends Controller
     { 
         $clientes = Cliente::all();
         $factura = Factura::where('numero',$numero)->get();
-        return view('factura.edit', compact('factura','clientes'));
+       
+
+        
+        return view('factura.editf', compact('clientes','factura'));
     }
 
     /**
