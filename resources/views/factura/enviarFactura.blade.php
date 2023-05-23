@@ -47,41 +47,47 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                <table border="2">
-    <tr>
-        <th>Ref Factura</th>
-        <th>Fecha de emision</th>
-        <th>IVA %</th>
-        <th>REQ</th>
-        <th>Observaciones</th>
-        <th>Enviada</th>
-        <th>id Usuario</th>
-        <th>Nombre Cliente</th>
-        <th>Seleccionar</th>
-    </tr>
+                <form action="{{ route('factura.seleccion') }}" method="POST">
+    @csrf
 
-    @foreach($facturas as $factura)
+    <table border="2">
         <tr>
-            <td>{{$factura['ejercicio'] . '-' . $factura['serie'] . '-' . $factura['numero']}}</td>
-            <td>{{$factura['fecha_emision']}}</td>
-            <td>{{$factura['IVA']}}</td>
-            <td>{{$factura['REQ']}}</td>
-            <td>{{$factura['Observaciones']}}</td>
-            @if($factura['enviada'] == 1)
-                <td class="bg-gray-200">si</td>
-            @else
-                <td class='color_no'>no</td>
-            @endif
-            <td>{{$factura['user_id']}}</td>
-            <td>{{ $factura['cliente_id'] }}</td>
-            <td>
-                <input type="checkbox" name="facturas_seleccionadas[]" value="{{$factura['numero']}}">
-            </td>
+            <th>Ref Factura</th>
+            <th>Fecha de emision</th>
+            <th>IVA %</th>
+            <th>REQ</th>
+            <th>Observaciones</th>
+            <th>Enviada</th>
+            <th>id Usuario</th>
+            <th>Nombre Cliente</th>
+            <th>Seleccionar</th>
         </tr>
-    @endforeach
 
-    <a href="" class="btn btn-primary btn-sm">Enviar</a>
-</table>
+        @foreach($facturas as $factura)
+            <tr>
+                <td>{{$factura['ejercicio']. '-' .$factura['serie']. '-' .$factura['numero']}}</td>
+                <td>{{$factura['fecha_emision']}}</td>
+                <td>{{$factura['IVA']}}</td>
+                <td>{{$factura['REQ']}}</td>
+                <td>{{$factura['Observaciones']}}</td>
+                @if($factura['enviada'] == 1)
+                    <td class="bg-gray-200">si</td>
+                @else
+                    <td class='color_no'>no</td>
+                @endif
+                <td>{{$factura['user_id']}}</td>
+                <td>{{ $factura['cliente_id'] }}</td>
+                <td>
+                    <input type="checkbox" name="facturas_check[]" value="{{ $factura['numero'] }}">
+                </td>
+            </tr>
+        @endforeach
+
+    </table>
+
+    <button type="submit" class="btn btn-primary btn-sm">Enviar</button>
+</form>
+
 
 
 

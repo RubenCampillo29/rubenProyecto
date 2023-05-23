@@ -164,4 +164,24 @@ class FacturaController extends Controller
 
         return view('Factura\enviarFactura', compact('facturas'));
     }
+
+
+
+   public function seleccionadas(Request $request)
+   {
+
+       dd($request);
+
+
+
+
+   }
+
+
+
+
+
+
+
+
 }
