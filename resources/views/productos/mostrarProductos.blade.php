@@ -27,8 +27,8 @@
     </table>
 
      <a href="" class="btn btn-primary">Crear</a>
-    <a href="{{route('inicio')}}">Inicio</a></a>
-    <a href="{{route('facturas.index')}}" class="button">Facturas</a>
+    <a class="btn btn-primary" href="{{route('inicio')}}">Inicio</a></a>
+    <a class="btn btn-primary" href="{{route('facturas.index')}}" class="button">Facturas</a>
 </div>
 
 @endsection

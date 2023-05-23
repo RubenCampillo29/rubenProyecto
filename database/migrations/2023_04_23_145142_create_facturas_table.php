@@ -17,7 +17,7 @@ return new class extends Migration
             
             $table->unsignedBigInteger('ejercicio');
             $table->unsignedBigInteger('serie');
-            $table->unsignedBigInteger('numero'); 
+            $table->unsignedBigInteger('numero')->unique(); 
             $table->date('fecha_emision');
             $table->integer('IVA');
             $table->float('REQ');
