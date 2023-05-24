@@ -170,7 +170,8 @@ class FacturaController extends Controller
    public function seleccionadas(Request $request)
    {
 
-       dd($request);
+      $facturas = $request->get('facturas_check');
+      dd($facturas[0]);
 
 
 
