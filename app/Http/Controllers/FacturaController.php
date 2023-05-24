@@ -161,8 +161,8 @@ class FacturaController extends Controller
         $estado = $request->get('estado');
 
         $facturas = $this::sqldatos($desde, $hasta, $estado);
-
-        return view('Factura\enviarFactura', compact('facturas'));
+        $clientes = Cliente::All();
+        return view('Factura\enviarFactura', compact('facturas','clientes'));
     }
 
 

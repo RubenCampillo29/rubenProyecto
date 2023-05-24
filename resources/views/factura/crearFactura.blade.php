@@ -69,7 +69,7 @@
       <div class="mb-3 row">
         <label for="observaciones" class="col-sm-2 col-form-label"><strong>Recargo de equivalencia</strong></label>
         <div class="col-sm-5">
-          <input type="NUMBER" class="form-control" name="REQ" id="REQ" value="{{ old('REQ')}}" required>
+          <input type="float" class="form-control" name="REQ" id="REQ" value="{{ old('REQ')}}" required>
         </div>
       </div>
 

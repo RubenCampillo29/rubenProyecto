@@ -16,7 +16,7 @@ return new class extends Migration
             //$table->id()->integer()->autoIncrement('id'); //Cuando vuelva a migrar debo de provar con in id
             
             $table->unsignedBigInteger('ejercicio');
-            $table->unsignedBigInteger('serie');
+            $table->string('serie',4);
             $table->unsignedBigInteger('numero')->unique(); 
             $table->date('fecha_emision');
             $table->integer('IVA');
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->boolean('enviada');
             //Relacion clave cliente.
             $table->unsignedBigInteger('cliente_id')->nullable();
-            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('set null');;
+            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('set null'); //En algun momento poner cascade
             //Clave ajena Usuario.
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');

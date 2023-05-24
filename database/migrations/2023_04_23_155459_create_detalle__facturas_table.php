@@ -22,7 +22,7 @@ return new class extends Migration
 
             //Clave ajena factura
             $table->unsignedBigInteger('ejercicio_fact');
-            $table->unsignedBigInteger('serie_fact');
+            $table->string('serie_fact',5);
             $table->unsignedBigInteger('numero_fact');
             $table->foreign(['ejercicio_fact', 'serie_fact','numero_fact'])
             ->references(['ejercicio','serie','numero'])
