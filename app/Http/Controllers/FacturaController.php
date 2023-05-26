@@ -7,6 +7,10 @@ use App\Models\Factura;
 use App\Models\Detalle_Factura;
 use App\Models\Producto;
 use App\Models\Cliente;
+use GuzzleHttp\Client;
+use SimpleXMLElement;
+use Illuminate\Support\Facades\Storage;
+
 
 class FacturaController extends Controller
 {
@@ -165,16 +169,78 @@ class FacturaController extends Controller
         return view('Factura\enviarFactura', compact('facturas','clientes'));
     }
 
-
+    
 
    public function seleccionadas(Request $request)
    {
 
       $facturas = $request->get('facturas_check');
-      dd($facturas[0]);
+      $numero =  $facturas[0];
+
+      $factura = Factura::where('numero', $numero)->get();
+      $this::transformarXML($factura);
+
+      return view("factura\mensageFactura", ['msg' => "Facturas enviadas con exitos"]);
+
+      
+   }
 
 
 
+   public static function transformarXML($factura){
+
+    
+    $cliente = Cliente::find($factura[0]->cliente_id);
+
+    // Crear el elemento raíz del XML
+    $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8" ?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:siiLR="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroLR.xsd" xmlns:sii="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroInformacion.xsd"></soapenv:Envelope>');
+    
+    // Añadir los namespaces necesarios
+    $xml->registerXPathNamespace('soapenv', 'http://schemas.xmlsoap.org/soap/envelope/');
+    $xml->registerXPathNamespace('siiLR', 'https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroLR.xsd');
+    $xml->registerXPathNamespace('sii', 'https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroInformacion.xsd');
+    
+    // Crear los elementos del XML
+    $body = $xml->addChild('soapenv:Body');
+    $suministroLRFacturasEmitidas = $body->addChild('siiLR:SuministroLRFacturasEmitidas');
+    
+    $cabecera = $suministroLRFacturasEmitidas->addChild('sii:Cabecera');
+    $cabecera->addChild('sii:IDVersionSii', '1.1');
+    
+    $titular = $cabecera->addChild('sii:Titular');
+    $titular->addChild('sii:NombreRazon', $cliente->nombre);
+    $titular->addChild('sii:NIF', $cliente->nif);
+    
+    $cabecera->addChild('sii:TipoComunicacion', 'A0');
+    
+    $registroLRFacturasEmitidas = $suministroLRFacturasEmitidas->addChild('siiLR:RegistroLRFacturasEmitidas');
+    
+    $periodoLiquidacion = $registroLRFacturasEmitidas->addChild('sii:PeriodoLiquidacion');
+    $periodoLiquidacion->addChild('sii:Ejercicio', $factura[0]->ejercicio);
+    $periodoLiquidacion->addChild('sii:Periodo', '02');
+    
+    $idFactura = $registroLRFacturasEmitidas->addChild('siiLR:IDFactura');
+    $idEmisorFactura = $idFactura->addChild('sii:IDEmisorFactura');
+    $idEmisorFactura->addChild('sii:NIF', $cliente->nif );
+    $idFactura->addChild('sii:NumSerieFacturaEmisor', $factura[0]->numero);
+    $idFactura->addChild('sii:FechaExpedicionFacturaEmisor', $factura[0]->fecha_emision);
+    
+    $facturaExpedida = $registroLRFacturasEmitidas->addChild('siiLR:FacturaExpedida');
+    $facturaExpedida->addChild('sii:TipoFactura', 'F2');
+    $facturaExpedida->addChild('sii:ClaveRegimenEspecialOTrascendencia', '01');
+    $facturaExpedida->addChild('sii:ImporteTotal', '2000,00');
+
+    $xmlString = $xml->asXML();
+
+    //dd($xmlString);
+
+    //Storage::put('public\datos\archivo.xml', $xmlString);
+
+    //Storage::disk('public')->put('datos/archivo.xml', $xmlString);
+
+    file_put_contents(public_path('datos/archivo.xml'), $xmlString);
+
+     
 
    }
 
