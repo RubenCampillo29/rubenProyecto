@@ -7,6 +7,7 @@
         <h2>{{$msg}}</h2>
         <a class="btn btn-primary" href="{{url('facturas')}}" >Regresar</a>
     </div>
+
 </main>
 
 @endsection

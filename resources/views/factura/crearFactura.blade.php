@@ -80,7 +80,7 @@
           <input type="text" class="form-control" name="observaciones" id="observaciones" value="{{ old('serie')}}" required>
         </div>
       </div>
-
+     
 
       <label for="enviada" class="col-sm-2 col-form-label"><strong>Enviada</strong></label>
       <div class="col-sm-5">

@@ -2,6 +2,14 @@
 
 @section('content')
 
+<style>
+#req::-webkit-inner-spin-button,
+#req::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+</style>
 
 <main>
   <div class="container py-6">
@@ -68,7 +76,7 @@
       <div class="mb-3 row">
         <label for="observaciones" class="col-sm-2 col-form-label"><strong>Recargo de equivalencia</strong></label>
         <div class="col-sm-5">
-          <input type="NUMBER" class="form-control" name="REQ" id="REQ" value="{{ $factura[0]->REQ}}" required>
+          <input type="number" id="req" step="0.01" class="form-control" name="REQ" id="REQ" value="{{ $factura[0]->REQ}}" required>
         </div>
       </div>
 
