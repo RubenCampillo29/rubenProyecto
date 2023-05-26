@@ -3,8 +3,9 @@
 
 @extends('layouts.app')
 @section('content')
-<h1>Detalle Factura </h1>
 
+<div class="container"> 
+<h1>Detalles de Factura </h1>
 <div>
     <table border=2>
     <tr>
@@ -41,6 +42,7 @@
     @endforeach
 
     </table>
+    </div>
 
     <div class="row">
 			<div class="col-lg-5 grid-margin grid-margin-lg-0">
@@ -122,8 +124,8 @@
 
    </div>
 
-     <a href="">Crear</a>
-    <a href="{{route('inicio')}}">Volver</a></a>
+   
+    <a href="{{route('inicio')}}" class="btn btn-primary">Volver</a></a>
 </div>
 
 @endsection
