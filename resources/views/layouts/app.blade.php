@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ruben</title>
     <style>
         table {
             border-collapse: collapse;
@@ -59,7 +59,7 @@
 
 
         table a:focus {
-            outline: none;
+           
             color: #f00;
         }
     </style>
@@ -77,9 +77,9 @@
             </div>
         </div>
         <nav class="navbar bg-body-tertiary ">
-            <div class="container-fluid">
+            <div class="container">
                 <a class="navbar-brand" href="#">
-                    <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="HOME" width="30" height="24">
+                    <img src="{{ asset('images/logo-centro.jpg') }}" alt="HOME" width="80" height="80">
                 </a>
             </div>
         </nav>
