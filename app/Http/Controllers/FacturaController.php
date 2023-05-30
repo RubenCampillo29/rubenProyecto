@@ -254,6 +254,12 @@ class FacturaController extends Controller
         $TipoDesglose = $facturaExpedida->addChild('sii:TipoDesglose');
         $DesgloseFactura = $TipoDesglose->addChild('sii:DesgloseFactura');
         $Sujeta = $DesgloseFactura->addChild('sii:Sujeta');
+        $NoExenta = $Sujeta->addChild('sii:NoExenta', 'S1');
+        $DesgloseIVA = $NoExenta->addChild('sii:Desglose');
+        $DetalleIVA = $DesgloseIVA->addChild('sii:DetalleIVA');
+        
+
+
 
         $xmlString = $xml->asXML();
 
@@ -273,7 +279,6 @@ class FacturaController extends Controller
 
             $total += $resultado->cantidad * $resultado->precio;
 
-            
         }
 
         return  $total;
