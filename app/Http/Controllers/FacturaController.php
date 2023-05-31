@@ -271,7 +271,9 @@ class FacturaController extends Controller
         $DetalleIVA->addChild('sii:TipoImpositivo',$factura[0]->IVA);
         $DetalleIVA->addChild('sii:BaseImponible',$total-$cuota);
         $DetalleIVA->addChild('sii:CuotaRepercutida',$cuota);
-
+        if($factura[0]->REQ){
+        $DetalleIVA->addChild('sii:TipoRecargoEquivalencia',$factura[0]->REQ);
+        }
         }
         
         $xmlString = $xml->asXML();
