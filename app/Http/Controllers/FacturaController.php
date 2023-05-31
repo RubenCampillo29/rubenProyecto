@@ -194,24 +194,19 @@ class FacturaController extends Controller
     {
 
         $facturas = $request->get('facturas_check');
-        $numero =  $facturas[0];
-       
-        $factura = Factura::where('numero', $numero)->get();
-
-        $this->transformarXML($factura);
+        
+        //$numero =  $facturas[0];
+  
+        $this->transformarXML($facturas);
 
         return view("factura\mensageFactura", ['msg' => "Facturas enviadas con exito"]);
     }
 
 
-    public function transformarXML($factura)
+    public function transformarXML($facturas)
     {
 
-        //Cliente correspondiente a la factura
-        $cliente = Cliente::find($factura[0]->cliente_id);
-
-        //Delle de la factura
-        $total = $this::obtenerTotal($factura[0]->numero);
+      
         
         // Crear el elemento raíz del XML
         $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8" ?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:siiLR="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroLR.xsd" xmlns:sii="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroInformacion.xsd"></soapenv:Envelope>');
@@ -228,9 +223,23 @@ class FacturaController extends Controller
         $cabecera = $suministroLRFacturasEmitidas->addChild('sii:Cabecera');
         $cabecera->addChild('sii:IDVersionSii', '1.1');
 
+         $iterador = count($facturas);  
+                
+        for($i = 0; $i < $iterador; $i++){
+            
+       $factura = Factura::where('numero', $facturas[$i])->get();
+        
+        //Cliente correspondiente a la factura
+        $cliente = Cliente::find($factura[0]->cliente_id);
+
+         //Delle de la factura
+         $total = $this::obtenerTotal($factura[0]->numero);
+
+
+
         $titular = $cabecera->addChild('sii:Titular');
         $titular->addChild('sii:NombreRazon', $cliente->nombre);
-        $titular->addChild('sii:NIF', $cliente->nif);
+        $titular->addChild('sii:NIF', $cliente->CIF);
 
         $cabecera->addChild('sii:TipoComunicacion', 'A0');
 
@@ -254,13 +263,17 @@ class FacturaController extends Controller
         $TipoDesglose = $facturaExpedida->addChild('sii:TipoDesglose');
         $DesgloseFactura = $TipoDesglose->addChild('sii:DesgloseFactura');
         $Sujeta = $DesgloseFactura->addChild('sii:Sujeta');
-        $NoExenta = $Sujeta->addChild('sii:NoExenta', 'S1');
-        $DesgloseIVA = $NoExenta->addChild('sii:Desglose');
+        $NoExenta = $Sujeta->addChild('sii:NoExenta');
+        $TipoNoExenta = $NoExenta->addChild('sii:TipoNoExenta', 'S1');
+        $DesgloseIVA = $NoExenta->addChild('sii:DesgloseIVA');
         $DetalleIVA = $DesgloseIVA->addChild('sii:DetalleIVA');
+        $cuota = $total*($factura[0]->IVA/100);
+        $DetalleIVA->addChild('sii:TipoImpositivo',$factura[0]->IVA);
+        $DetalleIVA->addChild('sii:BaseImponible',$total-$cuota);
+        $DetalleIVA->addChild('sii:CuotaRepercutida',$cuota);
+
+        }
         
-
-
-
         $xmlString = $xml->asXML();
 
 
