@@ -3,51 +3,51 @@
     xmlns:siiLR="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroLR.xsd"
     xmlns:sii="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroInformacion.xsd">
     <soapenv:Body>
-        <soapenv:SuministroLRFacturasEmitidas>
-            <soapenv:Cabecera>
-                <soapenv:IDVersionSii>1.1</soapenv:IDVersionSii>
-                <soapenv:Titular>
-                    <soapenv:NombreRazon>Fontanería paco S.L</soapenv:NombreRazon>
-                    <soapenv:NIF>V5342745</soapenv:NIF>
-                </soapenv:Titular>
-                <soapenv:TipoComunicacion>A0</soapenv:TipoComunicacion>
-            </soapenv:Cabecera>
-            <soapenv:RegistroLRFacturasEmitidas>
-                <soapenv:PeriodoLiquidacion>
-                    <soapenv:Ejercicio>23</soapenv:Ejercicio>
-                    <soapenv:Periodo>02</soapenv:Periodo>
-                </soapenv:PeriodoLiquidacion>
-                <soapenv:IDFactura>
-                    <soapenv:IDEmisorFactura>
-                        <soapenv:NIF />
-                    </soapenv:IDEmisorFactura>
-                    <soapenv:NumSerieFacturaEmisor>789</soapenv:NumSerieFacturaEmisor>
-                    <soapenv:FechaExpedicionFacturaEmisor>2023-05-16</soapenv:FechaExpedicionFacturaEmisor>
-                </soapenv:IDFactura>
-                <soapenv:FacturaExpedida>
-                    <soapenv:TipoFactura>F2</soapenv:TipoFactura>
-                    <soapenv:ClaveRegimenEspecialOTrascendencia>01</soapenv:ClaveRegimenEspecialOTrascendencia>
-                    <soapenv:ImporteTotal>171</soapenv:ImporteTotal>
-                    <soapenv:DescripcionOperacion>Ninguna</soapenv:DescripcionOperacion>
-                    <soapenv:TipoDesglose>
-                        <soapenv:DesgloseFactura>
-                            <soapenv:Sujeta>
-                                <soapenv:NoExenta>
-                                    <soapenv:TipoNoExenta>S1</soapenv:TipoNoExenta>
-                                    <soapenv:DesgloseIVA>
-                                        <soapenv:DetalleIVA>
-                                            <soapenv:TipoImpositivo>4</soapenv:TipoImpositivo>
-                                            <soapenv:BaseImponible>164.16</soapenv:BaseImponible>
-                                            <soapenv:CuotaRepercutida>6.84</soapenv:CuotaRepercutida>
-                                            <soapenv:TipoRecargoEquivalencia>3.25</soapenv:TipoRecargoEquivalencia>
-                                        </soapenv:DetalleIVA>
-                                    </soapenv:DesgloseIVA>
-                                </soapenv:NoExenta>
-                            </soapenv:Sujeta>
-                        </soapenv:DesgloseFactura>
-                    </soapenv:TipoDesglose>
-                </soapenv:FacturaExpedida>
-            </soapenv:RegistroLRFacturasEmitidas>
-        </soapenv:SuministroLRFacturasEmitidas>
+        <siiLR:SuministroLRFacturasEmitidas xmlns:siiLR="siiR">
+            <sii:Cabecera xmlns:sii="sii">
+                <sii:IDVersionSii>1.1</sii:IDVersionSii>
+                <sii:Titular>
+                    <sii:NombreRazon>Ruben Ñuñez</sii:NombreRazon>
+                    <sii:NIF>77856181p</sii:NIF>
+                </sii:Titular>
+                <sii:TipoComunicacion>A0</sii:TipoComunicacion>
+            </sii:Cabecera>
+            <siiLR:RegistroLRFacturasEmitidas>
+                <sii:PeriodoLiquidacion xmlns:sii="sii">
+                    <sii:Ejercicio>2026</sii:Ejercicio>
+                    <sii:Periodo>12</sii:Periodo>
+                </sii:PeriodoLiquidacion>
+                <siiLR:IDFactura>
+                    <siiLR:IDEmisorFactura>
+                        <siiLR:NIF />
+                    </siiLR:IDEmisorFactura>
+                    <siiLR:NumSerieFacturaEmisor>333</siiLR:NumSerieFacturaEmisor>
+                    <siiLR:FechaExpedicionFacturaEmisor>2023-05-26</siiLR:FechaExpedicionFacturaEmisor>
+                </siiLR:IDFactura>
+                <siiLR:FacturaExpedida>
+                    <siiLR:TipoFactura>F1</siiLR:TipoFactura>
+                    <siiLR:ClaveRegimenEspecialOTrascendencia>01</siiLR:ClaveRegimenEspecialOTrascendencia>
+                    <siiLR:ImporteTotal>120</siiLR:ImporteTotal>
+                    <siiLR:DescripcionOperacion>Muchas</siiLR:DescripcionOperacion>
+                    <siiLR:TipoDesglose>
+                        <siiLR:DesgloseFactura>
+                            <siiLR:Sujeta>
+                                <siiLR:NoExenta>
+                                    <siiLR:TipoNoExenta>S1</siiLR:TipoNoExenta>
+                                    <siiLR:DesgloseIVA>
+                                        <siiLR:DetalleIVA>
+                                            <siiLR:TipoImpositivo>4</siiLR:TipoImpositivo>
+                                            <siiLR:BaseImponible>115.2</siiLR:BaseImponible>
+                                            <siiLR:CuotaRepercutida>4.8</siiLR:CuotaRepercutida>
+                                            <siiLR:TipoRecargoEquivalencia>1.25</siiLR:TipoRecargoEquivalencia>
+                                        </siiLR:DetalleIVA>
+                                    </siiLR:DesgloseIVA>
+                                </siiLR:NoExenta>
+                            </siiLR:Sujeta>
+                        </siiLR:DesgloseFactura>
+                    </siiLR:TipoDesglose>
+                </siiLR:FacturaExpedida>
+            </siiLR:RegistroLRFacturasEmitidas>
+        </siiLR:SuministroLRFacturasEmitidas>
     </soapenv:Body>
 </soapenv:Envelope>
