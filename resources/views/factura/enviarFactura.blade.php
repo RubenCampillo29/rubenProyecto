@@ -34,13 +34,16 @@
                             </div>
                         </div>
 
-                        <div class="mb-3 block">
+                        <div class="mb-5 block">
                             <label for="estado">Estado</label>
                             <select name="estado" id="estado">
                                 <option value="1">Enviada</option>
                                 <option value="0">No enviada</option>
                                 <option value="2">todas</option>
                             </select>
+                                 
+                            
+                            
                             <button type="submit" class="btn btn-success">Ver</button>
                         </div>
                     </form>
@@ -103,6 +106,14 @@
 
                             </tr>
                             @endforeach
+
+                            <div class="mb-5 block">
+                            <label for="emisor">Emisor</label>
+                            <select name="emisor" id="emisor">
+                                @foreach($emisor as $emi)
+                                <option value="{{ $emi['id'] }}">{{ ($emi['nombre']) }}</option>
+                                @endforeach
+                            </select>
 
                         </table>
 

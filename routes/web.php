@@ -5,6 +5,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\DetalleFacturaController;
+use App\Http\Controllers\EmisorController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,6 +45,12 @@ Route::get('/productos',[ProductoController::class, 'index'])->name('productos.i
 
 //Rutas Detalle
 Route::resource('/DetalleFacturas',DetalleFacturaController::class);
+
+
+//Rutas Emisor
+Route::resource('/emisors',EmisorController::class);
+
+
 
 
 

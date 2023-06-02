@@ -10,6 +10,7 @@ use App\Models\Cliente;
 use GuzzleHttp\Client;
 use SimpleXMLElement;
 use Illuminate\Support\Facades\Storage;
+use App\Models\emisor;
 
 
 class FacturaController extends Controller
@@ -139,7 +140,7 @@ class FacturaController extends Controller
 
     public function vistaEnviar()
     {
-
+        
         return view('factura\enviarFactura');
     }
 
@@ -172,6 +173,7 @@ class FacturaController extends Controller
         $hasta = $request->get('fecha_hasta');
         $estado = $request->get('estado');
 
+
         if ($estado != 2) {
 
             $facturas = $this::sqldatos($desde, $hasta, $estado);
@@ -181,8 +183,9 @@ class FacturaController extends Controller
         }
 
         $clientes = Cliente::All();
+        $emisor = Emisor::All();
 
-        return view('Factura\enviarFactura', compact('facturas', 'clientes'));
+        return view('Factura\enviarFactura', compact('facturas', 'clientes','emisor'));
     }
 
 
@@ -191,13 +194,15 @@ class FacturaController extends Controller
 
         $facturas = $request->get('facturas_check');
         //$numero =  $facturas[0];
-        $this->transformarXML($facturas);
+        $idemisor = $request->get('emisor');
+        $emisor = Emisor::find($idemisor);
+        $this->transformarXML($facturas, $emisor);
 
         return view("factura\mensageFactura", ['msg' => "Facturas enviadas con exito"]);
     }
 
 
-    public function transformarXML($facturas)
+    public function transformarXML($facturas ,$emisor)
     {
         $iterador = count($facturas);
 
@@ -218,7 +223,7 @@ class FacturaController extends Controller
 
 
         $titular = $cabecera->addChild('sii:Titular');
-        $titular->addChild('sii:NombreRazon', 'Ruben Ñuñez');
+        $titular->addChild('sii:NombreRazon', $emisor->nombre);
         $titular->addChild('sii:NIF', '77856181p');
 
         $cabecera->addChild('sii:TipoComunicacion', 'A0');

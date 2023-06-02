@@ -48,9 +48,14 @@
             </div>
         </div>
 
-        <div class="col-md-6">
+                  
+</nav>
+
+<nav class="d-flex justify-content-center">
+
+<div class="col-md-2">
             <div class="card" style="width: 16rem;">
-                <img src="{{ asset('images/enviar.png') }}" class="card-img-top" alt="...">
+                <img src="{{ asset('images/productos.webp') }}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Enviar</h5>
                     <p class="card-text"></p>
@@ -59,4 +64,23 @@
             </div>
         </div>
     </div>
+
+    
+    <div class="row">
+        <div class="col-md-2">
+            <div class="card" style="width: 16rem;">
+                <img src="{{ asset('images/productos.webp') }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Emisor</h5>
+                    <p class="card-text"></p>
+                    <a href="{{route('emisors.index')}}" class="btn btn-primary">ver</a>
+                </div>
+            </div>
+        </div>
+
+
+
+
 </nav>
+
+

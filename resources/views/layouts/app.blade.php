@@ -79,8 +79,9 @@
         <nav class="navbar bg-body-tertiary ">
             <div class="container">
                 <a class="navbar-brand" href="#">
-                    <img src="{{ asset('images/logo-centro.jpg') }}" alt="HOME" width="80" height="80">
+                    <img src="{{ asset('images/logo-centro.jpg') }}" alt="HOME" width="80" height="80">  
                 </a>
+                
             </div>
         </nav>
     </header>

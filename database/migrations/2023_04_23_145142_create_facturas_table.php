@@ -23,6 +23,7 @@ return new class extends Migration
             $table->float('REQ');
             $table->text('Observaciones');
             $table->boolean('enviada');
+            $table->string('Emisor')->nullable();
             //Relacion clave cliente.
             $table->unsignedBigInteger('cliente_id')->nullable();
             $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('set null'); //En algun momento poner cascade
