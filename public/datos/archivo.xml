@@ -14,6 +14,86 @@
             </sii:Cabecera>
             <siiLR:RegistroLRFacturasEmitidas>
                 <sii:PeriodoLiquidacion xmlns:sii="sii">
+                    <sii:Ejercicio>23</sii:Ejercicio>
+                    <sii:Periodo>A2</sii:Periodo>
+                </sii:PeriodoLiquidacion>
+                <siiLR:IDFactura>
+                    <sii:IDEmisorFactura xmlns:sii="sii">
+                        <sii:NIF>77856181p</sii:NIF>
+                    </sii:IDEmisorFactura>
+                    <sii:NumSerieFacturaEmisor xmlns:sii="sii">785</sii:NumSerieFacturaEmisor>
+                    <sii:FechaExpedicionFacturaEmisor xmlns:sii="sii">2023-05-12</sii:FechaExpedicionFacturaEmisor>
+                </siiLR:IDFactura>
+                <siiLR:FacturaExpedida>
+                    <sii:TipoFactura xmlns:sii="sii">F1</sii:TipoFactura>
+                    <sii:ClaveRegimenEspecialOTrascendencia xmlns:sii="sii">01</sii:ClaveRegimenEspecialOTrascendencia>
+                    <sii:ImporteTotal xmlns:sii="sii">332.8</sii:ImporteTotal>
+                    <sii:DescripcionOperacion xmlns:sii="sii">Ninguna</sii:DescripcionOperacion>
+                    <sii:Contraparte xmlns:sii="sii">
+                        <sii:NombreRazon>Mobiliario sanchez S.l</sii:NombreRazon>
+                        <sii:NIF>B45454576</sii:NIF>
+                    </sii:Contraparte>
+                    <sii:TipoDesglose xmlns:sii="sii">
+                        <sii:DesgloseFactura>
+                            <sii:Sujeta>
+                                <sii:NoExenta>
+                                    <sii:TipoNoExenta>S1</sii:TipoNoExenta>
+                                    <sii:DesgloseIVA>
+                                        <sii:DetalleIVA>
+                                            <sii:TipoImpositivo>4</sii:TipoImpositivo>
+                                            <sii:BaseImponible>320</sii:BaseImponible>
+                                            <sii:CuotaRepercutida>12.8</sii:CuotaRepercutida>
+                                        </sii:DetalleIVA>
+                                    </sii:DesgloseIVA>
+                                </sii:NoExenta>
+                            </sii:Sujeta>
+                        </sii:DesgloseFactura>
+                    </sii:TipoDesglose>
+                </siiLR:FacturaExpedida>
+            </siiLR:RegistroLRFacturasEmitidas>
+            <siiLR:RegistroLRFacturasEmitidas>
+                <sii:PeriodoLiquidacion xmlns:sii="sii">
+                    <sii:Ejercicio>23</sii:Ejercicio>
+                    <sii:Periodo>k4</sii:Periodo>
+                </sii:PeriodoLiquidacion>
+                <siiLR:IDFactura>
+                    <sii:IDEmisorFactura xmlns:sii="sii">
+                        <sii:NIF>77856181p</sii:NIF>
+                    </sii:IDEmisorFactura>
+                    <sii:NumSerieFacturaEmisor xmlns:sii="sii">789</sii:NumSerieFacturaEmisor>
+                    <sii:FechaExpedicionFacturaEmisor xmlns:sii="sii">2023-05-16</sii:FechaExpedicionFacturaEmisor>
+                </siiLR:IDFactura>
+                <siiLR:FacturaExpedida>
+                    <sii:TipoFactura xmlns:sii="sii">F1</sii:TipoFactura>
+                    <sii:ClaveRegimenEspecialOTrascendencia xmlns:sii="sii">01</sii:ClaveRegimenEspecialOTrascendencia>
+                    <sii:ImporteTotal xmlns:sii="sii">183.3975</sii:ImporteTotal>
+                    <sii:DescripcionOperacion xmlns:sii="sii">Ninguna</sii:DescripcionOperacion>
+                    <sii:Contraparte xmlns:sii="sii">
+                        <sii:NombreRazon>Fontanería paco S.L</sii:NombreRazon>
+                        <sii:NIF>V5342745</sii:NIF>
+                    </sii:Contraparte>
+                    <sii:TipoDesglose xmlns:sii="sii">
+                        <sii:DesgloseFactura>
+                            <sii:Sujeta>
+                                <sii:NoExenta>
+                                    <sii:TipoNoExenta>S1</sii:TipoNoExenta>
+                                    <sii:DesgloseIVA>
+                                        <sii:DetalleIVA>
+                                            <sii:TipoImpositivo>4</sii:TipoImpositivo>
+                                            <sii:BaseImponible>171</sii:BaseImponible>
+                                            <sii:CuotaRepercutida>6.84</sii:CuotaRepercutida>
+                                            <sii:TipoRecargoEquivalencia>3.25</sii:TipoRecargoEquivalencia>
+                                            <sii:CuotaRecargoEquivalencia>5.5575</sii:CuotaRecargoEquivalencia>
+                                        </sii:DetalleIVA>
+                                    </sii:DesgloseIVA>
+                                </sii:NoExenta>
+                            </sii:Sujeta>
+                        </sii:DesgloseFactura>
+                    </sii:TipoDesglose>
+                </siiLR:FacturaExpedida>
+            </siiLR:RegistroLRFacturasEmitidas>
+            <siiLR:RegistroLRFacturasEmitidas>
+                <sii:PeriodoLiquidacion xmlns:sii="sii">
                     <sii:Ejercicio>2026</sii:Ejercicio>
                     <sii:Periodo>12</sii:Periodo>
                 </sii:PeriodoLiquidacion>
@@ -26,31 +106,29 @@
                 </siiLR:IDFactura>
                 <siiLR:FacturaExpedida>
                     <sii:TipoFactura xmlns:sii="sii">F1</sii:TipoFactura>
-                    <siiLR:ClaveRegimenEspecialOTrascendencia>01</siiLR:ClaveRegimenEspecialOTrascendencia>
-                    <siiLR:ImporteTotal>120</siiLR:ImporteTotal>
-                    <siiLR:DescripcionOperacion>Muchas</siiLR:DescripcionOperacion>
-                    <siiLR:Contraparte>
-                        <siiLR:NombreRazon>Mobiliario sanchez S.l</siiLR:NombreRazon>
-                        <siiLR:NIF />
-                    </siiLR:Contraparte>
-                    <siiLR:TipoDesglose>
-                        <siiLR:DesgloseFactura>
-                            <siiLR:Sujeta>
-                                <siiLR:NoExenta>
-                                    <siiLR:TipoNoExenta>S1</siiLR:TipoNoExenta>
-                                    <siiLR:DesgloseIVA>
-                                        <siiLR:DetalleIVA>
-                                            <siiLR:TipoImpositivo>4</siiLR:TipoImpositivo>
-                                            <siiLR:BaseImponible>115.2</siiLR:BaseImponible>
-                                            <siiLR:CuotaRepercutida>4.8</siiLR:CuotaRepercutida>
-                                            <siiLR:TipoRecargoEquivalencia>1.25</siiLR:TipoRecargoEquivalencia>
-                                            <siiLR:CuotaRecargoEquivalencia>1.25</siiLR:CuotaRecargoEquivalencia>
-                                        </siiLR:DetalleIVA>
-                                    </siiLR:DesgloseIVA>
-                                </siiLR:NoExenta>
-                            </siiLR:Sujeta>
-                        </siiLR:DesgloseFactura>
-                    </siiLR:TipoDesglose>
+                    <sii:ClaveRegimenEspecialOTrascendencia xmlns:sii="sii">01</sii:ClaveRegimenEspecialOTrascendencia>
+                    <sii:ImporteTotal xmlns:sii="sii">124.8</sii:ImporteTotal>
+                    <sii:DescripcionOperacion xmlns:sii="sii">Muchas</sii:DescripcionOperacion>
+                    <sii:Contraparte xmlns:sii="sii">
+                        <sii:NombreRazon>Mobiliario sanchez S.l</sii:NombreRazon>
+                        <sii:NIF>B45454576</sii:NIF>
+                    </sii:Contraparte>
+                    <sii:TipoDesglose xmlns:sii="sii">
+                        <sii:DesgloseFactura>
+                            <sii:Sujeta>
+                                <sii:NoExenta>
+                                    <sii:TipoNoExenta>S1</sii:TipoNoExenta>
+                                    <sii:DesgloseIVA>
+                                        <sii:DetalleIVA>
+                                            <sii:TipoImpositivo>4</sii:TipoImpositivo>
+                                            <sii:BaseImponible>120</sii:BaseImponible>
+                                            <sii:CuotaRepercutida>4.8</sii:CuotaRepercutida>
+                                        </sii:DetalleIVA>
+                                    </sii:DesgloseIVA>
+                                </sii:NoExenta>
+                            </sii:Sujeta>
+                        </sii:DesgloseFactura>
+                    </sii:TipoDesglose>
                 </siiLR:FacturaExpedida>
             </siiLR:RegistroLRFacturasEmitidas>
         </siiLR:SuministroLRFacturasEmitidas>

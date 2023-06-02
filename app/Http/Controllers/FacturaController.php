@@ -189,7 +189,7 @@ class FacturaController extends Controller
     public function seleccionadas(Request $request)
     {
 
-        $facturas = $request->get('facturas_check'); 
+        $facturas = $request->get('facturas_check');
         //$numero =  $facturas[0];
         $this->transformarXML($facturas);
 
@@ -199,8 +199,8 @@ class FacturaController extends Controller
 
     public function transformarXML($facturas)
     {
-        $iterador = count($facturas);  
-      
+        $iterador = count($facturas);
+
         // Crear el elemento raíz del XML
         $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8" ?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:siiLR="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroLR.xsd" xmlns:sii="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroInformacion.xsd"></soapenv:Envelope>');
 
@@ -211,21 +211,11 @@ class FacturaController extends Controller
 
         // Crear los elementos del XML
         $body = $xml->addChild('soapenv:Body');
-        $suministroLRFacturasEmitidas = $body->addChild('siiLR:SuministroLRFacturasEmitidas',null,'siiR');
+        $suministroLRFacturasEmitidas = $body->addChild('siiLR:SuministroLRFacturasEmitidas', null, 'siiR');
 
-        $cabecera = $suministroLRFacturasEmitidas->addChild('sii:Cabecera', null ,'sii');
+        $cabecera = $suministroLRFacturasEmitidas->addChild('sii:Cabecera', null, 'sii');
         $cabecera->addChild('sii:IDVersionSii', '1.1');
 
-              
-        for($i = 0; $i < $iterador; $i++){
-            
-       $factura = Factura::where('numero', $facturas[$i])->get();
-        
-        //Cliente correspondiente a la factura
-        $cliente = Cliente::find($factura[0]->cliente_id);
-
-         //Delle de la factura
-         $total = $this::obtenerTotal($factura[0]->numero);
 
         $titular = $cabecera->addChild('sii:Titular');
         $titular->addChild('sii:NombreRazon', 'Ruben Ñuñez');
@@ -233,45 +223,85 @@ class FacturaController extends Controller
 
         $cabecera->addChild('sii:TipoComunicacion', 'A0');
 
-        $registroLRFacturasEmitidas = $suministroLRFacturasEmitidas->addChild('siiLR:RegistroLRFacturasEmitidas');
+        for ($i = 0; $i < $iterador; $i++) {
 
-        $periodoLiquidacion = $registroLRFacturasEmitidas->addChild('sii:PeriodoLiquidacion', null ,'sii');
-        $periodoLiquidacion->addChild('sii:Ejercicio', $factura[0]->ejercicio);
-        $periodoLiquidacion->addChild('sii:Periodo', $factura[0]->serie);
+            $factura = Factura::where('numero', $facturas[$i])->get();
 
-        $idFactura = $registroLRFacturasEmitidas->addChild('siiLR:IDFactura');
-        $idEmisorFactura = $idFactura->addChild('sii:IDEmisorFactura', null ,'sii');
-        $idEmisorFactura->addChild('sii:NIF', '77856181p','sii');
-        $idFactura->addChild('sii:NumSerieFacturaEmisor', $factura[0]->numero,'sii');
-        $idFactura->addChild('sii:FechaExpedicionFacturaEmisor', $factura[0]->fecha_emision,'sii');
+            //Cliente correspondiente a la factura
+            $cliente = Cliente::find($factura[0]->cliente_id);
 
-        $facturaExpedida = $registroLRFacturasEmitidas->addChild('siiLR:FacturaExpedida');
-        $facturaExpedida->addChild('sii:TipoFactura', 'F1','sii');
-        $facturaExpedida->addChild('sii:ClaveRegimenEspecialOTrascendencia', '01');
-        $facturaExpedida->addChild('sii:ImporteTotal', $total);
-        $facturaExpedida->addChild('sii:DescripcionOperacion',$factura[0]->Observaciones);
-        $contraparte =  $facturaExpedida->addChild('sii:Contraparte');
-        $contraparte->addChild('sii:NombreRazon',$cliente->nombre);
-        $contraparte->addChild('sii:NIF',$cliente->cif);
-        
-        $TipoDesglose = $facturaExpedida->addChild('sii:TipoDesglose');
-        $DesgloseFactura = $TipoDesglose->addChild('sii:DesgloseFactura');
-        $Sujeta = $DesgloseFactura->addChild('sii:Sujeta');
-        $NoExenta = $Sujeta->addChild('sii:NoExenta');
-        $TipoNoExenta = $NoExenta->addChild('sii:TipoNoExenta', 'S1');
-        $DesgloseIVA = $NoExenta->addChild('sii:DesgloseIVA');
-        $DetalleIVA = $DesgloseIVA->addChild('sii:DetalleIVA');
-        $cuota = $total*($factura[0]->IVA/100);
+            //Delle de la factura
+            $baseImponible = $this::obtenerTotal($factura[0]->numero);
 
-        $DetalleIVA->addChild('sii:TipoImpositivo',$factura[0]->IVA);
-        $DetalleIVA->addChild('sii:BaseImponible',$total-$cuota);
-        $DetalleIVA->addChild('sii:CuotaRepercutida',$cuota);
-        if($factura[0]->REQ){
-        $DetalleIVA->addChild('sii:TipoRecargoEquivalencia',$factura[0]->REQ);
-        $DetalleIVA->addChild('sii:CuotaRecargoEquivalencia',$factura[0]->REQ); 
-           }
+            if ($factura[0]->IVA) {
+
+                $cuotaIva = $baseImponible * ($factura[0]->IVA / 100);
+                $total =  $baseImponible + $cuotaIva;
+            }
+
+            $registroLRFacturasEmitidas = $suministroLRFacturasEmitidas->addChild('siiLR:RegistroLRFacturasEmitidas');
+
+            $periodoLiquidacion = $registroLRFacturasEmitidas->addChild('sii:PeriodoLiquidacion', null, 'sii');
+            $periodoLiquidacion->addChild('sii:Ejercicio', $factura[0]->ejercicio);
+            $periodoLiquidacion->addChild('sii:Periodo', $factura[0]->serie);
+
+            $idFactura = $registroLRFacturasEmitidas->addChild('siiLR:IDFactura');
+            $idEmisorFactura = $idFactura->addChild('sii:IDEmisorFactura', null, 'sii');
+            $idEmisorFactura->addChild('sii:NIF', '77856181p', 'sii');
+            $idFactura->addChild('sii:NumSerieFacturaEmisor', $factura[0]->numero, 'sii');
+            $idFactura->addChild('sii:FechaExpedicionFacturaEmisor', $factura[0]->fecha_emision, 'sii');
+
+            $facturaExpedida = $registroLRFacturasEmitidas->addChild('siiLR:FacturaExpedida');
+
+            if ($cliente->nombre != '' || $cliente->nombre != null) {
+                $facturaExpedida->addChild('sii:TipoFactura', 'F1', 'sii');
+            } else {
+                $facturaExpedida->addChild('sii:TipoFactura', 'F2', 'sii');
+            }
+
+            $facturaExpedida->addChild('sii:ClaveRegimenEspecialOTrascendencia', '01', 'sii');
+
+            if ($cliente->REQ) {
+
+            $cuotaReq = $baseImponible * ($factura[0]->REQ / 100);
+
+             $total = $total + $cuotaReq;
+            
+            }
+
+             $facturaExpedida->addChild('sii:ImporteTotal', $total, 'sii');
+
+
+            $facturaExpedida->addChild('sii:DescripcionOperacion', $factura[0]->Observaciones, 'sii');
+
+            if ($cliente->nombre != '' || $cliente->nombre != null) {
+                $contraparte =  $facturaExpedida->addChild('sii:Contraparte', null, 'sii');
+                $contraparte->addChild('sii:NombreRazon', $cliente->nombre, 'sii');
+                $contraparte->addChild('sii:NIF', $cliente->CIF, 'sii');
+            }
+
+            $TipoDesglose = $facturaExpedida->addChild('sii:TipoDesglose', null, 'sii');
+            $DesgloseFactura = $TipoDesglose->addChild('sii:DesgloseFactura');
+            $Sujeta = $DesgloseFactura->addChild('sii:Sujeta');
+            $NoExenta = $Sujeta->addChild('sii:NoExenta');
+            $TipoNoExenta = $NoExenta->addChild('sii:TipoNoExenta', 'S1');
+            $DesgloseIVA = $NoExenta->addChild('sii:DesgloseIVA');
+            $DetalleIVA = $DesgloseIVA->addChild('sii:DetalleIVA');
+
+
+            $DetalleIVA->addChild('sii:TipoImpositivo', $factura[0]->IVA);
+            $DetalleIVA->addChild('sii:BaseImponible', $baseImponible);
+            $DetalleIVA->addChild('sii:CuotaRepercutida', $cuotaIva);
+
+            if ($cliente->REQ) {
+
+                $cuotaReq = $baseImponible * ($factura[0]->REQ / 100);
+
+                $DetalleIVA->addChild('sii:TipoRecargoEquivalencia', $factura[0]->REQ);
+                $DetalleIVA->addChild('sii:CuotaRecargoEquivalencia', $cuotaReq);
+            }
         }
-        
+
 
         $xmlString = $xml->asXML();
 
@@ -289,7 +319,6 @@ class FacturaController extends Controller
         foreach ($resultados as $resultado) {
 
             $total += $resultado->cantidad * $resultado->precio;
-
         }
 
         return  $total;
