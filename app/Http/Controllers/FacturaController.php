@@ -199,7 +199,7 @@ class FacturaController extends Controller
 
     public function transformarXML($facturas)
     {
-
+        $iterador = count($facturas);  
       
         // Crear el elemento raíz del XML
         $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8" ?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:siiLR="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroLR.xsd" xmlns:sii="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroInformacion.xsd"></soapenv:Envelope>');
@@ -216,8 +216,7 @@ class FacturaController extends Controller
         $cabecera = $suministroLRFacturasEmitidas->addChild('sii:Cabecera', null ,'sii');
         $cabecera->addChild('sii:IDVersionSii', '1.1');
 
-         $iterador = count($facturas);  
-                
+              
         for($i = 0; $i < $iterador; $i++){
             
        $factura = Factura::where('numero', $facturas[$i])->get();
@@ -241,16 +240,20 @@ class FacturaController extends Controller
         $periodoLiquidacion->addChild('sii:Periodo', $factura[0]->serie);
 
         $idFactura = $registroLRFacturasEmitidas->addChild('siiLR:IDFactura');
-        $idEmisorFactura = $idFactura->addChild('sii:IDEmisorFactura');
-        $idEmisorFactura->addChild('sii:NIF', $cliente->nif);
-        $idFactura->addChild('sii:NumSerieFacturaEmisor', $factura[0]->numero);
-        $idFactura->addChild('sii:FechaExpedicionFacturaEmisor', $factura[0]->fecha_emision);
+        $idEmisorFactura = $idFactura->addChild('sii:IDEmisorFactura', null ,'sii');
+        $idEmisorFactura->addChild('sii:NIF', '77856181p','sii');
+        $idFactura->addChild('sii:NumSerieFacturaEmisor', $factura[0]->numero,'sii');
+        $idFactura->addChild('sii:FechaExpedicionFacturaEmisor', $factura[0]->fecha_emision,'sii');
 
         $facturaExpedida = $registroLRFacturasEmitidas->addChild('siiLR:FacturaExpedida');
-        $facturaExpedida->addChild('sii:TipoFactura', 'F1');
+        $facturaExpedida->addChild('sii:TipoFactura', 'F1','sii');
         $facturaExpedida->addChild('sii:ClaveRegimenEspecialOTrascendencia', '01');
         $facturaExpedida->addChild('sii:ImporteTotal', $total);
         $facturaExpedida->addChild('sii:DescripcionOperacion',$factura[0]->Observaciones);
+        $contraparte =  $facturaExpedida->addChild('sii:Contraparte');
+        $contraparte->addChild('sii:NombreRazon',$cliente->nombre);
+        $contraparte->addChild('sii:NIF',$cliente->cif);
+        
         $TipoDesglose = $facturaExpedida->addChild('sii:TipoDesglose');
         $DesgloseFactura = $TipoDesglose->addChild('sii:DesgloseFactura');
         $Sujeta = $DesgloseFactura->addChild('sii:Sujeta');
@@ -259,14 +262,17 @@ class FacturaController extends Controller
         $DesgloseIVA = $NoExenta->addChild('sii:DesgloseIVA');
         $DetalleIVA = $DesgloseIVA->addChild('sii:DetalleIVA');
         $cuota = $total*($factura[0]->IVA/100);
+
         $DetalleIVA->addChild('sii:TipoImpositivo',$factura[0]->IVA);
         $DetalleIVA->addChild('sii:BaseImponible',$total-$cuota);
         $DetalleIVA->addChild('sii:CuotaRepercutida',$cuota);
         if($factura[0]->REQ){
         $DetalleIVA->addChild('sii:TipoRecargoEquivalencia',$factura[0]->REQ);
+        $DetalleIVA->addChild('sii:CuotaRecargoEquivalencia',$factura[0]->REQ); 
            }
         }
         
+
         $xmlString = $xml->asXML();
 
         file_put_contents(public_path('datos/archivo.xml'), $xmlString);

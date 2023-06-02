@@ -18,17 +18,21 @@
                     <sii:Periodo>12</sii:Periodo>
                 </sii:PeriodoLiquidacion>
                 <siiLR:IDFactura>
-                    <siiLR:IDEmisorFactura>
-                        <siiLR:NIF />
-                    </siiLR:IDEmisorFactura>
-                    <siiLR:NumSerieFacturaEmisor>333</siiLR:NumSerieFacturaEmisor>
-                    <siiLR:FechaExpedicionFacturaEmisor>2023-05-26</siiLR:FechaExpedicionFacturaEmisor>
+                    <sii:IDEmisorFactura xmlns:sii="sii">
+                        <sii:NIF>77856181p</sii:NIF>
+                    </sii:IDEmisorFactura>
+                    <sii:NumSerieFacturaEmisor xmlns:sii="sii">333</sii:NumSerieFacturaEmisor>
+                    <sii:FechaExpedicionFacturaEmisor xmlns:sii="sii">2023-05-26</sii:FechaExpedicionFacturaEmisor>
                 </siiLR:IDFactura>
                 <siiLR:FacturaExpedida>
-                    <siiLR:TipoFactura>F1</siiLR:TipoFactura>
+                    <sii:TipoFactura xmlns:sii="sii">F1</sii:TipoFactura>
                     <siiLR:ClaveRegimenEspecialOTrascendencia>01</siiLR:ClaveRegimenEspecialOTrascendencia>
                     <siiLR:ImporteTotal>120</siiLR:ImporteTotal>
                     <siiLR:DescripcionOperacion>Muchas</siiLR:DescripcionOperacion>
+                    <siiLR:Contraparte>
+                        <siiLR:NombreRazon>Mobiliario sanchez S.l</siiLR:NombreRazon>
+                        <siiLR:NIF />
+                    </siiLR:Contraparte>
                     <siiLR:TipoDesglose>
                         <siiLR:DesgloseFactura>
                             <siiLR:Sujeta>
@@ -40,6 +44,7 @@
                                             <siiLR:BaseImponible>115.2</siiLR:BaseImponible>
                                             <siiLR:CuotaRepercutida>4.8</siiLR:CuotaRepercutida>
                                             <siiLR:TipoRecargoEquivalencia>1.25</siiLR:TipoRecargoEquivalencia>
+                                            <siiLR:CuotaRecargoEquivalencia>1.25</siiLR:CuotaRecargoEquivalencia>
                                         </siiLR:DetalleIVA>
                                     </siiLR:DesgloseIVA>
                                 </siiLR:NoExenta>

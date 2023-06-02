@@ -12,7 +12,7 @@
                 </sii:Titular>
                 <sii:TipoComunicacion>A0</sii:TipoComunicacion>   () Desconozco
             </sii:Cabecera>
-            <siiLR:RegistroLRFacturasEmitidas>
+            <siiLR:RegistroLRFacturasEmitidas> ------() Empieza
                 <sii:PeriodoLiquidacion>
                     <sii:Ejercicio>2023</sii:Ejercicio>
                     <sii:Periodo>02</sii:Periodo>
