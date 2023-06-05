@@ -258,7 +258,7 @@ class FacturaController extends Controller
 
             $facturaExpedida = $registroLRFacturasEmitidas->addChild('siiLR:FacturaExpedida');
 
-            if ($cliente->nombre != '' || $cliente->nombre != null) {
+            if(!isset($cliente->nombre)) {
                 $facturaExpedida->addChild('sii:TipoFactura', 'F1', 'sii');
             } else {
                 $facturaExpedida->addChild('sii:TipoFactura', 'F2', 'sii');
@@ -266,7 +266,7 @@ class FacturaController extends Controller
 
             $facturaExpedida->addChild('sii:ClaveRegimenEspecialOTrascendencia', '01', 'sii');
 
-            if ($cliente->REQ) {
+            if (!isset($cliente->REQ)) {
 
             $cuotaReq = $baseImponible * ($factura[0]->REQ / 100);
 
@@ -279,7 +279,7 @@ class FacturaController extends Controller
 
             $facturaExpedida->addChild('sii:DescripcionOperacion', $factura[0]->Observaciones, 'sii');
 
-            if ($cliente->nombre != '' || $cliente->nombre != null) {
+            if (isset($cliente->nombre)) {
                 $contraparte =  $facturaExpedida->addChild('sii:Contraparte', null, 'sii');
                 $contraparte->addChild('sii:NombreRazon', $cliente->nombre, 'sii');
                 $contraparte->addChild('sii:NIF', $cliente->CIF, 'sii');
@@ -298,7 +298,7 @@ class FacturaController extends Controller
             $DetalleIVA->addChild('sii:BaseImponible', $baseImponible);
             $DetalleIVA->addChild('sii:CuotaRepercutida', $cuotaIva);
 
-            if ($cliente->REQ) {
+            if (isset($cliente->REQ)) {
 
                 $cuotaReq = $baseImponible * ($factura[0]->REQ / 100);
 

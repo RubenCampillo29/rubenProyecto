@@ -33,7 +33,9 @@ return new class extends Migration
             //Clave primaria.
             $table->primary(['ejercicio', 'serie', 'numero'], 'ref_factura');
             $table->timestamps();
-
+            //Clave ajena emisor
+            $table->unsignedBigInteger('emisor_id')->nullable();
+            $table->foreign('emisor_id')->references('id')->on('emisors')->onDelete('set null');
             
 
 
