@@ -11,7 +11,9 @@ use GuzzleHttp\Client;
 use SimpleXMLElement;
 use Illuminate\Support\Facades\Storage;
 use App\Models\emisor;
-
+use SoapClient;
+use SoapFault;
+Use Exception;
 
 class FacturaController extends Controller
 {
@@ -210,8 +212,9 @@ class FacturaController extends Controller
 
         //dd($emisor);
 
-        $this->transformarXML($facturas, $emisor);
+         $xml = $this->transformarXML($facturas, $emisor);
 
+        
         return view("factura\mensageFactura", ['msg' => "Facturas enviadas con exito"]);
     }
 
@@ -324,7 +327,31 @@ class FacturaController extends Controller
 
         $xmlString = $xml->asXML();
 
+   
+        try {
+            
+            
+            
+            $client = new SoapClient('https://www7.aeat.es/wlpl/SSII-FACT/ws/fe/SiiFactFEV1SOAP');
+        
+            $response = $client->__soapCall('EnviarDatos', ['datosEnvio' => ['xml' => $xmlString]]);
+        
+            dd($response);
+        } catch (SoapFault $e) {
+            // Manejar la excepción SOAP aquí
+            echo $e->getMessage();
+        } catch (Exception $e) {
+            // Manejar otras excepciones aquí
+            echo $e->getMessage();
+        }
+        
+
+
+
+
         file_put_contents(public_path('datos/archivo.xml'), $xmlString);
+
+        return $xmlString;
     }
 
 
@@ -339,7 +366,6 @@ class FacturaController extends Controller
 
             $total += $resultado->cantidad * $resultado->precio;
         }
-
         return  $total;
     }
 }
