@@ -98,6 +98,18 @@
         </div>
       </div>
 
+      <div class="mb-3 row">
+        <label for="col-sm-2 col-form-label"><strong>Emisor</strong></label>
+        <div class="col-sm-5">
+          <select class="form-control" name="emisor_id" id="emisor_id">
+            <option value="">-- Seleccione un emisor --</option>
+            @foreach($emisores as $emisor)
+            <option value="{{$emisor['id']}}">{{$emisor['nombre']}}</option>
+            @endforeach
+          </select>
+        </div>
+      </div>
+
       <button type="submit" class="btn btn-success">Guardar</button>
       <a href="{{url('clientes')}}" class="btn btn-secondary">Regresar</a>
     </form>

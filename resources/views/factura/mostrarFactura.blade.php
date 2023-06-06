@@ -20,7 +20,7 @@
     <th>REQ</th>
     <th>Observaciones</th>
     <th>Enviada</th>
-    <th>id Usuario</th>
+    <th>Emisor</th>
     <th>Nombre</th>
     <th>Detalle </th>
     <th>Editar</th>
@@ -43,7 +43,11 @@
             @else
                <td class='color_no'>no</td>
             @endif
-           <td>{{$factura['user_id']}}</td>
+           @foreach($emisores as $emisor)
+           @if($emisor['id'] == $factura['emisor_id'])
+           <td>{{$emisor['nombre']}}</td>
+           @endif
+           @endforeach
            @foreach($clientes as $cliente)
            @if($cliente['id'] == $factura['cliente_id'])
            <td>{{$cliente['nombre']}}</td>
@@ -60,7 +64,6 @@
             <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
             </form>   
             </td>
-
 
     </tr>
     

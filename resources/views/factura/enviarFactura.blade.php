@@ -11,7 +11,7 @@
 
 <div class="container">
     <div class="rounded border border-primary bg-info">
-    <h1>Enviar Facturas AEAT</h1>
+        <h1>Enviar Facturas AEAT</h1>
     </div>
     <div class="row">
         <div class="col-md-6">
@@ -41,11 +41,19 @@
                                 <option value="0">No enviada</option>
                                 <option value="2">todas</option>
                             </select>
-                                 
-                            
-                            
-                            <button type="submit" class="btn btn-success">Ver</button>
-                        </div>
+
+                            <div class="mb-5 block">
+                                <label for="emisor">Emisor</label>
+                                <select name="emisor" id="emisor">
+                                    @foreach($emisores as $emi)
+                                    <option value="{{ $emi['id'] }}">{{ ($emi['nombre']) }}</option>
+                                    @endforeach
+                                </select>
+
+
+
+                                <button type="submit" class="btn btn-success">Ver</button>
+                            </div>
                     </form>
 
                 </div>
@@ -63,8 +71,8 @@
                         <table border="2">
                             <tr>
                                 <th><i class="bi bi-check2">Seleccionar</i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                                      <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                                </svg></th>
+                                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                    </svg></th>
                                 <th>Ref Factura</th>
                                 <th>Fecha de emision</th>
                                 <th>IVA %</th>
@@ -72,7 +80,7 @@
                                 <th>Observaciones</th>
                                 <th>Enviada</th>
                                 <th>Nombre Cliente</th>
-                                <th>Fila registro</th>
+                                <th>Nombre Emisor</th>
 
                             </tr>
 
@@ -81,7 +89,7 @@
                             <tr>
                                 <td>
                                     @if($factura['enviada'] == 1)
-                                    
+
                                     @else
                                     <input type="checkbox" name="facturas_check[]" value="{{ $factura['numero'] }}">
                                     @endif
@@ -103,17 +111,16 @@
                                 @endif
                                 @endforeach
 
+                                @foreach($emisores as $emisor)
+                                @if($emisor['id'] == $factura['emisor_id'])
+                                <td>{{$emisor['nombre']}}</td>
+                                @endif
+                                @endforeach
+
 
                             </tr>
                             @endforeach
 
-                            <div class="mb-5 block">
-                            <label for="emisor">Emisor</label>
-                            <select name="emisor" id="emisor">
-                                @foreach($emisor as $emi)
-                                <option value="{{ $emi['id'] }}">{{ ($emi['nombre']) }}</option>
-                                @endforeach
-                            </select>
 
                         </table>
 

@@ -19,10 +19,11 @@ class FacturaController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
+    { 
+        $emisores = emisor::all();
         $facturas  =  Factura::all();
         $clientes = Cliente::all();
-        return view('factura\mostrarFactura', compact('facturas', 'clientes'));
+        return view('factura\mostrarFactura', compact('facturas','clientes','emisores'));
     }
 
     /**
@@ -32,7 +33,8 @@ class FacturaController extends Controller
     {
 
         $clientes = Cliente::all();
-        return view('factura\crearFactura', compact('clientes'));
+        $emisores = emisor::all();
+        return view('factura\crearFactura', compact('clientes','emisores'));
     }
 
     /**
@@ -53,7 +55,7 @@ class FacturaController extends Controller
         $factura->enviada = $request->input('enviada');
         $factura->user_id = $request->input('user_id');
         $factura->cliente_id = $request->input('cliente_id');
-
+        $factura->emisor_id = $request->input('emisor_id');
         $factura->save();
 
         return view("factura\mensageFactura", ['msg' => "Factura: $factura->numero guardada"]);
@@ -71,13 +73,13 @@ class FacturaController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit($numero)
-    {
+    {   $emisores = emisor::all();
         $clientes = Cliente::all();
         $factura = Factura::where('numero', $numero)->get();
 
 
 
-        return view('factura.editf', compact('clientes', 'factura'));
+        return view('factura.editf', compact('clientes','factura','emisores'));
     }
 
     /**
@@ -105,7 +107,8 @@ class FacturaController extends Controller
                 'observaciones' => $request->input('observaciones'),
                 'enviada' => $request->input('enviada'),
                 'user_id' => $request->input('user_id'),
-                'cliente_id' => $request->input('cliente_id')
+                'cliente_id' => $request->input('cliente_id'),
+                'emisor_id' => $request->input('emisor_id')
             ]);
 
 
@@ -140,29 +143,32 @@ class FacturaController extends Controller
 
     public function vistaEnviar()
     {
-        
-        return view('factura\enviarFactura');
+        $emisores = emisor::all();
+        return view('factura\enviarFactura',compact('emisores'));
     }
 
-    public static function sqldatos($desde, $hasta, $estado)
+    public static function sqldatos($desde, $hasta, $estado, $emisor)
     {
 
         $resultados = Factura::select('*')
             ->where('fecha_emision', '>', $desde)
             ->where('fecha_emision', '<', $hasta)
             ->where('enviada', $estado)
+            ->where('emisor_id', $emisor)
             ->get();
 
         return $resultados;
     }
 
 
-    public static function sqldatosTodas($desde, $hasta)
+    public static function sqldatosTodas($desde, $hasta, $emisor)
     {
 
         $resultados = Factura::select('*')
             ->where('fecha_emision', '>', $desde)
-            ->where('fecha_emision', '<', $hasta)->get();
+            ->where('fecha_emision', '<', $hasta)
+            ->where('emisor_id', $emisor)
+            ->get();
 
         return $resultados;
     }
@@ -172,20 +178,23 @@ class FacturaController extends Controller
         $desde = $request->get('fecha_desde');
         $hasta = $request->get('fecha_hasta');
         $estado = $request->get('estado');
+        $emisor = $request->get('emisor'); 
+
 
 
         if ($estado != 2) {
 
-            $facturas = $this::sqldatos($desde, $hasta, $estado);
+            $facturas = $this::sqldatos($desde, $hasta, $estado, $emisor);
+
         } else {
 
-            $facturas = $this::sqldatosTodas($desde, $hasta);
+            $facturas = $this::sqldatosTodas($desde, $hasta ,$emisor);
         }
 
         $clientes = Cliente::All();
-        $emisor = Emisor::All();
+        $emisores = Emisor::All();
 
-        return view('Factura\enviarFactura', compact('facturas', 'clientes','emisor'));
+        return view('Factura\enviarFactura', compact('facturas', 'clientes','emisores'));
     }
 
 
@@ -193,9 +202,14 @@ class FacturaController extends Controller
     {
 
         $facturas = $request->get('facturas_check');
-        //$numero =  $facturas[0];
-        $idemisor = $request->get('emisor');
-        $emisor = Emisor::find($idemisor);
+        $numero =  $facturas[0];
+        $id_emisor = Factura::select('emisor_id')->where('numero', $numero)
+        ->get();
+
+        $emisor = Emisor::find($id_emisor);
+
+        //dd($emisor);
+
         $this->transformarXML($facturas, $emisor);
 
         return view("factura\mensageFactura", ['msg' => "Facturas enviadas con exito"]);
@@ -223,8 +237,8 @@ class FacturaController extends Controller
 
 
         $titular = $cabecera->addChild('sii:Titular');
-        $titular->addChild('sii:NombreRazon', $emisor->nombre);
-        $titular->addChild('sii:NIF', '77856181p');
+        $titular->addChild('sii:NombreRazon', $emisor[0]->nombre);
+        $titular->addChild('sii:NIF', $emisor[0]->CIF);
 
         $cabecera->addChild('sii:TipoComunicacion', 'A0');
 
@@ -252,7 +266,7 @@ class FacturaController extends Controller
 
             $idFactura = $registroLRFacturasEmitidas->addChild('siiLR:IDFactura');
             $idEmisorFactura = $idFactura->addChild('sii:IDEmisorFactura', null, 'sii');
-            $idEmisorFactura->addChild('sii:NIF', '77856181p', 'sii');
+            $idEmisorFactura->addChild('sii:NIF', $emisor[0]->CIF, 'sii');
             $idFactura->addChild('sii:NumSerieFacturaEmisor', $factura[0]->numero, 'sii');
             $idFactura->addChild('sii:FechaExpedicionFacturaEmisor', $factura[0]->fecha_emision, 'sii');
 

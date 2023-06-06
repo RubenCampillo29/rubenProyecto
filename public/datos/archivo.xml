@@ -7,31 +7,31 @@
             <sii:Cabecera xmlns:sii="sii">
                 <sii:IDVersionSii>1.1</sii:IDVersionSii>
                 <sii:Titular>
-                    <sii:NombreRazon>Mariano Torrano S.L</sii:NombreRazon>
-                    <sii:NIF>77856181p</sii:NIF>
+                    <sii:NombreRazon>EL MOSCA S.L</sii:NombreRazon>
+                    <sii:NIF>B77867564</sii:NIF>
                 </sii:Titular>
                 <sii:TipoComunicacion>A0</sii:TipoComunicacion>
             </sii:Cabecera>
             <siiLR:RegistroLRFacturasEmitidas>
                 <sii:PeriodoLiquidacion xmlns:sii="sii">
-                    <sii:Ejercicio>23</sii:Ejercicio>
-                    <sii:Periodo>k4</sii:Periodo>
+                    <sii:Ejercicio>22</sii:Ejercicio>
+                    <sii:Periodo>22</sii:Periodo>
                 </sii:PeriodoLiquidacion>
                 <siiLR:IDFactura>
                     <sii:IDEmisorFactura xmlns:sii="sii">
-                        <sii:NIF>77856181p</sii:NIF>
+                        <sii:NIF>B77867564</sii:NIF>
                     </sii:IDEmisorFactura>
-                    <sii:NumSerieFacturaEmisor xmlns:sii="sii">789</sii:NumSerieFacturaEmisor>
-                    <sii:FechaExpedicionFacturaEmisor xmlns:sii="sii">2023-05-16</sii:FechaExpedicionFacturaEmisor>
+                    <sii:NumSerieFacturaEmisor xmlns:sii="sii">22</sii:NumSerieFacturaEmisor>
+                    <sii:FechaExpedicionFacturaEmisor xmlns:sii="sii">2023-06-09</sii:FechaExpedicionFacturaEmisor>
                 </siiLR:IDFactura>
                 <siiLR:FacturaExpedida>
                     <sii:TipoFactura xmlns:sii="sii">F2</sii:TipoFactura>
                     <sii:ClaveRegimenEspecialOTrascendencia xmlns:sii="sii">01</sii:ClaveRegimenEspecialOTrascendencia>
-                    <sii:ImporteTotal xmlns:sii="sii">183.3975</sii:ImporteTotal>
-                    <sii:DescripcionOperacion xmlns:sii="sii">Ninguna</sii:DescripcionOperacion>
+                    <sii:ImporteTotal xmlns:sii="sii">0</sii:ImporteTotal>
+                    <sii:DescripcionOperacion xmlns:sii="sii">Muchas</sii:DescripcionOperacion>
                     <sii:Contraparte xmlns:sii="sii">
-                        <sii:NombreRazon>Mariano Torrano S.L</sii:NombreRazon>
-                        <sii:NIF>77856181W</sii:NIF>
+                        <sii:NombreRazon>oriol</sii:NombreRazon>
+                        <sii:NIF>V5342745</sii:NIF>
                     </sii:Contraparte>
                     <sii:TipoDesglose xmlns:sii="sii">
                         <sii:DesgloseFactura>
@@ -41,43 +41,10 @@
                                     <sii:DesgloseIVA>
                                         <sii:DetalleIVA>
                                             <sii:TipoImpositivo>4</sii:TipoImpositivo>
-                                            <sii:BaseImponible>171</sii:BaseImponible>
-                                            <sii:CuotaRepercutida>6.84</sii:CuotaRepercutida>
-                                        </sii:DetalleIVA>
-                                    </sii:DesgloseIVA>
-                                </sii:NoExenta>
-                            </sii:Sujeta>
-                        </sii:DesgloseFactura>
-                    </sii:TipoDesglose>
-                </siiLR:FacturaExpedida>
-            </siiLR:RegistroLRFacturasEmitidas>
-            <siiLR:RegistroLRFacturasEmitidas>
-                <sii:PeriodoLiquidacion xmlns:sii="sii">
-                    <sii:Ejercicio>2026</sii:Ejercicio>
-                    <sii:Periodo>12</sii:Periodo>
-                </sii:PeriodoLiquidacion>
-                <siiLR:IDFactura>
-                    <sii:IDEmisorFactura xmlns:sii="sii">
-                        <sii:NIF>77856181p</sii:NIF>
-                    </sii:IDEmisorFactura>
-                    <sii:NumSerieFacturaEmisor xmlns:sii="sii">333</sii:NumSerieFacturaEmisor>
-                    <sii:FechaExpedicionFacturaEmisor xmlns:sii="sii">2023-05-26</sii:FechaExpedicionFacturaEmisor>
-                </siiLR:IDFactura>
-                <siiLR:FacturaExpedida>
-                    <sii:TipoFactura xmlns:sii="sii">F1</sii:TipoFactura>
-                    <sii:ClaveRegimenEspecialOTrascendencia xmlns:sii="sii">01</sii:ClaveRegimenEspecialOTrascendencia>
-                    <sii:ImporteTotal xmlns:sii="sii">126.3</sii:ImporteTotal>
-                    <sii:DescripcionOperacion xmlns:sii="sii">Muchas</sii:DescripcionOperacion>
-                    <sii:TipoDesglose xmlns:sii="sii">
-                        <sii:DesgloseFactura>
-                            <sii:Sujeta>
-                                <sii:NoExenta>
-                                    <sii:TipoNoExenta>S1</sii:TipoNoExenta>
-                                    <sii:DesgloseIVA>
-                                        <sii:DetalleIVA>
-                                            <sii:TipoImpositivo>4</sii:TipoImpositivo>
-                                            <sii:BaseImponible>120</sii:BaseImponible>
-                                            <sii:CuotaRepercutida>4.8</sii:CuotaRepercutida>
+                                            <sii:BaseImponible>0</sii:BaseImponible>
+                                            <sii:CuotaRepercutida>0</sii:CuotaRepercutida>
+                                            <sii:TipoRecargoEquivalencia>1.25</sii:TipoRecargoEquivalencia>
+                                            <sii:CuotaRecargoEquivalencia>0</sii:CuotaRecargoEquivalencia>
                                         </sii:DetalleIVA>
                                     </sii:DesgloseIVA>
                                 </sii:NoExenta>

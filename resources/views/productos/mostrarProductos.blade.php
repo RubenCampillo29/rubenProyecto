@@ -2,7 +2,9 @@
 
 @extends('layouts.app')
 @section('content')
-<h1>Productos</h1>
+<div class="container">
+   <h1>Productos</h1>
+</div>
 <div>
     <table border=2>
     <tr>
