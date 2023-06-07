@@ -15,6 +15,9 @@
          <th>Nombre</th>
          <th>CIF</th>
          <th>Provincia</th>
+         <th>Codigo Postal</th>
+         <th>Poblacion</th>
+         <th>Email</th>
          <th>Telefono</th>
          <th>Dirección</th>
          <th>REQ</th>
@@ -29,6 +32,9 @@
          <td><a href="{{route('cliente.facturas', $cliente['id'])}}" class="link-serio">{{$cliente['nombre']}}</a></td>
          <td>{{$cliente['CIF']}}</td>
          <td>{{$cliente['provincia']}}</td>
+         <td>{{$cliente['CodigoPostal']}}</td>
+         <td>{{$cliente['poblacion']}}</td>
+         <td>{{$cliente['email']}}</td>
          <td>{{$cliente['telefono']}}</td>
          <td>{{$cliente['Direccion']}}</td>
          @if($cliente['REQ'] == 1)
@@ -53,8 +59,7 @@
 
    </table>
 
-   <a href="{{url('clientes/create')}}" class="btn btn-primary btn-sm">Crear</a>
-   <a href="{{route('facturas.index')}}" class="btn btn-primary btn-sm">Facturas</a>
+   <a href="{{url('clientes/create')}}" class="btn btn-success btn-sm">Crear</a>
    <a href="{{route('inicio')}}" class="btn btn-primary btn-sm">Volver</a></a>
 </div>
 

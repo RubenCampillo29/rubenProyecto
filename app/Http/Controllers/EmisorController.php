@@ -37,11 +37,14 @@ class EmisorController extends Controller
        $emisor->nombre = $request->input('nombre');
        $emisor->provincia = $request->input('provincia');
        $emisor->telefono = $request->input('telefono');
+       $emisor->poblacion = $request->input('poblacion');
+       $emisor->CodigoPostal = $request->input('CodigoPostal');
+       $emisor->email = $request->input('email');
        $emisor->direccion = $request->input('direccion');
        
        $emisor->save();
 
-       return view("cliente\mensageCliente", ['msg' => "Emisor $emisor->nombre Guardado con exito"]);
+       return view("emisor\mensageEmisor", ['msg' => "Emisor $emisor->nombre Guardado con exito"]);
         
        
     }
@@ -74,12 +77,15 @@ class EmisorController extends Controller
         $emisor->cif = $request->input('cif');
         $emisor->nombre = $request->input('nombre');
         $emisor->provincia = $request->input('provincia');
+        $emisor->poblacion = $request->input('poblacion');
+        $emisor->CodigoPostal = $request->input('CodigoPostal');
+        $emisor->email = $request->input('email');
         $emisor->telefono = $request->input('telefono');
         $emisor->direccion = $request->input('direccion');
    
         $emisor->save();
  
-        return view("cliente\mensageCliente", ['msg' => "Emisor $emisor->nombre Actualizado con exito"]);
+        return view("emisor\mensageEmisor", ['msg' => "Emisor $emisor->nombre Actualizado con exito"]);
 
 
 

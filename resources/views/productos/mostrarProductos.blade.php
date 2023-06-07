@@ -3,8 +3,9 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-   <h1>Productos</h1>
-</div>
+   <div class="rounded border border-primary bg-info">
+      <h1>Productos</h1>
+   </div>
 <div>
     <table border=2>
     <tr>
@@ -28,9 +29,9 @@
 
     </table>
 
-     <a href="" class="btn btn-primary">Crear</a>
+     <a href="" class="btn btn-success">Crear</a>
     <a class="btn btn-primary" href="{{route('inicio')}}">Inicio</a></a>
-    <a class="btn btn-primary" href="{{route('facturas.index')}}" class="button">Facturas</a>
+    
 </div>
 
 @endsection

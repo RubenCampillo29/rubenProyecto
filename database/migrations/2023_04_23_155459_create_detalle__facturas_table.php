@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->integer('cantidad');
             $table->float('precio');
-            $table->string('descripcion');
             //Clave ajena  producto
             $table->unsignedBigInteger('producto_id');
             $table->foreign('producto_id')->references('id')->on('productos');

@@ -18,6 +18,20 @@
     <form action="{{url('facturas')}}" method="post">
 
       @csrf
+
+      <div class="mb-3 row">
+        <label for="col-sm-2 col-form-label"><strong>Emisor</strong></label>
+        <div class="col-sm-5">
+          <select class="form-control" name="emisor_id" id="emisor_id">
+            <option value="">-- Seleccione un emisor --</option>
+            @foreach($emisores as $emisor)
+            <option value="{{$emisor['id']}}">{{$emisor['nombre']}}</option>
+            @endforeach
+          </select>
+        </div>
+      </div>
+
+
       <div class="mb-3 row">
         <label for="col-sm-2 col-form-label"><strong>Cliente</strong></label>
         <div class="col-sm-5">
@@ -33,7 +47,7 @@
       <div class="mb-3 row">
         <label for="ejercicio" class="col-sm-2 col-form-label"><strong>Ejercicio</strong></label>
         <div class="col-sm-5">
-          <input type="text" class="form-control" name="ejercicio" id="ejercicio" value="{{ old('ejercicio')}}" required>
+          <input type="text" class="form-control" name="ejercicio" id="ejercicio" value="{{ $anioActual}}" required>
         </div>
       </div>
 
@@ -54,24 +68,34 @@
       <div class="mb-3 row">
         <label for="fecha_emision" class="col-sm-2 col-form-label"><strong>Fecha de emision</strong></label>
         <div class="col-sm-5">
-          <input type="date" class="form-control" name="fecha_emision" id="fecha_emision" value="{{ old('fecha_emision')}}">
+          <input type="date" class="form-control" name="fecha_emision" id="fecha_emision" value="{{ $fechaActual }}">
         </div>
       </div>
 
-      <div class="mb-3 row">
-        <label for="IVA" class="col-sm-2 col-form-label"><strong>IVA</strong></label>
-        <div class="col-sm-5">
-          <input type="number" class="form-control" name="IVA" id="IVA" value="{{ old('IVA')}}">
-        </div>
+      <label for="IVA" class="col-sm-2 col-form-label"><strong>IVA %</strong></label>
+      <div class="col-sm-10">
+        <select name="IVA" id="IVA">
+          <option value="0">No IVA</option>
+          <option value="4" selected>4</option>
+          <option value="10">10</option>
+          <option value="21">21</option>
+        </select>
       </div>
 
 
-      <div class="mb-3 row">
-        <label for="observaciones" class="col-sm-2 col-form-label"><strong>Recargo de equivalencia</strong></label>
-        <div class="col-sm-5">
-          <input type="float" class="form-control" name="REQ" id="REQ" value="{{ old('REQ')}}" required>
-        </div>
+   
+
+      <label for="REQ" class="col-sm-2 col-form-label"><strong>Recargo (REQ)</strong></label>
+      <div class="col-sm-10">
+        <select name="REQ" id="REQ">
+          <option value="0">No REQ</option>
+          <option value="0.5" selected>0.5</option>
+          <option value="1.4">1.4</option>
+          <option value="5.2">5.2</option>
+        </select>
       </div>
+
+
 
 
       <div class="mb-3 row">
@@ -98,20 +122,10 @@
         </div>
       </div>
 
-      <div class="mb-3 row">
-        <label for="col-sm-2 col-form-label"><strong>Emisor</strong></label>
-        <div class="col-sm-5">
-          <select class="form-control" name="emisor_id" id="emisor_id">
-            <option value="">-- Seleccione un emisor --</option>
-            @foreach($emisores as $emisor)
-            <option value="{{$emisor['id']}}">{{$emisor['nombre']}}</option>
-            @endforeach
-          </select>
-        </div>
-      </div>
+  
 
       <button type="submit" class="btn btn-success">Guardar</button>
-      <a href="{{url('clientes')}}" class="btn btn-secondary">Regresar</a>
+      <a href="{{url('facturas')}}" class="btn btn-secondary">Regresar</a>
     </form>
 
 

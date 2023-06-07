@@ -41,6 +41,30 @@
     </div>
 
     <div class="mb-3 row">
+       <label for="poblacion" class="col-sm-2 col-form-label"><strong>Poblacion</strong></label>
+        <div class="col-sm-5">
+          <input type="text" class="form-control" name="poblacion" id="poblacion" value="{{$emisor->poblacion }}" >
+        </div>      
+    </div>
+
+    <div class="mb-3 row">
+       <label for="CodigoPostal" class="col-sm-2 col-form-label"><strong>Codigo Postal</strong></label>
+        <div class="col-sm-5">
+          <input type="number" class="form-control" name="CodigoPostal" id="CodigoPostal" value="{{ $emisor->CodigoPostal}}" >
+        </div>      
+    </div>
+
+
+    <div class="mb-3 row">
+       <label for="email" class="col-sm-2 col-form-label"><strong>Email</strong></label>
+        <div class="col-sm-5">
+          <input type="email" class="form-control" name="email" id="email" value="{{ $emisor->email}}" >
+        </div>      
+    </div>
+
+
+
+    <div class="mb-3 row">
        <label for="telefono" class="col-sm-2 col-form-label"><strong>Telefono</strong></label>
         <div class="col-sm-5">
           <input type="number" class="form-control" name="telefono" id="telefono" value="{{ $emisor->telefono }}" >

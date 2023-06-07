@@ -32,6 +32,34 @@
         </div>      
     </div>
 
+     
+    <div class="mb-3 row">
+       <label for="poblacion" class="col-sm-2 col-form-label"><strong>Poblacion</strong></label>
+        <div class="col-sm-5">
+          <input type="text" class="form-control" name="poblacion" id="poblacion" value="{{ old('poblacion')}}" >
+        </div>      
+    </div>
+
+    <div class="mb-3 row">
+       <label for="CodigoPostal" class="col-sm-2 col-form-label"><strong>Codigo Postal</strong></label>
+        <div class="col-sm-5">
+          <input type="number" class="form-control" name="CodigoPostal" id="CodigoPostal" value="{{ old('CodigoPostal')}}" >
+        </div>      
+    </div>
+
+
+    <div class="mb-3 row">
+       <label for="email" class="col-sm-2 col-form-label"><strong>Email</strong></label>
+        <div class="col-sm-5">
+          <input type="email" class="form-control" name="email" id="email" value="{{ old('email')}}" >
+        </div>      
+    </div>
+
+
+
+
+
+
     <div class="mb-3 row">
        <label for="direccion" class="col-sm-2 col-form-label"><strong>Direccion</strong></label>
         <div class="col-sm-5">

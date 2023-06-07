@@ -45,8 +45,8 @@
 
     </table>
 
-     <a href="">Crear</a>
-    <a href="{{route('inicio')}}">Volver</a></a>
+    <a href="{{url('facturas/create')}}" class="btn btn-success btn-sm">Crear</a>
+    <a href="{{route('inicio')}}" class="btn btn-primary btn-sm">Inicio</a></a>
 </div>
 
 @endsection

@@ -73,16 +73,11 @@
 			</div>
 			<div class="col-lg-2">
 				<div class="form-group">
-					<label for="stock"><strong>Precio de compra</strong></label>
+					<label for="stock"><strong>Precio de Venta</strong></label>
 					<input type="number" value=""  name="precio" id="precio" class="form-control" placeholder="Precio de compra" >
 				</div>
 			</div>
-			<div class="col-lg-2">
-				<div class="form-group">
-					<label for="stock"><strong>Descripcion</strong></label>
-					<input type="text" value="" name="descripcion" id="descripcion" class="form-control" placeholder="Descripcion" >
-				</div>
-			</div>
+		
 			<div class="col-lg-1">
 				<div class="form-group">
             
@@ -101,8 +96,7 @@
     <th>id</th>
     <th>cantidad</th>
     <th>Precio</th>
-    <th>Descripcion</th>
-    <th>Nombre</th>
+    <th>Nombre Poducto</th>
     </tr> 
 
     @foreach($detalles as $detalle)
@@ -110,9 +104,12 @@
     <tr>
            <td>{{$detalle['id']}}</td>
            <td>{{$detalle['cantidad']}}</td>
-           <td>{{$detalle['precio']}}</td> 
-           <td>{{$detalle['descripcion']}}</td> 
-           <td>{{$detalle['producto_id']}}</td>
+           <td>{{$detalle['precio']}}</td>  
+           @foreach($productos as $producto)
+           @if($producto['id'] == $detalle['producto_id'])
+           <td>{{$producto['nombre']}}</td>
+           @endif
+           @endforeach
      
            
     </tr>

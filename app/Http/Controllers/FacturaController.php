@@ -14,6 +14,7 @@ use App\Models\emisor;
 use SoapClient;
 use SoapFault;
 Use Exception;
+use Carbon\Carbon;
 
 class FacturaController extends Controller
 {
@@ -34,9 +35,14 @@ class FacturaController extends Controller
     public function create()
     {
 
+        $fechaActual = Carbon::now();
+        $anioActual = $fechaActual->year;
+        $fechaActual = $fechaActual->toDateString();
+
         $clientes = Cliente::all();
         $emisores = emisor::all();
-        return view('factura\crearFactura', compact('clientes','emisores'));
+
+        return view('factura\crearFactura', compact('clientes','emisores','fechaActual','anioActual'));
     }
 
     /**
@@ -46,7 +52,7 @@ class FacturaController extends Controller
     {
         $factura = new Factura();
 
-
+        $numero  =  $request->input('numero');
         $factura->ejercicio = $request->input('ejercicio');
         $factura->serie = $request->input('serie');
         $factura->numero = $request->input('numero');
@@ -60,7 +66,7 @@ class FacturaController extends Controller
         $factura->emisor_id = $request->input('emisor_id');
         $factura->save();
 
-        return view("factura\mensageFactura", ['msg' => "Factura: $factura->numero guardada"]);
+        return view("factura\mensageFactura", ['msg' => "Factura: $factura->numero guardada"], compact('numero'));
     }
 
     /**

@@ -14,6 +14,9 @@
          <th>Nombre</th>
          <th>CIF</th>
          <th>Provincia</th>
+         <th>Codigo Postal</th>
+         <th>Poblacion</th>
+         <th>Email</th>
          <th>Telefono</th>
          <th>Dirección</th>
          <th>Eliminar</th>
@@ -27,6 +30,9 @@
          <td>{{$emisor['nombre']}}</td>
          <td>{{$emisor['CIF']}}</td>
          <td>{{$emisor['provincia']}}</td>
+         <td>{{$emisor['CodigoPostal']}}</td>
+         <td>{{$emisor['poblacion']}}</td>
+         <td>{{$emisor['email']}}</td>
          <td>{{$emisor['telefono']}}</td>
          <td>{{$emisor['Direccion']}}</td>
     
@@ -47,8 +53,7 @@
 
    </table>
 
-   <a href="{{url('emisors/create')}}" class="btn btn-primary btn-sm">Crear</a>
-   <a href="{{route('facturas.index')}}" class="btn btn-primary btn-sm">Facturas</a>
+   <a href="{{url('emisors/create')}}" class="btn btn-success btn-sm">Crear</a>
    <a href="{{route('inicio')}}" class="btn btn-primary btn-sm">Volver</a></a>
 </div>
 

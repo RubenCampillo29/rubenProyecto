@@ -17,8 +17,8 @@ class DetalleFacturaController extends Controller
     {
 
         $detalles = Detalle_Factura::all();
-        //$cliente = Cliente::all();
-        return view('detalleFactura.mostrarDetalle')->with('detalles',$detalles);
+        $productos = Producto::all();
+        return view('detalleFactura.mostrarDetalle', compact('detalles','peodutos'));
 
     }
 
@@ -41,7 +41,6 @@ class DetalleFacturaController extends Controller
         $detalle->cantidad = $request->input('cantidad');
         $detalle->precio = $request->input('precio');
         $detalle->producto_id = $request->input('product_id');
-        $detalle->descripcion = $request->input('descripcion');
         $detalle->ejercicio_fact = $request->input('ejercicio');
         $detalle->serie_fact = $request->input('serie');
         $detalle->numero_fact = $request->input('numero');

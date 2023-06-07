@@ -51,6 +51,9 @@ class ClienteController extends Controller
        $cliente->cif = $request->input('cif');
        $cliente->nombre = $request->input('nombre');
        $cliente->provincia = $request->input('provincia');
+       $cliente->poblacion = $request->input('poblacion');
+       $cliente->CodigoPostal = $request->input('CodigoPostal');
+       $cliente->email = $request->input('email');
        $cliente->telefono = $request->input('telefono');
        $cliente->direccion = $request->input('direccion');
        $cliente->req = $request->input('req');
@@ -90,6 +93,9 @@ class ClienteController extends Controller
         $cliente->provincia = $request->input('provincia');
         $cliente->telefono = $request->input('telefono');
         $cliente->direccion = $request->input('direccion');
+        $cliente->poblacion = $request->input('poblacion');
+        $cliente->CodigoPostal = $request->input('CodigoPostal');
+        $cliente->email = $request->input('email');
         $cliente->req = $request->input('req');
         $cliente->save();
  

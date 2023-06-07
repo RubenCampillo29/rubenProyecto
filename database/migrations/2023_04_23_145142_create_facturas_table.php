@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('facturas', function (Blueprint $table) {
 
-            //$table->id()->integer()->autoIncrement('id'); //Cuando vuelva a migrar debo de provar con in id
-            
+            //$table->id(); 
             $table->unsignedBigInteger('ejercicio');
             $table->string('serie',4);
             $table->unsignedBigInteger('numero')->unique(); 
@@ -30,13 +29,12 @@ return new class extends Migration
             //Clave ajena Usuario.
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
-            //Clave primaria.
-            $table->primary(['ejercicio', 'serie', 'numero'], 'ref_factura');
-            $table->timestamps();
             //Clave ajena emisor
             $table->unsignedBigInteger('emisor_id')->nullable();
             $table->foreign('emisor_id')->references('id')->on('emisors')->onDelete('set null');
-            
+            //Clave primaria.
+            $table->primary(['ejercicio', 'serie', 'numero' ], 'ref_factura');
+            $table->timestamps();
 
 
 
