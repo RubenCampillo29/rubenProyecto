@@ -31,7 +31,6 @@
         </div>
       </div>
 
-
       <div class="mb-3 row">
         <label for="col-sm-2 col-form-label"><strong>Cliente</strong></label>
         <div class="col-sm-5">
@@ -44,12 +43,14 @@
         </div>
       </div>
 
+
       <div class="mb-3 row">
         <label for="ejercicio" class="col-sm-2 col-form-label"><strong>Ejercicio</strong></label>
         <div class="col-sm-5">
           <input type="text" class="form-control" name="ejercicio" id="ejercicio" value="{{ $anioActual}}" required>
         </div>
       </div>
+
 
       <div class="mb-3 row">
         <label for="serie" class="col-sm-2 col-form-label"><strong>Serie</strong></label>
@@ -58,6 +59,7 @@
         </div>
       </div>
 
+
       <div class="mb-3 row">
         <label for="numero" class="col-sm-2 col-form-label"><strong>Numero</strong></label>
         <div class="col-sm-5">
@@ -65,12 +67,14 @@
         </div>
       </div>
 
+
       <div class="mb-3 row">
         <label for="fecha_emision" class="col-sm-2 col-form-label"><strong>Fecha de emision</strong></label>
         <div class="col-sm-5">
           <input type="date" class="form-control" name="fecha_emision" id="fecha_emision" value="{{ $fechaActual }}">
         </div>
       </div>
+
 
       <label for="IVA" class="col-sm-2 col-form-label"><strong>IVA %</strong></label>
       <div class="col-sm-10">
@@ -82,9 +86,6 @@
         </select>
       </div>
 
-
-   
-
       <label for="REQ" class="col-sm-2 col-form-label"><strong>Recargo (REQ)</strong></label>
       <div class="col-sm-10">
         <select name="REQ" id="REQ">
@@ -94,8 +95,6 @@
           <option value="5.2">5.2</option>
         </select>
       </div>
-
-
 
 
       <div class="mb-3 row">
@@ -123,7 +122,6 @@
       </div>
 
   
-
       <button type="submit" class="btn btn-success">Guardar</button>
       <a href="{{url('facturas')}}" class="btn btn-secondary">Regresar</a>
     </form>

@@ -66,7 +66,9 @@ class FacturaController extends Controller
         $factura->emisor_id = $request->input('emisor_id');
         $factura->save();
 
-        return view("factura\mensageFactura", ['msg' => "Factura: $factura->numero guardada"], compact('numero'));
+        $id = $factura->id;
+
+        return view("factura\mensageFactura", ['msg' => "Factura: $factura->numero guardada"], compact('id'));
     }
 
     /**
@@ -80,12 +82,11 @@ class FacturaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($numero)
+    public function edit($id)
     {   $emisores = emisor::all();
         $clientes = Cliente::all();
-        $factura = Factura::where('numero', $numero)->get();
-
-
+        $factura = Factura::find($id);
+        
 
         return view('factura.editf', compact('clientes','factura','emisores'));
     }
@@ -93,32 +94,24 @@ class FacturaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-
-        $factura = Factura::where('ejercicio', $request->get('ejercicio'))
-            ->where('numero', $request->get('numero'))
-            ->where('serie', $request->get('serie'))
-            ->get();
-
-
-        Factura::where('ejercicio', $request->input('ejercicio'))
-            ->where('serie', $request->input('serie'))
-            ->where('numero', $request->input('numero'))
-            ->update([
-                'ejercicio' => $request->input('ejercicio'),
-                'serie' => $request->input('serie'),
-                'numero' => $request->input('numero'),
-                'fecha_emision' => $request->input('fecha_emision'),
-                'IVA' => $request->input('IVA'),
-                'REQ' => $request->input('REQ'),
-                'observaciones' => $request->input('observaciones'),
-                'enviada' => $request->input('enviada'),
-                'user_id' => $request->input('user_id'),
-                'cliente_id' => $request->input('cliente_id'),
-                'emisor_id' => $request->input('emisor_id')
-            ]);
-
+         
+        $factura = Factura::find($id);
+        
+        $factura->numero  =  $request->input('numero');
+        $factura->ejercicio = $request->input('ejercicio');
+        $factura->serie = $request->input('serie');
+        $factura->numero = $request->input('numero');
+        $factura->fecha_emision = $request->input('fecha_emision');
+        $factura->IVA = $request->input('IVA');
+        $factura->REQ = $request->input('REQ');
+        $factura->observaciones = $request->input('observaciones');
+        $factura->enviada = $request->input('enviada');
+        $factura->user_id = $request->input('user_id');
+        $factura->cliente_id = $request->input('cliente_id');
+        $factura->emisor_id = $request->input('emisor_id');
+        $factura->save();
 
 
         return view("factura\mensageFactura", ['msg' => "Factura: Actualidada con Exito"]);
@@ -130,8 +123,12 @@ class FacturaController extends Controller
     public function destroy($id)
     {
 
-        $factura = Factura::where('numero', $id)->delete();
+    
+        $factura = Factura::find($id);
+        $factura->delete();
         return redirect('facturas');
+
+
     }
 
     public function clientes($id)
@@ -143,10 +140,10 @@ class FacturaController extends Controller
     public function factura($id)
     {
         $productos = Producto::all();
-        $detalles = Detalle_Factura::where('numero_fact', $id)->get();
-        $facturas = Factura::where('numero', $id)->get();
+        $detalles = Detalle_Factura::where('factura_id', $id)->get();
+        $factura = Factura::find($id);
 
-        return view('Factura\detalleFactura', compact('facturas', 'detalles', 'productos'));
+        return view('Factura\detalleFactura', compact('factura', 'detalles', 'productos'));
     }
 
     public function vistaEnviar()
@@ -210,11 +207,17 @@ class FacturaController extends Controller
     {
 
         $facturas = $request->get('facturas_check');
-        $numero =  $facturas[0];
-        $id_emisor = Factura::select('emisor_id')->where('numero', $numero)
-        ->get();
+        
+        $factura = Factura::find($facturas[0]);
 
-        $emisor = Emisor::find($id_emisor);
+        $numero = $factura->emisor_id;
+      
+
+        //$id_emisor = Factura::select('emisor_id')->where('emisor_id', $numero)->get();
+
+        $emisor = Emisor::find($numero);
+
+       
 
         //dd($emisor);
 
@@ -246,38 +249,38 @@ class FacturaController extends Controller
 
 
         $titular = $cabecera->addChild('sii:Titular');
-        $titular->addChild('sii:NombreRazon', $emisor[0]->nombre);
-        $titular->addChild('sii:NIF', $emisor[0]->CIF);
+        $titular->addChild('sii:NombreRazon', $emisor->nombre);
+        $titular->addChild('sii:NIF', $emisor->CIF);
 
         $cabecera->addChild('sii:TipoComunicacion', 'A0');
 
         for ($i = 0; $i < $iterador; $i++) {
 
-            $factura = Factura::where('numero', $facturas[$i])->get();
+            $factura = Factura::find($facturas[$i]);
 
             //Cliente correspondiente a la factura
-            $cliente = Cliente::find($factura[0]->cliente_id);
+            $cliente = Cliente::find($factura->cliente_id);
 
             //Delle de la factura
-            $baseImponible = $this::obtenerTotal($factura[0]->numero);
+            $baseImponible = $this::obtenerTotal($factura->id);
 
-            if ($factura[0]->IVA) {
+            if ($factura->IVA) {
 
-                $cuotaIva = $baseImponible * ($factura[0]->IVA / 100);
+                $cuotaIva = $baseImponible * ($factura->IVA / 100);
                 $total =  $baseImponible + $cuotaIva;
             }
 
             $registroLRFacturasEmitidas = $suministroLRFacturasEmitidas->addChild('siiLR:RegistroLRFacturasEmitidas');
 
             $periodoLiquidacion = $registroLRFacturasEmitidas->addChild('sii:PeriodoLiquidacion', null, 'sii');
-            $periodoLiquidacion->addChild('sii:Ejercicio', $factura[0]->ejercicio);
-            $periodoLiquidacion->addChild('sii:Periodo', $factura[0]->serie);
+            $periodoLiquidacion->addChild('sii:Ejercicio', $factura->ejercicio);
+            $periodoLiquidacion->addChild('sii:Periodo', $factura->serie);
 
             $idFactura = $registroLRFacturasEmitidas->addChild('siiLR:IDFactura');
             $idEmisorFactura = $idFactura->addChild('sii:IDEmisorFactura', null, 'sii');
-            $idEmisorFactura->addChild('sii:NIF', $emisor[0]->CIF, 'sii');
-            $idFactura->addChild('sii:NumSerieFacturaEmisor', $factura[0]->numero, 'sii');
-            $idFactura->addChild('sii:FechaExpedicionFacturaEmisor', $factura[0]->fecha_emision, 'sii');
+            $idEmisorFactura->addChild('sii:NIF', $emisor->CIF, 'sii');
+            $idFactura->addChild('sii:NumSerieFacturaEmisor', $factura->numero, 'sii');
+            $idFactura->addChild('sii:FechaExpedicionFacturaEmisor', $factura->fecha_emision, 'sii');
 
             $facturaExpedida = $registroLRFacturasEmitidas->addChild('siiLR:FacturaExpedida');
 
@@ -291,7 +294,7 @@ class FacturaController extends Controller
 
             if (!isset($cliente->REQ)) {
 
-            $cuotaReq = $baseImponible * ($factura[0]->REQ / 100);
+            $cuotaReq = $baseImponible * ($factura->REQ / 100);
 
              $total = $total + $cuotaReq;
             
@@ -300,7 +303,7 @@ class FacturaController extends Controller
              $facturaExpedida->addChild('sii:ImporteTotal', $total, 'sii');
 
 
-            $facturaExpedida->addChild('sii:DescripcionOperacion', $factura[0]->Observaciones, 'sii');
+            $facturaExpedida->addChild('sii:DescripcionOperacion', $factura->Observaciones, 'sii');
 
             if (isset($cliente->nombre)) {
                 $contraparte =  $facturaExpedida->addChild('sii:Contraparte', null, 'sii');
@@ -317,27 +320,25 @@ class FacturaController extends Controller
             $DetalleIVA = $DesgloseIVA->addChild('sii:DetalleIVA');
 
 
-            $DetalleIVA->addChild('sii:TipoImpositivo', $factura[0]->IVA);
+            $DetalleIVA->addChild('sii:TipoImpositivo', $factura->IVA);
             $DetalleIVA->addChild('sii:BaseImponible', $baseImponible);
             $DetalleIVA->addChild('sii:CuotaRepercutida', $cuotaIva);
 
             if (isset($cliente->REQ)) {
 
-                $cuotaReq = $baseImponible * ($factura[0]->REQ / 100);
+                $cuotaReq = $baseImponible * ($factura->REQ / 100);
 
-                $DetalleIVA->addChild('sii:TipoRecargoEquivalencia', $factura[0]->REQ);
+                $DetalleIVA->addChild('sii:TipoRecargoEquivalencia', $factura->REQ);
                 $DetalleIVA->addChild('sii:CuotaRecargoEquivalencia', $cuotaReq);
             }
         }
 
 
-        $xmlString = $xml->asXML();
+       $xmlString = $xml->asXML();
 
    
         try {
-            
-            
-            
+                
             $client = new SoapClient('https://www7.aeat.es/wlpl/SSII-FACT/ws/fe/SiiFactFEV1SOAP');
         
             $response = $client->__soapCall('EnviarDatos', ['datosEnvio' => ['xml' => $xmlString]]);
@@ -361,12 +362,12 @@ class FacturaController extends Controller
     }
 
 
-    public static function obtenerTotal($numero)
+    public static function obtenerTotal($id)
     {
 
         $total = 0;
 
-        $resultados = Detalle_Factura::where('numero_fact', $numero)->get();
+        $resultados = Detalle_Factura::where('factura_id', $id)->get();
 
         foreach ($resultados as $resultado) {
 

@@ -20,14 +20,20 @@ return new class extends Migration
             $table->foreign('producto_id')->references('id')->on('productos');
 
             //Clave ajena factura
-            $table->unsignedBigInteger('ejercicio_fact');
-            $table->string('serie_fact',5);
-            $table->unsignedBigInteger('numero_fact');
-            $table->foreign(['ejercicio_fact', 'serie_fact','numero_fact'])
-            ->references(['ejercicio','serie','numero'])
-            ->on('facturas')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
+            $table->unsignedBigInteger('factura_id');
+            $table->foreign('factura_id')->references('id')->on('facturas');
+
+
+
+
+           // $table->unsignedBigInteger('ejercicio_fact');
+           // $table->string('serie_fact',5);
+           // $table->unsignedBigInteger('numero_fact');
+           // $table->foreign(['ejercicio_fact', 'serie_fact','numero_fact'])
+          //  ->references(['ejercicio','serie','numero'])
+           // ->on('facturas')
+          //  ->onDelete('cascade')
+          //  ->onUpdate('cascade');
 
 
 

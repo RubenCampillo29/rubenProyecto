@@ -11,7 +11,7 @@
 
     <table border=2>
     <tr>
-    
+    <th>id</th>
     <th>Ejercicio</th>
     <th>Serie</th>
     <th>Numero</th>
@@ -30,7 +30,7 @@
     @foreach($facturas as $factura)
 
     <tr>
-             
+          <td>{{$factura['id']}}</td>
            <td>{{$factura['ejercicio']}}</td>
            <td>{{$factura['serie']}}</td>
            <td>{{$factura['numero']}}</td> 
@@ -55,10 +55,10 @@
            @endforeach
 
 
-           <td><a href="{{ route('factura.detalle', $factura['numero'])}}"class="btn btn-primary btn-sm" >Ver</a></td>
-           <td><a href="{{ url('facturas/'.$factura['numero'].'/edit') }}" class="btn btn-warning btn-sm">Editar</a></td>
+           <td><a href="{{ route('factura.detalle', $factura['id'])}}"class="btn btn-primary btn-sm" >Ver</a></td>
+           <td><a href="{{ url('facturas/'.$factura['id'].'/edit') }}" class="btn btn-warning btn-sm">Editar</a></td>
            <td>
-            <form action="{{ url('facturas/'.$factura->numero) }}" method="post" >
+            <form action="{{ url('facturas/'.$factura->id) }}" method="post" >
             @method("DELETE")
             @csrf
             <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>

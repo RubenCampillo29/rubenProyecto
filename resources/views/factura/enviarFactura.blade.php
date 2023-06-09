@@ -73,6 +73,7 @@
                                 <th><i class="bi bi-check2">Seleccionar</i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
                                         <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
                                     </svg></th>
+                                <th>id</th>
                                 <th>Ref Factura</th>
                                 <th>Fecha de emision</th>
                                 <th>IVA %</th>
@@ -91,9 +92,10 @@
                                     @if($factura['enviada'] == 1)
 
                                     @else
-                                    <input type="checkbox" name="facturas_check[]" value="{{ $factura['numero'] }}">
+                                    <input type="checkbox" name="facturas_check[]" value="{{ $factura['id'] }}">
                                     @endif
                                 </td>
+                                <td>{{$factura['id']}}</td>
                                 <td>{{$factura['ejercicio']. '-' .$factura['serie']. '-' .$factura['numero']}}</td>
                                 <td>{{$factura['fecha_emision']}}</td>
                                 <td>{{$factura['IVA']}}</td>

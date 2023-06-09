@@ -41,13 +41,12 @@ class DetalleFacturaController extends Controller
         $detalle->cantidad = $request->input('cantidad');
         $detalle->precio = $request->input('precio');
         $detalle->producto_id = $request->input('product_id');
-        $detalle->ejercicio_fact = $request->input('ejercicio');
-        $detalle->serie_fact = $request->input('serie');
-        $detalle->numero_fact = $request->input('numero');
+        $detalle->factura_id = $request->input('id');
+      
         $detalle->save();
 
 
-        return redirect()->route('factura.detalle', $detalle['numero_fact']);
+        return redirect()->route('factura.detalle', $detalle['factura_id']);
         
         
     }
@@ -79,8 +78,13 @@ class DetalleFacturaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+    
+     $detalle = Detalle_Factura::find($id);
+     $detalle->delete();
+     return redirect('facturas');
+
+
     }
 }

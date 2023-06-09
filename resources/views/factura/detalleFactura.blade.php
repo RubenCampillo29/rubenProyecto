@@ -20,26 +20,26 @@
     <th>id Cliente</th>
     </tr> 
 
-    @foreach($facturas as $factura)
+   
 
     <tr>     
-           <td>{{$factura['ejercicio']}}</td>
-           <td>{{$factura['serie']}}</td>
-           <td>{{$factura['numero']}}</td> 
-           <td>{{$factura['fecha_emision']}}</td>
-           <td>{{$factura['IVA']}}</td>
-           <td>{{$factura['REQ']}}</td>
-           <td>{{$factura['Observaciones']}}</td>
-            @if($factura['enviada'] == 1)
+           <td>{{ $factura->ejercicio }}</td>
+           <td>{{$factura->serie}}</td>
+           <td>{{$factura->numero}}</td> 
+           <td>{{$factura->fecha_emision}}</td>
+           <td>{{$factura->IVA }}</td>
+           <td>{{$factura->REQ }}</td>
+           <td>{{$factura->Observaciones }}</td>
+            @if($factura->enviada == 1)
                <td>si</td>
             @else
                <td>no</td>
             @endif
-           <td>{{$factura['cliente_id']}}</td>
+           <td>{{ $factura->cliente_id }}</td>
 
     </tr>
     
-    @endforeach
+  
 
     </table>
     </div>
@@ -47,14 +47,11 @@
     <div class="row">
 			<div class="col-lg-5 grid-margin grid-margin-lg-0">
 				<div class="form-group">
-            <form action="{{url('DetalleFacturas')}}" method="post">
+            <form action="{{ url('DetalleFacturas')}}" method="post">
 
                 @csrf  
-                @foreach($facturas as $factura)
-                <input type="hidden" value="{{$factura['ejercicio']}}" name="ejercicio" id="ejercicio" class="form-control"  >
-                <input type="hidden" value="{{$factura['serie']}}" name="serie" id="serie" class="form-control"  >
-                <input type="hidden" value="{{$factura['numero']}}" name="numero" id="numero" class="form-control"  >
-                @endforeach
+               
+                <input type="hidden" value="{{$factura->id }}" name="id" id="id" class="form-control"  >
 
 					<label for="name"><strong>Buscar Producto</strong></label>
                     <select class="form-control form-control-lg" name="product_id" id="product_id">
@@ -97,19 +94,27 @@
     <th>cantidad</th>
     <th>Precio</th>
     <th>Nombre Poducto</th>
+    <th>Eliminar</th>
     </tr> 
 
     @foreach($detalles as $detalle)
 
     <tr>
            <td>{{$detalle['id']}}</td>
-           <td>{{$detalle['cantidad']}}</td>
-           <td>{{$detalle['precio']}}</td>  
+           <td>{{$detalle['cantidad']}}-unidades</td>
+           <td>{{$detalle['precio']}}€</td>  
            @foreach($productos as $producto)
            @if($producto['id'] == $detalle['producto_id'])
            <td>{{$producto['nombre']}}</td>
            @endif
            @endforeach
+           <td>
+            <form action="{{ url('DetalleFacturas/'.$detalle->id) }}" method="post">
+               @method("DELETE")
+               @csrf
+               <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+            </form>
+         </td>
      
            
     </tr>

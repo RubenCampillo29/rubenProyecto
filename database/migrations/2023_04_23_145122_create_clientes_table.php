@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('CIF',40);
             $table->string('nombre',50);
             $table->string('provincia',50)->nullable();
+            $table->string('CodigoPostal',50)->nullable();
+            $table->string('poblacion',50)->nullable();
+            $table->string('email',50)->nullable();
             $table->string('telefono',30)->nullable();
             $table->string('Direccion',30)->nullable();
             $table->boolean('REQ')->nullable()->default(0.50);

@@ -101,7 +101,6 @@ class ClienteController extends Controller
  
         return view("cliente\mensageCliente", ['msg' => "Cliente $cliente->nombre Actualizado con exito"]);
 
-
     }
 
     /**
@@ -113,8 +112,6 @@ class ClienteController extends Controller
      $cliente = Cliente::find($id);
      $cliente->delete();
      return redirect('clientes');
-
-
 
     }
 }

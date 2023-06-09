@@ -28,11 +28,14 @@ use App\Http\Controllers\EmisorController;
 Route::resource('/clientes',ClienteController::class);
 
 
+//Rutas Detalle
+Route::resource('/DetalleFacturas',DetalleFacturaController::class);
+
 //Rutas factura
 
 Route::resource('/facturas',FacturaController::class);
 Route::get('cliente/facturas/{id}',[FacturaController::class,'clientes'])->name('cliente.facturas');
-Route::get('cliente/factura{id}',[FacturaController::class,'factura'])->name('factura.detalle');
+Route::get('cliente/factura/{id}',[FacturaController::class,'factura'])->name('factura.detalle');
 Route::get('factura/enviar',[FacturaController::class,'vistaEnviar'])->name('factura.enviar');
 
 Route::post('factura/seleccionadas',[FacturaController::class,'seleccionadas'])->name('factura.seleccion');
@@ -43,8 +46,7 @@ Route::post('factura/datos',[FacturaController::class,'datosEnviar'])->name('dat
 Route::get('/productos',[ProductoController::class, 'index'])->name('productos.index');
 
 
-//Rutas Detalle
-Route::resource('/DetalleFacturas',DetalleFacturaController::class);
+
 
 
 //Rutas Emisor
