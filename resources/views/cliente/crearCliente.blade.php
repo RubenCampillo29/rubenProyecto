@@ -32,6 +32,7 @@
         </div>      
     </div>
 
+    
     <div class="mb-3 row">
        <label for="poblacion" class="col-sm-2 col-form-label"><strong>Poblacion</strong></label>
         <div class="col-sm-5">

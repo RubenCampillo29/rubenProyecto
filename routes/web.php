@@ -46,6 +46,7 @@ Route::post('factura/datos',[FacturaController::class,'datosEnviar'])->name('dat
 Route::get('/productos',[ProductoController::class, 'index'])->name('productos.index');
 
 
+Route::resource('/productos',ProductoController::class);
 
 
 

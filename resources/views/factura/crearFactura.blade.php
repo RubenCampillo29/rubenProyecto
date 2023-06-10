@@ -43,6 +43,7 @@
         </div>
       </div>
 
+   
 
       <div class="mb-3 row">
         <label for="ejercicio" class="col-sm-2 col-form-label"><strong>Ejercicio</strong></label>
@@ -85,7 +86,8 @@
           <option value="21">21</option>
         </select>
       </div>
-
+ 
+    
       <label for="REQ" class="col-sm-2 col-form-label"><strong>Recargo (REQ)</strong></label>
       <div class="col-sm-10">
         <select name="REQ" id="REQ">

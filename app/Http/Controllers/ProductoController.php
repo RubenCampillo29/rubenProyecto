@@ -22,7 +22,9 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        //
+        
+        return view('productos\crearProducto'); 
+
     }
 
     /**
@@ -30,7 +32,20 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+      
+        $producto = new Producto();
+      
+
+        $producto->nombre = $request->input('nombre');
+        $producto->precio = $request->input('precio');
+        $producto->descripcion = $request->input('descripcion');
+        $producto->save();
+ 
+        return view("productos\mensageProducto", ['msg' => "Producto $producto->nombre Creado"]);
+
+
+
     }
 
     /**
@@ -44,24 +59,44 @@ class ProductoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Producto $producto)
+    public function edit($id)
     {
-        //
+
+        $producto = Producto::find($id);
+        return view('productos\editProducto',compact('producto')); 
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Producto $producto)
+    public function update(Request $request, $id)
     {
-        //
+        
+
+        $producto = Producto::find($id);
+      
+
+        $producto->nombre = $request->input('nombre');
+        $producto->precio = $request->input('precio');
+        $producto->descripcion = $request->input('descripcion');
+        $producto->save();
+ 
+        return view("productos\mensageProducto", ['msg' => "Producto $producto->nombre Editado"]);
+
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Producto $producto)
+    public function destroy($id)
     {
-        //
+        
+        $producto = Producto::find($id);
+        $producto->delete();
+        return view("productos\mensageProducto", ['msg' => "Producto $producto->nombre eliminado"]);
+
+
+
     }
 }
