@@ -6,6 +6,9 @@ use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\DetalleFacturaController;
 use App\Http\Controllers\EmisorController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\AuthenticatedSessionController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,19 +22,35 @@ use App\Http\Controllers\EmisorController;
 
 //Route::get('/', function () {
     
-  //  return view('layouts.welcome');
+  //  return view('welcome');
 
 //});
 
-//Rutas cliente
+//Rutas Login---------------------
+
+Route::view('/register', 'auth.register')->name('register');
+
+Route::view('/login', 'auth.login')->name('login');
+
+Route::post('/register', [RegisteredUserController::class, 'store']);
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+//-------------------------------------------------
+
+
+Route::view('/', 'welcome')->name('inicio');
+
+
+//Rutas cliente-----------
 
 Route::resource('/clientes',ClienteController::class);
 
 
-//Rutas Detalle
+//Rutas Detalle--------
 Route::resource('/DetalleFacturas',DetalleFacturaController::class);
 
-//Rutas factura
+//Rutas factura--------------
 
 Route::resource('/facturas',FacturaController::class);
 Route::get('cliente/facturas/{id}',[FacturaController::class,'clientes'])->name('cliente.facturas');
@@ -42,19 +61,12 @@ Route::post('factura/seleccionadas',[FacturaController::class,'seleccionadas'])-
 
 Route::post('factura/datos',[FacturaController::class,'datosEnviar'])->name('datos.enviar');
 
-//Rutas Producto
+//Rutas Producto--------
 Route::get('/productos',[ProductoController::class, 'index'])->name('productos.index');
 
 
 Route::resource('/productos',ProductoController::class);
 
-
-
-//Rutas Emisor
+//Rutas Emisor---------
 Route::resource('/emisors',EmisorController::class);
 
-
-
-
-
-Route::view('/', 'welcome')->name('inicio');

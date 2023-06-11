@@ -11,6 +11,14 @@
     }
 </style>
 
+@guest
+<a href="{{route('register')}}">Registro</a>
+<a href="{{route('login')}}">Login</a>
+@else
+
+<h4>{{Auth::user()->name}}</h4>
+
+
 <nav class="d-flex justify-content-center">
     <div class="row">
         <div class="col-md-6">
@@ -48,24 +56,24 @@
             </div>
         </div>
 
-                  
+
 </nav>
 
 <nav class="d-flex justify-content-center">
 
-<div class="col-md-2">
-            <div class="card" style="width: 16rem;">
-                <img src="{{ asset('images/productos.webp') }}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Enviar</h5>
-                    <p class="card-text"></p>
-                    <a href="{{ route('factura.enviar')}}" class="btn btn-primary">ver</a>
-                </div>
+    <div class="col-md-2">
+        <div class="card" style="width: 16rem;">
+            <img src="{{ asset('images/productos.webp') }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Enviar</h5>
+                <p class="card-text"></p>
+                <a href="{{ route('factura.enviar')}}" class="btn btn-primary">ver</a>
             </div>
         </div>
     </div>
+    </div>
 
-    
+
     <div class="row">
         <div class="col-md-2">
             <div class="card" style="width: 16rem;">
@@ -83,4 +91,11 @@
 
 </nav>
 
-
+@endguest
+@auth
+<form action="{{route('logout')}}" method="POST">
+    @csrf
+    <button class="button">Logout</button>
+</form>
+@endauth
+</div>
