@@ -1,42 +1,48 @@
 @extends('layouts.app')
 @section('content')
 
-<h1>Registro</h1>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h1 class="text-center">Registro</h1>
 
-<form action="{{ route('register') }}" method="POST">
-    @csrf 
-    <div>
-        <label>
-            <span>Name</span>
-            <input autofocus="autofocus" type="text" name="name" value=" {{ old('name') }}">
-            @error('name')
-                <small>{{ $message }}</small>
-            @enderror
-        </label>
+            <form action="{{ route('register') }}" method="POST">
+                @csrf
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name" class="form-control" autofocus value="{{ old('name') }}">
+                    @error('name')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
 
-        <label>
-            <span>Email</span>
-            <input type="email" name="email" value=" {{ old('email') }}">
-            @error('email')
-                <small>{{ $message }}</small>
-            @enderror
-        </label>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}">
+                    @error('email')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
 
-        <label>
-            <span>Password</span>
-            <input type="password" name="password" value=" {{ old('password') }}">
-            @error('password')
-                <small>{{ $message }}</small>
-            @enderror
-        </label>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" class="form-control" value="{{ old('password') }}">
+                    @error('password')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
 
-      
-
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+                
+                <p class="text-center mt-3">
+                    <a href="{{ route('login') }}" class="btn btn-link">Login</a>
+                </p>
+            </form>
+        </div>
     </div>
+</div>
 
-    <a href=" {{ route('login') }}">Login</a>
-    <button type="submit">Register</button>
-
-</form>
 
 @endsection
