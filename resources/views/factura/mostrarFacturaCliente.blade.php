@@ -3,8 +3,11 @@
 
 @extends('layouts.app')
 @section('content')
-<h1>Facturas</h1>
-
+<div class="container">
+<div class="rounded border border-primary bg-info">
+      <h1>Facturas de {{ $cliente->nombre }}</h1>
+   </div>
+</div>
 <div>
     <table border=2>
     <tr>
@@ -16,8 +19,7 @@
     <th>REQ</th>
     <th>Observaciones</th>
     <th>Enviada</th>
-    <th>id Usuario</th>
-    <th>id Cliente</th>
+    
     </tr> 
 
     @foreach($facturas as $factura)
@@ -35,8 +37,8 @@
             @else
                <td>no</td>
             @endif
-           <td>{{$factura['user_id']}}</td>
-           <td>{{$factura['cliente_id']}}</td>
+         
+          
          
 
     </tr>

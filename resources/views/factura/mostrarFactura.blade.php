@@ -21,7 +21,7 @@
     <th>Observaciones</th>
     <th>Enviada</th>
     <th>Emisor</th>
-    <th>Nombre</th>
+    <th>Cliente</th>
     <th>Detalle </th>
     <th>Editar</th>
     <th>Eliminar</th>

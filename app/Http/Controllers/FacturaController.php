@@ -87,7 +87,6 @@ class FacturaController extends Controller
         $clientes = Cliente::all();
         $factura = Factura::find($id);
         
-
         return view('factura.editf', compact('clientes','factura','emisores'));
     }
 
@@ -133,8 +132,9 @@ class FacturaController extends Controller
 
     public function clientes($id)
     {
-        $factura = Factura::where('cliente_id', $id)->get();
-        return view('factura\mostrarFacturaCliente')->with('facturas', $factura);
+        $facturas = Factura::where('cliente_id', $id)->get();
+        $cliente = Cliente::find($id);
+        return view('factura\mostrarFacturaCliente', compact('facturas','cliente'));
     }
 
     public function factura($id)
