@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\emisor;
 use SoapClient;
 use SoapFault;
-Use Exception;
+use Exception;
 use Carbon\Carbon;
 
 class FacturaController extends Controller
@@ -22,11 +22,11 @@ class FacturaController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    { 
+    {
         $emisores = emisor::all();
         $facturas  =  Factura::all();
         $clientes = Cliente::all();
-        return view('factura\mostrarFactura', compact('facturas','clientes','emisores'));
+        return view('factura\mostrarFactura', compact('facturas', 'clientes', 'emisores'));
     }
 
     /**
@@ -42,7 +42,7 @@ class FacturaController extends Controller
         $clientes = Cliente::all();
         $emisores = emisor::all();
 
-        return view('factura\crearFactura', compact('clientes','emisores','fechaActual','anioActual'));
+        return view('factura\crearFactura', compact('clientes', 'emisores', 'fechaActual', 'anioActual'));
     }
 
     /**
@@ -52,11 +52,12 @@ class FacturaController extends Controller
     {
         $factura = new Factura();
 
+
         $numero  =  $request->input('numero');
         $factura->ejercicio = $request->input('ejercicio');
         $factura->serie = $request->input('serie');
         $factura->numero = $request->input('numero');
-        $factura->fecha_emision = $request->input('fecha_emision');
+        $factura->fecha_emision = $request->input('fecha_emision');;
         $factura->IVA = $request->input('IVA');
         $factura->REQ = $request->input('REQ');
         $factura->observaciones = $request->input('observaciones');
@@ -83,11 +84,12 @@ class FacturaController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit($id)
-    {   $emisores = emisor::all();
+    {
+        $emisores = emisor::all();
         $clientes = Cliente::all();
         $factura = Factura::find($id);
-        
-        return view('factura.editf', compact('clientes','factura','emisores'));
+
+        return view('factura.editf', compact('clientes', 'factura', 'emisores'));
     }
 
     /**
@@ -95,9 +97,9 @@ class FacturaController extends Controller
      */
     public function update(Request $request, $id)
     {
-         
+
         $factura = Factura::find($id);
-        
+
         $factura->numero  =  $request->input('numero');
         $factura->ejercicio = $request->input('ejercicio');
         $factura->serie = $request->input('serie');
@@ -122,19 +124,17 @@ class FacturaController extends Controller
     public function destroy($id)
     {
 
-    
+
         $factura = Factura::find($id);
         $factura->delete();
         return redirect('facturas');
-
-
     }
 
     public function clientes($id)
     {
         $facturas = Factura::where('cliente_id', $id)->get();
         $cliente = Cliente::find($id);
-        return view('factura\mostrarFacturaCliente', compact('facturas','cliente'));
+        return view('factura\mostrarFacturaCliente', compact('facturas', 'cliente'));
     }
 
     public function factura($id)
@@ -149,7 +149,7 @@ class FacturaController extends Controller
     public function vistaEnviar()
     {
         $emisores = emisor::all();
-        return view('factura\enviarFactura',compact('emisores'));
+        return view('factura\enviarFactura', compact('emisores'));
     }
 
     public static function sqldatos($desde, $hasta, $estado, $emisor)
@@ -183,23 +183,22 @@ class FacturaController extends Controller
         $desde = $request->get('fecha_desde');
         $hasta = $request->get('fecha_hasta');
         $estado = $request->get('estado');
-        $emisor = $request->get('emisor'); 
+        $emisor = $request->get('emisor');
 
 
 
         if ($estado != 2) {
 
             $facturas = $this::sqldatos($desde, $hasta, $estado, $emisor);
-
         } else {
 
-            $facturas = $this::sqldatosTodas($desde, $hasta ,$emisor);
+            $facturas = $this::sqldatosTodas($desde, $hasta, $emisor);
         }
 
         $clientes = Cliente::All();
         $emisores = Emisor::All();
 
-        return view('Factura\enviarFactura', compact('facturas', 'clientes','emisores'));
+        return view('Factura\enviarFactura', compact('facturas', 'clientes', 'emisores'));
     }
 
 
@@ -207,28 +206,28 @@ class FacturaController extends Controller
     {
 
         $facturas = $request->get('facturas_check');
-        
+
         $factura = Factura::find($facturas[0]);
 
         $numero = $factura->emisor_id;
-      
+
 
         //$id_emisor = Factura::select('emisor_id')->where('emisor_id', $numero)->get();
 
         $emisor = Emisor::find($numero);
 
-       
+
 
         //dd($emisor);
 
-         $xml = $this->transformarXML($facturas, $emisor);
+        $xml = $this->transformarXML($facturas, $emisor);
 
-        
+
         return view("factura\mensageFactura", ['msg' => "Facturas enviadas con exito"]);
     }
 
 
-    public function transformarXML($facturas ,$emisor)
+    public function transformarXML($facturas, $emisor)
     {
         $iterador = count($facturas);
 
@@ -242,7 +241,7 @@ class FacturaController extends Controller
 
         // Crear los elementos del XML
         $body = $xml->addChild('soapenv:Body');
-        $suministroLRFacturasEmitidas = $body->addChild('siiLR:SuministroLRFacturasEmitidas', null, 'siiR');
+        $suministroLRFacturasEmitidas = $body->addChild('siiLR:SuministroLRFacturasEmitidas', null, 'siiLR');
 
         $cabecera = $suministroLRFacturasEmitidas->addChild('sii:Cabecera', null, 'sii');
         $cabecera->addChild('sii:IDVersionSii', '1.1');
@@ -253,6 +252,8 @@ class FacturaController extends Controller
         $titular->addChild('sii:NIF', $emisor->CIF);
 
         $cabecera->addChild('sii:TipoComunicacion', 'A0');
+
+
 
         for ($i = 0; $i < $iterador; $i++) {
 
@@ -280,27 +281,30 @@ class FacturaController extends Controller
             $idEmisorFactura = $idFactura->addChild('sii:IDEmisorFactura', null, 'sii');
             $idEmisorFactura->addChild('sii:NIF', $emisor->CIF, 'sii');
             $idFactura->addChild('sii:NumSerieFacturaEmisor', $factura->numero, 'sii');
-            $idFactura->addChild('sii:FechaExpedicionFacturaEmisor', $factura->fecha_emision, 'sii');
+
+            $fechaInput = $factura->fecha_emision;
+            $fechaFormateada = date('d/m/Y', strtotime($fechaInput));
+
+            $idFactura->addChild('sii:FechaExpedicionFacturaEmisor', $fechaFormateada, 'sii');
 
             $facturaExpedida = $registroLRFacturasEmitidas->addChild('siiLR:FacturaExpedida');
 
-            if(!isset($cliente->nombre)) {
-                $facturaExpedida->addChild('sii:TipoFactura', 'F1', 'sii');
-            } else {
+            if (!isset($cliente->nombre)) {
                 $facturaExpedida->addChild('sii:TipoFactura', 'F2', 'sii');
+            } else {
+                $facturaExpedida->addChild('sii:TipoFactura', 'F1', 'sii');
             }
 
             $facturaExpedida->addChild('sii:ClaveRegimenEspecialOTrascendencia', '01', 'sii');
 
             if (!isset($cliente->REQ)) {
 
-            $cuotaReq = $baseImponible * ($factura->REQ / 100);
+                $cuotaReq = $baseImponible * ($factura->REQ / 100);
 
-             $total = $total + $cuotaReq;
-            
+                $total = $total + $cuotaReq;
             }
 
-             $facturaExpedida->addChild('sii:ImporteTotal', $total, 'sii');
+            $facturaExpedida->addChild('sii:ImporteTotal', $total, 'sii');
 
 
             $facturaExpedida->addChild('sii:DescripcionOperacion', $factura->Observaciones, 'sii');
@@ -332,31 +336,31 @@ class FacturaController extends Controller
                 $DetalleIVA->addChild('sii:CuotaRecargoEquivalencia', $cuotaReq);
             }
         }
+       
+
+        $xmlString = $xml->asXML();
 
 
-       $xmlString = $xml->asXML();
+        $xmlString = preg_replace('/xmlns:sii[a-zA-Z0-9]*=\"[^\"]+\"/', '', $xmlString);
+        $xmlString = preg_replace('/xmlns:siiLR[a-zA-Z0-9]*=\"[^\"]+\"/', '', $xmlString);
 
-   
-        try {
-                
-            $client = new SoapClient('https://www7.aeat.es/wlpl/SSII-FACT/ws/fe/SiiFactFEV1SOAP');
-        
-            $response = $client->__soapCall('EnviarDatos', ['datosEnvio' => ['xml' => $xmlString]]);
-        
-            dd($response);
-        } catch (SoapFault $e) {
-            // Manejar la excepción SOAP aquí
-            echo $e->getMessage();
-        } catch (Exception $e) {
-            // Manejar otras excepciones aquí
-            echo $e->getMessage();
-        }
+         
         
 
+        //$newXml = new SimpleXMLElement($xmlString);
+
+
+        // Añadir los nuevos atributos xmlns:siiLR y xmlns:sii al elemento raíz
+        //$newXml->addAttribute('xmlns:siiLR', 'https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroLR.xsd');
+        //$newXml->addAttribute('xmlns:sii', 'https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroInformacion.xsd');
+
+        // Obtener el nuevo XML como string
+        
 
 
 
-        file_put_contents(public_path('datos/archivo.xml'), $xmlString);
+
+        file_put_contents(public_path('datos/archivo2.xml'), $xmlString);
 
         return $xmlString;
     }

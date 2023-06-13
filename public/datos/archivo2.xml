@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-    xmlns:siiLR='https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroLR.xsd'
-    xmlns:sii='https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroInformacion.xsd'>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
     <soapenv:Body>
         <siiLR:SuministroLRFacturasEmitidas>
             <sii:Cabecera>
@@ -15,14 +13,14 @@
             <siiLR:RegistroLRFacturasEmitidas>
                 <sii:PeriodoLiquidacion>
                     <sii:Ejercicio>2023</sii:Ejercicio>
-                    <sii:Periodo>03</sii:Periodo>
+                    <sii:Periodo>12</sii:Periodo>
                 </sii:PeriodoLiquidacion>
                 <siiLR:IDFactura>
                     <sii:IDEmisorFactura>
                         <sii:NIF>77856181P</sii:NIF>
                     </sii:IDEmisorFactura>
                     <sii:NumSerieFacturaEmisor>333</sii:NumSerieFacturaEmisor>
-                    <sii:FechaExpedicionFacturaEmisor>13-02-2020</sii:FechaExpedicionFacturaEmisor>
+                    <sii:FechaExpedicionFacturaEmisor>13/06/2023</sii:FechaExpedicionFacturaEmisor>
                 </siiLR:IDFactura>
                 <siiLR:FacturaExpedida>
                     <sii:TipoFactura>F1</sii:TipoFactura>
@@ -31,7 +29,7 @@
                     <sii:DescripcionOperacion>Venta de pulseras</sii:DescripcionOperacion>
                     <sii:Contraparte>
                         <sii:NombreRazon>Iván Ríos</sii:NombreRazon>
-                        <sii:NIF>49183692D</sii:NIF>
+                        <sii:NIF>4918369D</sii:NIF>
                     </sii:Contraparte>
                     <sii:TipoDesglose>
                         <sii:DesgloseFactura>
