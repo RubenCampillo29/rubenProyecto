@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 07-06-2023 a las 20:31:20
+-- Tiempo de generación: 13-06-2023 a las 00:45:17
 -- Versión del servidor: 8.0.29
 -- Versión de PHP: 8.1.13
 
@@ -33,25 +33,23 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `CIF` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nombre` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `provincia` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `CodigoPostal` varchar(225) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `poblacion` varchar(225) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(225) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `CodigoPostal` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `poblacion` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `telefono` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Direccion` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `REQ` tinyint(1) DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `clientes_cif_unique` (`CIF`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `clientes`
 --
 
 INSERT INTO `clientes` (`id`, `CIF`, `nombre`, `provincia`, `CodigoPostal`, `poblacion`, `email`, `telefono`, `Direccion`, `REQ`, `created_at`, `updated_at`) VALUES
-(1, 'B77867564', 'pedro albañil S.L', 'Murcia', '30100', 'Espinardo', '3886114@gmail.com', '4535674576', 'Calle Leon Nº 23', 1, NULL, '2023-06-07 16:04:41'),
-(2, 'B45454574', 'Pedro', 'Galicia', '30500', 'Ourense', '3886114@alu.murciaeduca.es', '549498474', 'MADRID', 1, '2023-06-07 16:00:20', '2023-06-07 16:03:25');
+(1, 'V5342745', 'rock and roll', 'palmar', '594984', 'murtcisad', 'raul@gmail.com', '1494449544', 'MADRID', 1, '2023-06-11 16:28:47', '2023-06-11 16:28:47');
 
 -- --------------------------------------------------------
 
@@ -65,24 +63,21 @@ CREATE TABLE IF NOT EXISTS `detalle__facturas` (
   `cantidad` int NOT NULL,
   `precio` double(8,2) NOT NULL,
   `producto_id` bigint UNSIGNED NOT NULL,
-  `ejercicio_fact` bigint UNSIGNED NOT NULL,
-  `serie_fact` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `numero_fact` bigint UNSIGNED NOT NULL,
+  `factura_id` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `detalle__facturas_producto_id_foreign` (`producto_id`),
-  KEY `detalle__facturas_ejercicio_fact_serie_fact_numero_fact_foreign` (`ejercicio_fact`,`serie_fact`,`numero_fact`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `detalle__facturas_factura_id_foreign` (`factura_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `detalle__facturas`
 --
 
-INSERT INTO `detalle__facturas` (`id`, `cantidad`, `precio`, `producto_id`, `ejercicio_fact`, `serie_fact`, `numero_fact`, `created_at`, `updated_at`) VALUES
-(1, 3, 50.00, 1, 2022, '23', 785, '2023-06-07 17:03:00', '2023-06-07 17:03:00'),
-(2, 1, 50.00, 1, 2022, '23', 785, '2023-06-07 17:04:35', '2023-06-07 17:04:35'),
-(3, 6, 10.00, 1, 2023, '23', 333, '2023-06-07 17:52:26', '2023-06-07 17:52:26');
+INSERT INTO `detalle__facturas` (`id`, `cantidad`, `precio`, `producto_id`, `factura_id`, `created_at`, `updated_at`) VALUES
+(1, 2, 100.00, 1, 1, '2023-06-12 08:03:18', '2023-06-12 08:03:18'),
+(2, 4, 100.00, 1, 1, '2023-06-12 12:12:28', '2023-06-12 12:12:28');
 
 -- --------------------------------------------------------
 
@@ -96,24 +91,23 @@ CREATE TABLE IF NOT EXISTS `emisors` (
   `CIF` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nombre` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `provincia` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `CodigoPostal` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `poblacion` varchar(225) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(225) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `CodigoPostal` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `poblacion` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `telefono` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `Direccion` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `emisors_cif_unique` (`CIF`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `emisors`
 --
 
 INSERT INTO `emisors` (`id`, `CIF`, `nombre`, `provincia`, `CodigoPostal`, `poblacion`, `email`, `telefono`, `Direccion`, `created_at`, `updated_at`) VALUES
-(1, 'w486949494', 'EL MOSCA  S.L', 'Murcia', '30600', 'Archena', 'elmosca@email.com', '7894654654', 'Calle Leon Nº 12', '2023-06-07 16:09:18', '2023-06-07 16:18:39'),
-(2, 'B45454574', 'Primafrio S.L', 'Murcia', '30600', 'Archena', '3886114@alu.murciaeduca.es', '987654123', 'Calle Leon Nº 12', '2023-06-07 18:16:59', '2023-06-07 18:16:59');
+(1, 'B45454574', 'Orange S.A', 'Murcia', '65494', 'Archena', '3886114@alu.murciaeduca.es', '9686725', 'MADRID', '2023-06-12 08:01:53', '2023-06-12 08:01:53');
 
 -- --------------------------------------------------------
 
@@ -123,6 +117,7 @@ INSERT INTO `emisors` (`id`, `CIF`, `nombre`, `provincia`, `CodigoPostal`, `pobl
 
 DROP TABLE IF EXISTS `facturas`;
 CREATE TABLE IF NOT EXISTS `facturas` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `ejercicio` bigint UNSIGNED NOT NULL,
   `serie` varchar(4) COLLATE utf8mb4_unicode_ci NOT NULL,
   `numero` bigint UNSIGNED NOT NULL,
@@ -134,24 +129,22 @@ CREATE TABLE IF NOT EXISTS `facturas` (
   `Emisor` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `cliente_id` bigint UNSIGNED DEFAULT NULL,
   `user_id` bigint UNSIGNED DEFAULT NULL,
+  `emisor_id` bigint UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `emisor_id` bigint UNSIGNED DEFAULT NULL,
-  PRIMARY KEY (`ejercicio`,`serie`,`numero`),
+  PRIMARY KEY (`id`),
   UNIQUE KEY `facturas_numero_unique` (`numero`),
   KEY `facturas_cliente_id_foreign` (`cliente_id`),
   KEY `facturas_user_id_foreign` (`user_id`),
   KEY `facturas_emisor_id_foreign` (`emisor_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `facturas`
 --
 
-INSERT INTO `facturas` (`ejercicio`, `serie`, `numero`, `fecha_emision`, `IVA`, `REQ`, `Observaciones`, `enviada`, `Emisor`, `cliente_id`, `user_id`, `created_at`, `updated_at`, `emisor_id`) VALUES
-(2022, '23', 785, '2023-06-08', 4, 1.25, 'Segunda factura', 0, NULL, 1, 1, '2023-06-07 16:15:27', '2023-06-07 16:15:27', 1),
-(2023, '23', 333, '2023-06-07', 10, 1.25, 'Segunda factura', 0, NULL, 1, 1, '2023-06-07 17:52:11', '2023-06-07 17:52:11', 1),
-(2023, 'A2', 789, '2023-06-07', 4, 1.40, 'Segunda factura', 0, NULL, 1, 1, '2023-06-07 18:07:37', '2023-06-07 18:07:37', 1);
+INSERT INTO `facturas` (`id`, `ejercicio`, `serie`, `numero`, `fecha_emision`, `IVA`, `REQ`, `Observaciones`, `enviada`, `Emisor`, `cliente_id`, `user_id`, `emisor_id`, `created_at`, `updated_at`) VALUES
+(1, 2023, '23', 788, '2023-06-12', 4, 0.50, 'Mucchas', 0, NULL, 1, 1, 1, '2023-06-12 08:02:38', '2023-06-12 08:02:38');
 
 -- --------------------------------------------------------
 
@@ -184,7 +177,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `migrations`
@@ -199,7 +192,46 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (6, '2023_04_23_145122_create_clientes_table', 1),
 (7, '2023_04_23_145142_create_facturas_table', 1),
 (8, '2023_04_23_145557_create_productos_table', 1),
-(9, '2023_04_23_155459_create_detalle__facturas_table', 1);
+(9, '2023_04_23_155459_create_detalle__facturas_table', 1),
+(10, '2023_05_10_201646_create_permission_tables', 1),
+(11, '2023_06_10_200049_create_roles', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `model_has_permissions`
+--
+
+DROP TABLE IF EXISTS `model_has_permissions`;
+CREATE TABLE IF NOT EXISTS `model_has_permissions` (
+  `permission_id` bigint UNSIGNED NOT NULL,
+  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_id` bigint UNSIGNED NOT NULL,
+  PRIMARY KEY (`permission_id`,`model_id`,`model_type`),
+  KEY `model_has_permissions_model_id_model_type_index` (`model_id`,`model_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `model_has_roles`
+--
+
+DROP TABLE IF EXISTS `model_has_roles`;
+CREATE TABLE IF NOT EXISTS `model_has_roles` (
+  `role_id` bigint UNSIGNED NOT NULL,
+  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_id` bigint UNSIGNED NOT NULL,
+  PRIMARY KEY (`role_id`,`model_id`,`model_type`),
+  KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `model_has_roles`
+--
+
+INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
+(1, 'App\\Models\\User', 1);
 
 -- --------------------------------------------------------
 
@@ -213,6 +245,23 @@ CREATE TABLE IF NOT EXISTS `password_reset_tokens` (
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `permissions`
+--
+
+DROP TABLE IF EXISTS `permissions`;
+CREATE TABLE IF NOT EXISTS `permissions` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `permissions_name_guard_name_unique` (`name`,`guard_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -260,7 +309,45 @@ CREATE TABLE IF NOT EXISTS `productos` (
 --
 
 INSERT INTO `productos` (`id`, `nombre`, `precio`, `descripcion`, `created_at`, `updated_at`) VALUES
-(1, 'Mesa ', 50.00, 'Mesa de Programación', NULL, NULL);
+(1, 'Tablero de ajedrez', 100.00, 'Mesa para clase de Programación', '2023-06-12 08:00:35', '2023-06-12 08:00:35');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `roles`
+--
+
+DROP TABLE IF EXISTS `roles`;
+CREATE TABLE IF NOT EXISTS `roles` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `roles_name_guard_name_unique` (`name`,`guard_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
+(1, 'admin', 'web', '2023-06-11 16:07:03', '2023-06-11 16:07:03');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `role_has_permissions`
+--
+
+DROP TABLE IF EXISTS `role_has_permissions`;
+CREATE TABLE IF NOT EXISTS `role_has_permissions` (
+  `permission_id` bigint UNSIGNED NOT NULL,
+  `role_id` bigint UNSIGNED NOT NULL,
+  PRIMARY KEY (`permission_id`,`role_id`),
+  KEY `role_has_permissions_role_id_foreign` (`role_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -275,20 +362,22 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'ruben', '3886114@gmail.com', '2023-06-21 17:31:18', 'ruben', 'admin', NULL, NULL, NULL);
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'ruben', 'ruben@example.com', NULL, 'ruben', NULL, '2023-06-11 16:06:16', '2023-06-11 16:06:16'),
+(2, 'raul', 'raul@gmail.com', NULL, '$2y$10$30tBXSk8RZjVLdrIyLDcruJOW/Qc6uN60dxqjzW0ZPHXQjvQUNOy6', NULL, '2023-06-11 16:25:36', '2023-06-11 16:25:36'),
+(4, 'emilio', 'hermano@hermano.com', NULL, '$2y$10$UTAe4Qhv1bJpj/HD.TC.1eKn.4j54V6dNa.ZuEOL7kvYS01Q9xl.i', NULL, '2023-06-12 12:51:39', '2023-06-12 12:51:39'),
+(5, 'ruben', '3886114@alu.murciaeduca.es', NULL, '$2y$10$jfnsWhyCoC3IUcMIjPo/Ae42j8h28Vyu.eh8wCNHhCqOhorlEmepy', NULL, '2023-06-12 22:34:17', '2023-06-12 22:34:17');
 
 --
 -- Restricciones para tablas volcadas
@@ -298,7 +387,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `ro
 -- Filtros para la tabla `detalle__facturas`
 --
 ALTER TABLE `detalle__facturas`
-  ADD CONSTRAINT `detalle__facturas_ejercicio_fact_serie_fact_numero_fact_foreign` FOREIGN KEY (`ejercicio_fact`,`serie_fact`,`numero_fact`) REFERENCES `facturas` (`ejercicio`, `serie`, `numero`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detalle__facturas_factura_id_foreign` FOREIGN KEY (`factura_id`) REFERENCES `facturas` (`id`),
   ADD CONSTRAINT `detalle__facturas_producto_id_foreign` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`);
 
 --
@@ -308,6 +397,25 @@ ALTER TABLE `facturas`
   ADD CONSTRAINT `facturas_cliente_id_foreign` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `facturas_emisor_id_foreign` FOREIGN KEY (`emisor_id`) REFERENCES `emisors` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `facturas_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
+
+--
+-- Filtros para la tabla `model_has_permissions`
+--
+ALTER TABLE `model_has_permissions`
+  ADD CONSTRAINT `model_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `model_has_roles`
+--
+ALTER TABLE `model_has_roles`
+  ADD CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `role_has_permissions`
+--
+ALTER TABLE `role_has_permissions`
+  ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
