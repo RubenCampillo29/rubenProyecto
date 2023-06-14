@@ -105,9 +105,9 @@ curl_setopt($ch, CURLOPT_HEADER, 0);// Incluir el Header en la respuesta
 
 $mipass='SIiaHS9K'; //El pass que usaste en la conversion del certificado pfx a pem, y que te habran proporcionado
 
-$clientfile=getcwd().'/certificado.pem'; // el archivo de certificado en formato .pem (para tu Apache). Ojo a los slash... es una ruta... y hay quien se los come y dice que no le funciona
+$clientfile=getcwd().'/hola/certificado.pem'; // el archivo de certificado en formato .pem (para tu Apache). Ojo a los slash... es una ruta... y hay quien se los come y dice que no le funciona
 
-$keyfile=getcwd().'/certificado_key.pem'; //el archivo que contiene la clave privada para autenticarte.
+$keyfile=getcwd().'/hola/certificado_key.pem'; //el archivo que contiene la clave privada para autenticarte.
 
  
 
