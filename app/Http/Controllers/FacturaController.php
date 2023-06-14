@@ -231,13 +231,19 @@ class FacturaController extends Controller
     {
         $iterador = count($facturas);
 
+        $prefix = 'siiLR';
+        $namespace = 'https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroLR.xsd';
+
+
+
+
         // Crear el elemento raíz del XML
-        $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8" ?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:siiLR="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroLR.xsd" xmlns:sii="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroInformacion.xsd"></soapenv:Envelope>');
+        $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8" ?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:psiiLRp="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroLR.xsd" xmlns:psiip="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroInformacion.xsd"></soapenv:Envelope>');
 
         // Añadir los namespaces necesarios
         $xml->registerXPathNamespace('soapenv', 'http://schemas.xmlsoap.org/soap/envelope/');
-        $xml->registerXPathNamespace('siiLR', 'https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroLR.xsd');
-        $xml->registerXPathNamespace('sii', 'https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroInformacion.xsd');
+        $xml->registerXPathNamespace('psiiLRp', 'https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroLR.xsd');
+        $xml->registerXPathNamespace('psiip', 'https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroInformacion.xsd');
 
         // Crear los elementos del XML
         $body = $xml->addChild('soapenv:Body');
@@ -336,28 +342,16 @@ class FacturaController extends Controller
                 $DetalleIVA->addChild('sii:CuotaRecargoEquivalencia', $cuotaReq);
             }
         }
-       
+
 
         $xmlString = $xml->asXML();
 
 
-        $xmlString = preg_replace('/xmlns:sii[a-zA-Z0-9]*=\"[^\"]+\"/', '', $xmlString);
-        $xmlString = preg_replace('/xmlns:siiLR[a-zA-Z0-9]*=\"[^\"]+\"/', '', $xmlString);
 
-         
-        
-
-        //$newXml = new SimpleXMLElement($xmlString);
-
-
-        // Añadir los nuevos atributos xmlns:siiLR y xmlns:sii al elemento raíz
-        //$newXml->addAttribute('xmlns:siiLR', 'https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroLR.xsd');
-        //$newXml->addAttribute('xmlns:sii', 'https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroInformacion.xsd');
-
-        // Obtener el nuevo XML como string
-        
-
-
+          $xmlString = preg_replace('/xmlns:sii[a-zA-Z0-9]*=\"[^\"]+\"/', '', $xmlString);
+          $xmlString = preg_replace('/xmlns:siiLR/', '', $xmlString);
+          $xmlString = preg_replace('/xmlns:psiip/', 'xmlns:sii', $xmlString);
+          $xmlString = preg_replace('/xmlns:psiiLRp/', 'xmlns:siiLR', $xmlString);
 
 
         file_put_contents(public_path('datos/archivo2.xml'), $xmlString);
