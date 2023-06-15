@@ -11,7 +11,20 @@
         <a class="btn btn-primary" href="{{url('facturas')}}" >Finalizar</a>
         @else
         <a class="btn btn-primary" href="{{url('facturas')}}" >Regresar</a>
+      
         @endif
+
+        @if(isset($respuesta))
+            
+            <h3>{{$respuesta}}</h>
+            
+
+           
+            
+          
+         @endif 
+
+
 
     </div>
 

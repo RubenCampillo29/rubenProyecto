@@ -115,11 +115,15 @@
         </select>
       </div>
 
-
-      <div class="mb-2 row">
-        <label for="user_id" class="col-sm-2 col-form-label"><strong>Usuario</strong></label>
+      <div class="mb-3 row">
+        <label for="col-sm-2 col-form-label"><strong>Usuario</strong></label>
         <div class="col-sm-5">
-          <input type="number" class="form-control" name="user_id" id="user_id" value="{{ old('user_id')}}">
+          <select class="form-control" name="user_id" id="user_id">
+            <option value="">-- Seleccione un usuario --</option>
+            @foreach($usuarios as $usuario)
+            <option value="{{$usuario['id']}}">{{$usuario['name']}}</option>
+            @endforeach
+          </select>
         </div>
       </div>
 

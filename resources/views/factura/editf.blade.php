@@ -27,22 +27,33 @@
           <select class="form-control" name="emisor_id" id="emisor_id">
             <option value="">-- Seleccione un emisor --</option>
             @foreach($emisores as $emisor)
-            <option value="{{$emisor['id']}}">{{$emisor['nombre']}}</option>
+            @if($factura['emisor_id'] == $emisor['id'])
+            <option value="{{$emisor['id']}}" selected >{{$emisor['nombre']}}</option>
+            @endif
+            <option value="{{$emisor['id']}}" >{{$emisor['nombre']}}</option>
             @endforeach
           </select>
         </div>
       </div>
 
-      <label for="name"><strong>Cliente</strong></label>
-      <select class="form-control form-control-lg" name="cliente_id" id="cliente_id">
-        <option value="">-- Seleccione un cliente --</option>
-        @foreach($clientes as $cliente)
-        @if($factura['cliente_id'] == $cliente['id'])
-        <option value="{{$cliente['id']}}" selected >{{$cliente['nombre']}}</option>
-        @endif
-        <option value="{{$cliente['id']}}">{{$cliente['nombre']}}</option>
-        @endforeach
-      </select>
+
+      <div class="mb-3 row">
+        <label for="col-sm-2 col-form-label"><strong>Cliente</strong></label>
+        <div class="col-sm-5">
+          <select class="form-control" name="cliente_id" id="cliente_id">
+            <option value="">-- Seleccione un cliente --</option>
+            @foreach($clientes as $cliente)
+            @if($factura['cliente_id'] == $cliente['id'])
+            <option value="{{$emisor['id']}}" selected >{{$cliente['nombre']}}</option>
+            @endif
+            <option value="{{$emisor['id']}}" >{{$cliente['nombre']}}</option>
+            @endforeach
+          </select>
+        </div>
+      </div>
+
+  
+     
 
       <div class="mb-3 row">
       
@@ -80,21 +91,29 @@
         </div>
       </div>
 
-      <div class="mb-3 row">
-        <label for="IVA" class="col-sm-2 col-form-label"><strong>IVA</strong></label>
-        <div class="col-sm-5">
-          <input type="number" class="form-control" name="IVA" id="IVA" value="{{ $factura->IVA  }}">
-        </div>
-      </div>
 
-
-      <label for="REQ" class="col-sm-2 col-form-label"><strong>Recargo de equivalencia</strong></label>
-      <div class="col-sm-5">
-        <select name="REQ" id="REQ">
-          <option value="1">Si</option>
-          <option value="0">No</option>
+      <label for="IVA" class="col-sm-2 col-form-label"><strong>IVA %</strong></label>
+      <div class="col-sm-10">
+        <select name="IVA" id="IVA">
+          <option value="0">No IVA</option>
+          <option value="4" selected>4</option>
+          <option value="10">10</option>
+          <option value="21">21</option>
         </select>
       </div>
+ 
+    
+      <label for="REQ" class="col-sm-2 col-form-label"><strong>Recargo (REQ)</strong></label>
+      <div class="col-sm-10">
+        <select name="REQ" id="REQ">
+          <option value="0">No REQ</option>
+          <option value="0.5" selected>0.5</option>
+          <option value="1.4">1.4</option>
+          <option value="5.2">5.2</option>
+        </select>
+      </div>
+  
+
 
       <div class="mb-3 row">
         <label for="observaciones" class="col-sm-2 col-form-label"><strong>Observaciones</strong></label>
@@ -103,12 +122,7 @@
         </div>
       </div>
 
-      <div class="mb-3 row">
-        <label for="observaciones" class="col-sm-2 col-form-label"><strong>Recargo de equivalencia</strong></label>
-        <div class="col-sm-5">
-          <input type="number" id="req" step="0.01" class="form-control" name="REQ" id="REQ" value="{{ $factura->REQ}}" required>
-        </div>
-      </div>
+    
 
 
       <label for="enviada" class="col-sm-2 col-form-label"><strong>Enviada</strong></label>
@@ -127,9 +141,9 @@
     
 
       <div class="mb-2 row">
-        <label for="user_id" class="col-sm-2 col-form-label"><strong>Usuario</strong></label>
+        <label for="user_id" class="col-sm-2 col-form-label"><strong></strong></label>
         <div class="col-sm-5">
-          <input type="number" class="form-control" name="user_id" id="user_id" value="{{$factura->user_id }}">
+          <input type="hidden" class="form-control" name="user_id" id="user_id" value="{{$factura->user_id }}">
         </div>
       </div>
 
