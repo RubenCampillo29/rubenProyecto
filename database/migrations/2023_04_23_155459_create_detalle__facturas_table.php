@@ -15,25 +15,26 @@ return new class extends Migration
             $table->id();
             $table->integer('cantidad');
             $table->float('precio');
-            //Clave ajena  producto
-            $table->unsignedBigInteger('producto_id');
-            $table->foreign('producto_id')->references('id')->on('productos');
+            // Clave ajena producto
+            $table->unsignedBigInteger('producto_id')->nullable();
+            $table->foreign('producto_id')->references('id')->on('productos')->onDelete('set null');
 
-            //Clave ajena factura
-            $table->unsignedBigInteger('factura_id');
-            $table->foreign('factura_id')->references('id')->on('facturas');
-
-
+            // Clave ajena factura
+            $table->unsignedBigInteger('factura_id')->nullable();
+            $table->foreign('factura_id')->references('id')->on('facturas')->onDelete('set null');
 
 
-           // $table->unsignedBigInteger('ejercicio_fact');
-           // $table->string('serie_fact',5);
-           // $table->unsignedBigInteger('numero_fact');
-           // $table->foreign(['ejercicio_fact', 'serie_fact','numero_fact'])
-          //  ->references(['ejercicio','serie','numero'])
-           // ->on('facturas')
-          //  ->onDelete('cascade')
-          //  ->onUpdate('cascade');
+
+
+
+            // $table->unsignedBigInteger('ejercicio_fact');
+            // $table->string('serie_fact',5);
+            // $table->unsignedBigInteger('numero_fact');
+            // $table->foreign(['ejercicio_fact', 'serie_fact','numero_fact'])
+            //  ->references(['ejercicio','serie','numero'])
+            // ->on('facturas')
+            //  ->onDelete('cascade')
+            //  ->onUpdate('cascade');
 
 
 

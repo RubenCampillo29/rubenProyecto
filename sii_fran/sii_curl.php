@@ -1,4 +1,6 @@
 <?php
+
+phpinfo();
 $nombrefile='archivo3'; // en mi caso sin extension por necesidades de la aplicacion 
 
 $miurl='https://prewww1.aeat.es/wlpl/SSII-FACT/ws/fe/SiiFactFEV1SOAP';

@@ -13,7 +13,7 @@
     <tr>
     <th>id</th>
     <th>Ejercicio</th>
-    <th>Serie</th>
+    <th>Periodo</th>
     <th>Numero</th>
     <th>Fecha de emision</th>
     <th>IVA %</th>
@@ -22,6 +22,7 @@
     <th>Enviada</th>
     <th>Emisor</th>
     <th>Cliente</th>
+    <th>Respuesta Hacienda</th>
     <th>Detalle </th>
     <th>Editar</th>
     <th>Eliminar</th>
@@ -53,6 +54,7 @@
            <td>{{$cliente['nombre']}}</td>
            @endif
            @endforeach
+           <th>{{$factura['registro']}}</th>
 
 
            <td><a href="{{ route('factura.detalle', $factura['id'])}}"class="btn btn-primary btn-sm" >Ver</a></td>

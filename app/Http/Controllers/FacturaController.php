@@ -17,6 +17,7 @@ use Exception;
 use Carbon\Carbon;
 use App\Http\Controllers\stdClass;
 use App\Models\User;
+use DOMDocument;
 
 class FacturaController extends Controller
 {
@@ -227,12 +228,29 @@ class FacturaController extends Controller
 
        $respuesta =  $this->enviar();
 
-       $file =__DIR__. '\prueba3';
+       $xml= new SimpleXMLElement($respuesta);
+       $ns= $xml->getNamespaces(true);
+       
+       $doc = new DOMDocument();
+       $doc->loadXML($respuesta);
+       
+      
+         foreach ($doc->getElementsByTagNameNS($ns['siiR'], 'RespuestaLinea') as $lineas) {
+              
+              $id =  $lineas->getElementsByTagName('IDFactura')->item(0)->getElementsByTagNameNS($ns['sii'],'NumSerieFacturaEmisor')->item(0)->textContent;
+              $registro = $lineas->getElementsByTagName('DescripcionErrorRegistro')->item(0)->textContent;
+
+              $factura = Factura::find($id);
+
+              $factura->registro = $registro;
+
+              $factura->save();
+
+       }
+
+
         
-      // $xmlObject = simplexml_load_string(file_put_contents(app_path('Http\Controllers\prueba3.xml'), $respuesta));
-        
-      //$xmlObject = simplexml_load_string($respuesta);
-     // dd($xmlObject);
+   
 
         return view("factura\mensageFactura", ['msg' => "Facturas enviadas con exito"], compact('respuesta'));
     }
@@ -380,20 +398,22 @@ class FacturaController extends Controller
         //var_dump($respuesta);
         //var_dump($strerror);
 
+     
+         
 
-
-
-
-        echo $respuesta;
 
         //dd($respuesta);
-        
-
         //Cerramos nuesta sesión
 
         curl_close($ch);
 
+   
+
+
         return $respuesta;
+
+
+
     }
 
 
@@ -451,7 +471,7 @@ class FacturaController extends Controller
             $idFactura = $registroLRFacturasEmitidas->addChild('siiLR:IDFactura');
             $idEmisorFactura = $idFactura->addChild('sii:IDEmisorFactura', null, 'sii');
             $idEmisorFactura->addChild('sii:NIF', $emisor->CIF, 'sii');
-            $idFactura->addChild('sii:NumSerieFacturaEmisor', $factura->numero, 'sii');
+            $idFactura->addChild('sii:NumSerieFacturaEmisor', $factura->id, 'sii');
 
             $fechaInput = $factura->fecha_emision;
             $fechaFormateada = date('d/m/Y', strtotime($fechaInput));

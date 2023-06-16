@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 13-06-2023 a las 00:45:17
+-- Tiempo de generación: 16-06-2023 a las 22:28:58
 -- Versión del servidor: 8.0.29
 -- Versión de PHP: 8.1.13
 
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `clientes` (
 --
 
 INSERT INTO `clientes` (`id`, `CIF`, `nombre`, `provincia`, `CodigoPostal`, `poblacion`, `email`, `telefono`, `Direccion`, `REQ`, `created_at`, `updated_at`) VALUES
-(1, 'V5342745', 'rock and roll', 'palmar', '594984', 'murtcisad', 'raul@gmail.com', '1494449544', 'MADRID', 1, '2023-06-11 16:28:47', '2023-06-11 16:28:47');
+(1, '77856151P', 'Emilio Núñez Martínez', 'Murcia', '30600', 'Archena', '3886114@alu.murciaeduca.es', '123', 'MADRID', 1, '2023-06-16 20:16:05', '2023-06-16 20:20:01');
 
 -- --------------------------------------------------------
 
@@ -62,22 +62,21 @@ CREATE TABLE IF NOT EXISTS `detalle__facturas` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `cantidad` int NOT NULL,
   `precio` double(8,2) NOT NULL,
-  `producto_id` bigint UNSIGNED NOT NULL,
-  `factura_id` bigint UNSIGNED NOT NULL,
+  `producto_id` bigint UNSIGNED DEFAULT NULL,
+  `factura_id` bigint UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `detalle__facturas_producto_id_foreign` (`producto_id`),
   KEY `detalle__facturas_factura_id_foreign` (`factura_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `detalle__facturas`
 --
 
 INSERT INTO `detalle__facturas` (`id`, `cantidad`, `precio`, `producto_id`, `factura_id`, `created_at`, `updated_at`) VALUES
-(1, 2, 100.00, 1, 1, '2023-06-12 08:03:18', '2023-06-12 08:03:18'),
-(2, 4, 100.00, 1, 1, '2023-06-12 12:12:28', '2023-06-12 12:12:28');
+(1, 2, 200.00, 1, 1, '2023-06-16 20:17:41', '2023-06-16 20:17:41');
 
 -- --------------------------------------------------------
 
@@ -107,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `emisors` (
 --
 
 INSERT INTO `emisors` (`id`, `CIF`, `nombre`, `provincia`, `CodigoPostal`, `poblacion`, `email`, `telefono`, `Direccion`, `created_at`, `updated_at`) VALUES
-(1, 'B45454574', 'Orange S.A', 'Murcia', '65494', 'Archena', '3886114@alu.murciaeduca.es', '9686725', 'MADRID', '2023-06-12 08:01:53', '2023-06-12 08:01:53');
+(1, '77856181P', 'Rubén Núñez Campillo', 'Murcia', '30600', 'Archena', 'rubensaorines@gmail.com', '697159646', 'villanueva', '2023-06-16 20:17:10', '2023-06-16 20:17:10');
 
 -- --------------------------------------------------------
 
@@ -126,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `facturas` (
   `REQ` double(8,2) NOT NULL,
   `Observaciones` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `enviada` tinyint(1) NOT NULL,
-  `Emisor` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `registro` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `cliente_id` bigint UNSIGNED DEFAULT NULL,
   `user_id` bigint UNSIGNED DEFAULT NULL,
   `emisor_id` bigint UNSIGNED DEFAULT NULL,
@@ -137,14 +136,15 @@ CREATE TABLE IF NOT EXISTS `facturas` (
   KEY `facturas_cliente_id_foreign` (`cliente_id`),
   KEY `facturas_user_id_foreign` (`user_id`),
   KEY `facturas_emisor_id_foreign` (`emisor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `facturas`
 --
 
-INSERT INTO `facturas` (`id`, `ejercicio`, `serie`, `numero`, `fecha_emision`, `IVA`, `REQ`, `Observaciones`, `enviada`, `Emisor`, `cliente_id`, `user_id`, `emisor_id`, `created_at`, `updated_at`) VALUES
-(1, 2023, '23', 788, '2023-06-12', 4, 0.50, 'Mucchas', 0, NULL, 1, 1, 1, '2023-06-12 08:02:38', '2023-06-12 08:02:38');
+INSERT INTO `facturas` (`id`, `ejercicio`, `serie`, `numero`, `fecha_emision`, `IVA`, `REQ`, `Observaciones`, `enviada`, `registro`, `cliente_id`, `user_id`, `emisor_id`, `created_at`, `updated_at`) VALUES
+(1, 2023, '01', 785, '2023-06-16', 4, 0.50, 'Segunda factura', 0, 'Error en el bloque de la Contraparte. El NIF tiene un formato erróneo. NIF:77856151P. NOMBRE_RAZON:Emilio Núñez Martínez. ', 1, 1, 1, '2023-06-16 20:17:34', '2023-06-16 20:26:58'),
+(2, 2023, '01', 333, '2023-06-16', 4, 0.50, 'Ninguna', 0, NULL, 1, NULL, 1, '2023-06-16 20:26:21', '2023-06-16 20:27:24');
 
 -- --------------------------------------------------------
 
@@ -309,7 +309,7 @@ CREATE TABLE IF NOT EXISTS `productos` (
 --
 
 INSERT INTO `productos` (`id`, `nombre`, `precio`, `descripcion`, `created_at`, `updated_at`) VALUES
-(1, 'Tablero de ajedrez', 100.00, 'Mesa para clase de Programación', '2023-06-12 08:00:35', '2023-06-12 08:00:35');
+(1, 'oriol', 200.00, 'Mesa para clase de Programacion', '2023-06-16 20:15:00', '2023-06-16 20:15:07');
 
 -- --------------------------------------------------------
 
@@ -333,7 +333,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'web', '2023-06-11 16:07:03', '2023-06-11 16:07:03');
+(1, 'admin', 'web', '2023-06-16 20:13:58', '2023-06-16 20:13:58');
 
 -- --------------------------------------------------------
 
@@ -367,17 +367,16 @@ CREATE TABLE IF NOT EXISTS `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'ruben', 'ruben@example.com', NULL, 'ruben', NULL, '2023-06-11 16:06:16', '2023-06-11 16:06:16'),
-(2, 'raul', 'raul@gmail.com', NULL, '$2y$10$30tBXSk8RZjVLdrIyLDcruJOW/Qc6uN60dxqjzW0ZPHXQjvQUNOy6', NULL, '2023-06-11 16:25:36', '2023-06-11 16:25:36'),
-(4, 'emilio', 'hermano@hermano.com', NULL, '$2y$10$UTAe4Qhv1bJpj/HD.TC.1eKn.4j54V6dNa.ZuEOL7kvYS01Q9xl.i', NULL, '2023-06-12 12:51:39', '2023-06-12 12:51:39'),
-(5, 'ruben', '3886114@alu.murciaeduca.es', NULL, '$2y$10$jfnsWhyCoC3IUcMIjPo/Ae42j8h28Vyu.eh8wCNHhCqOhorlEmepy', NULL, '2023-06-12 22:34:17', '2023-06-12 22:34:17');
+(1, 'ruben', 'ruben@example.com', NULL, 'ruben', NULL, '2023-06-16 20:13:40', '2023-06-16 20:13:40'),
+(2, 'selena', '3886114@alu.murciaeduca.es', NULL, '$2y$10$N0yJoVGYezQHFQA9ykoAL.YaJZnBtU0AIqGMbfGoMQL2R7BzsmEv.', NULL, '2023-06-16 20:14:20', '2023-06-16 20:14:20'),
+(3, 'ruben', 'rubensaorines@gmail.com', NULL, '$2y$10$M3PvB3.L0A9DVmPjMeJ3nOBgBU7HJHidVxeKLCJhbWqz1sqIk8Ekq', NULL, '2023-06-16 20:21:19', '2023-06-16 20:21:19');
 
 --
 -- Restricciones para tablas volcadas
@@ -387,14 +386,14 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 -- Filtros para la tabla `detalle__facturas`
 --
 ALTER TABLE `detalle__facturas`
-  ADD CONSTRAINT `detalle__facturas_factura_id_foreign` FOREIGN KEY (`factura_id`) REFERENCES `facturas` (`id`),
-  ADD CONSTRAINT `detalle__facturas_producto_id_foreign` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`);
+  ADD CONSTRAINT `detalle__facturas_factura_id_foreign` FOREIGN KEY (`factura_id`) REFERENCES `facturas` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `detalle__facturas_producto_id_foreign` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`) ON DELETE SET NULL;
 
 --
 -- Filtros para la tabla `facturas`
 --
 ALTER TABLE `facturas`
-  ADD CONSTRAINT `facturas_cliente_id_foreign` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `facturas_cliente_id_foreign` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`),
   ADD CONSTRAINT `facturas_emisor_id_foreign` FOREIGN KEY (`emisor_id`) REFERENCES `emisors` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `facturas_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
 
