@@ -12,8 +12,9 @@
                 <div class="card-body">
                     <form action="{{ route('datos.enviar') }}" method="post">
                         @csrf
+                       
                         <div class="mb-3 row">
-                            <label for="fecha_desde" class="col-sm-2 col-form-label"><strong>Fecha Desde</strong></label>
+                            <label for="fecha_desde" class="col-sm-2 col-form-label"><strong>Fecha</strong></label>
                             <div class="col-sm-5">
                                 <input type="date" class="form-control" name="fecha_desde" id="fecha_desde" value="" required>
                             </div>
@@ -25,7 +26,7 @@
                             </div>
                         </div>
                         <div class="mb-5 block">
-                            <label for="estado">Estado</label>
+                            <label for="estado"><strong>Estado</strong></label>
                             <select name="estado" id="estado">
                                 <option value="1">Enviada</option>
                                 <option value="0">No enviada</option>
@@ -33,7 +34,7 @@
                             </select>
                         </div>
                         <div class="mb-5 block">
-                            <label for="emisor">Emisor</label>
+                            <label for="emisor"><strong>Emisor</strong></label>
                             <select name="emisor" id="emisor">
                                 @foreach($emisores as $emi)
                                 <option value="{{ $emi['id'] }}">{{ ($emi['nombre']) }}</option>

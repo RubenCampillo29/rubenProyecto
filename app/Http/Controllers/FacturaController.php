@@ -273,7 +273,7 @@ class FacturaController extends Controller
 
               $factura->registro = $registro;
 
-              if($estado == 'Correcto'){
+              if($estado == 'Correcto' || $estado == 'Factura duplicada'){
 
                 $factura->enviada  = 1;
 
