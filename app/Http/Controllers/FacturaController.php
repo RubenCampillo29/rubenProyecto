@@ -294,7 +294,7 @@ class FacturaController extends Controller
      
     
         // Puedes lanzar una nueva excepción o realizar otras acciones, como redireccionar o mostrar un mensaje de error al usuario.
-        return view("factura\mensageFactura", ['msg' => "Facturas enviadas no enviadas"] );
+        return view("factura\mensageFactura", ['msg' => "Facturas no enviadas informacion no compatible"] );
 
 
     }
