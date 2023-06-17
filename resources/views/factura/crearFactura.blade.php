@@ -64,7 +64,7 @@
       <div class="mb-3 row">
         <label for="numero" class="col-sm-2 col-form-label"><strong>Numero</strong></label>
         <div class="col-sm-5">
-          <input type="text" class="form-control" name="numero" id="numero" value="{{ old('numero')}}">
+          <input type="text" class="form-control" name="numero" id="numero" value="{{ old('numero')}}" required>
         </div>
       </div>
 
