@@ -32,6 +32,33 @@ class FacturaController extends Controller
         return view('factura\mostrarFactura', compact('facturas', 'clientes', 'emisores'));
     }
 
+    public function mostrar2($facturas)
+    {
+
+        
+        $arrayNumeros = explode(",", $facturas);
+        
+        $iterador = count($arrayNumeros);
+
+        
+
+        for ($i = 0; $i < $iterador; $i++) {
+
+            $facturas = Factura::find($arrayNumeros[$i]);
+
+        }
+
+
+        $emisores = emisor::all();
+        $clientes = Cliente::all();
+
+        
+        return view('factura\mostrarFactura2', compact('facturas', 'clientes', 'emisores'));
+    }
+
+
+
+
     /**
      * Show the form for creating a new resource.
      */
@@ -209,6 +236,8 @@ class FacturaController extends Controller
     {
 
         $facturas = $request->get('facturas_check');
+        $facturas2 = $request->get('facturas_check');
+        
 
         $factura = Factura::find($facturas[0]);
 
@@ -239,20 +268,24 @@ class FacturaController extends Controller
               
               $id =  $lineas->getElementsByTagName('IDFactura')->item(0)->getElementsByTagNameNS($ns['sii'],'NumSerieFacturaEmisor')->item(0)->textContent;
               $registro = $lineas->getElementsByTagName('DescripcionErrorRegistro')->item(0)->textContent;
-
+              $estado = $lineas->getElementsByTagName('EstadoRegistro')->item(0)->textContent;
               $factura = Factura::find($id);
 
               $factura->registro = $registro;
 
+              if($estado == 'Correcto'){
+
+                $factura->enviada  = 1;
+
+              }
+
               $factura->save();
 
        }
+      
+       $facturas2 = implode(",", $facturas2);
 
-
-        
-   
-
-        return view("factura\mensageFactura", ['msg' => "Facturas enviadas con exito"], compact('respuesta'));
+        return view("factura\mensageFactura", ['msg' => "Facturas enviadas con exito"], compact('respuesta','facturas2'));
     }
 
 

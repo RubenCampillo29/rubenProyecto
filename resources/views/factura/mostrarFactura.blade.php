@@ -31,7 +31,7 @@
     @foreach($facturas as $factura)
 
     <tr>
-          <td>{{$factura['id']}}</td>
+           <td>{{$factura['id']}}</td>
            <td>{{$factura['ejercicio']}}</td>
            <td>{{$factura['serie']}}</td>
            <td>{{$factura['numero']}}</td> 
@@ -79,8 +79,8 @@
 
     </table>
 
-    <a href="{{url('facturas/create')}}" class="btn btn-success btn-sm">Crear</a>
-    <a href="{{route('inicio')}}" class="btn btn-primary btn-sm">Inicio</a></a>
+    <a href="{{url('facturas/create')}}" class="btn btn-success ">Crear</a>
+    <a href="{{route('inicio')}}" class="btn btn-primary ">Inicio</a></a>
 </div>
 
 @endsection

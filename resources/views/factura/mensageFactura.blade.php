@@ -10,12 +10,12 @@
         <a class="btn btn-success" href="{{ route('factura.detalle', $id)}}" >Añadir detalles</a>
         <a class="btn btn-primary" href="{{url('facturas')}}" >Finalizar</a>
         @else
-        <a class="btn btn-primary" href="{{url('facturas')}}" >Volver a Facturas</a>
       
+        <a class="btn btn-primary" href="{{url('facturas')}}" >Volver </a>
         @endif
-
+        
         @if(isset($respuesta))
-            
+        <a class="btn btn-warning" href="{{ url('facturas')}}" >Editar Facturas</a> 
             <h3><u>Respuesta de hacienda</u></h3>
         @php
         $xml= new SimpleXMLElement($respuesta);
@@ -40,7 +40,7 @@
            @endphp 
           
          <h4>Esta informacion se guardara en la casilla registro de cada Factura</h4>
-
+         
          @endif 
 
 

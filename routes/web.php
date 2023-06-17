@@ -57,6 +57,9 @@ Route::get('cliente/facturas/{id}',[FacturaController::class,'clientes'])->name(
 Route::get('cliente/factura/{id}',[FacturaController::class,'factura'])->name('factura.detalle');
 Route::get('factura/enviar',[FacturaController::class,'vistaEnviar'])->name('factura.enviar');
 
+//Route::get('factura/{facturas}',[FacturaController::class,'mostrar2'])->name('factura.mostrar');
+
+
 Route::post('factura/seleccionadas',[FacturaController::class,'seleccionadas'])->name('factura.seleccion');
 
 Route::post('factura/datos',[FacturaController::class,'datosEnviar'])->name('datos.enviar');

@@ -20,7 +20,10 @@ class AuthenticatedSessionController extends Controller
         ]);
 
         if (!Auth::attempt($credenciales, $request->boolean('remember'))) {
-            echo "Fail";
+            
+            echo 'Estas fuera';
+            
+            return to_route('login')->with('status', 'Estas fuera');
 
         } else {
 

@@ -33,11 +33,11 @@
                 </div>
 
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Register</button>
+                    <button type="submit" class="btn btn-primary">Registro</button>
                 </div>
                 
                 <p class="text-center mt-3">
-                    <a href="{{ route('login') }}" class="btn btn-link">Login</a>
+                    <a href="{{ route('login') }}" class="btn btn-link">Inicio Sesion</a>
                 </p>
             </form>
         </div>

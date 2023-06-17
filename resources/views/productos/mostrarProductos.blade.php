@@ -4,7 +4,6 @@
    <div class="rounded border border-primary bg-info">
       <h1>Productos</h1>
    </div>
-   <div>
       <table border=2>
          <tr>
             <th>id</th>
@@ -46,6 +45,6 @@
       <a href="{{url('productos/create')}}" class="btn btn-success ">Crear</a>
       <a class="btn btn-primary" href="{{route('inicio')}}">Inicio</a></a>
 
-   </div>
+</div>
 
    @endsection
