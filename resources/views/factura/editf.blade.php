@@ -44,9 +44,9 @@
             <option value="">-- Seleccione un cliente --</option>
             @foreach($clientes as $cliente)
             @if($factura['cliente_id'] == $cliente['id'])
-            <option value="{{$emisor['id']}}" selected >{{$cliente['nombre']}}</option>
+            <option value="{{$cliente['id']}}" selected >{{$cliente['nombre']}}</option>
             @endif
-            <option value="{{$emisor['id']}}" >{{$cliente['nombre']}}</option>
+            <option value="{{$cliente['id']}}" >{{$cliente['nombre']}}</option>
             @endforeach
           </select>
         </div>
