@@ -18,6 +18,7 @@ use Carbon\Carbon;
 use App\Http\Controllers\stdClass;
 use App\Models\User;
 use DOMDocument;
+use Log;
 
 class FacturaController extends Controller
 {
@@ -262,7 +263,11 @@ class FacturaController extends Controller
        
        $doc = new DOMDocument();
        $doc->loadXML($respuesta);
+
+       try {
        
+     
+
       
          foreach ($doc->getElementsByTagNameNS($ns['siiR'], 'RespuestaLinea') as $lineas) {
               
@@ -282,6 +287,19 @@ class FacturaController extends Controller
               $factura->save();
 
        }
+
+    } catch (Exception $e) {
+
+
+     
+    
+        // Puedes lanzar una nueva excepción o realizar otras acciones, como redireccionar o mostrar un mensaje de error al usuario.
+        return view("factura\mensageFactura", ['msg' => "Facturas enviadas no enviadas"] );
+
+
+    }
+
+       
       
        $facturas2 = implode(",", $facturas2);
 
