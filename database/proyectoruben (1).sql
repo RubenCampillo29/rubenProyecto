@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 16-06-2023 a las 22:28:58
+-- Tiempo de generación: 18-06-2023 a las 10:40:05
 -- Versión del servidor: 8.0.29
 -- Versión de PHP: 8.1.13
 
@@ -42,14 +42,16 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `clientes`
 --
 
 INSERT INTO `clientes` (`id`, `CIF`, `nombre`, `provincia`, `CodigoPostal`, `poblacion`, `email`, `telefono`, `Direccion`, `REQ`, `created_at`, `updated_at`) VALUES
-(1, '77856151P', 'Emilio Núñez Martínez', 'Murcia', '30600', 'Archena', '3886114@alu.murciaeduca.es', '123', 'MADRID', 1, '2023-06-16 20:16:05', '2023-06-16 20:20:01');
+(1, '77856151P', 'Emilio Núñez belmonte', 'Murcia', '30600', 'Villanueva', '3886114@alu.murciaeduca.es', '123', 'MADRID', 1, '2023-06-16 20:16:05', '2023-06-17 18:12:42'),
+(2, '77856181P', 'Ruben Nuñez Campillo', 'palmar', '78676', 'murtcisad', '3886114@alu.murciaeduca.es', '74368736', 'MADRID', 1, '2023-06-17 15:05:35', '2023-06-17 17:26:58'),
+(3, '79569', 'Paca', 'Murcia', '3', NULL, '3886114@alu.murciaeduca.es', '27', 'Calle Leon Nº 12', 1, '2023-06-17 18:26:26', '2023-06-17 18:26:26');
 
 -- --------------------------------------------------------
 
@@ -69,14 +71,17 @@ CREATE TABLE IF NOT EXISTS `detalle__facturas` (
   PRIMARY KEY (`id`),
   KEY `detalle__facturas_producto_id_foreign` (`producto_id`),
   KEY `detalle__facturas_factura_id_foreign` (`factura_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `detalle__facturas`
 --
 
 INSERT INTO `detalle__facturas` (`id`, `cantidad`, `precio`, `producto_id`, `factura_id`, `created_at`, `updated_at`) VALUES
-(1, 2, 200.00, 1, 1, '2023-06-16 20:17:41', '2023-06-16 20:17:41');
+(3, 3, 100.00, 3, 1, '2023-06-17 17:33:21', '2023-06-17 17:33:21'),
+(4, 5, 100.00, 3, 3, '2023-06-17 17:33:53', '2023-06-17 17:33:53'),
+(5, 5, 100.00, 3, 5, '2023-06-17 17:42:06', '2023-06-17 17:42:06'),
+(6, 4, 100.00, 3, 7, '2023-06-17 18:26:59', '2023-06-17 18:26:59');
 
 -- --------------------------------------------------------
 
@@ -99,14 +104,15 @@ CREATE TABLE IF NOT EXISTS `emisors` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `emisors_cif_unique` (`CIF`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `emisors`
 --
 
 INSERT INTO `emisors` (`id`, `CIF`, `nombre`, `provincia`, `CodigoPostal`, `poblacion`, `email`, `telefono`, `Direccion`, `created_at`, `updated_at`) VALUES
-(1, '77856181P', 'Rubén Núñez Campillo', 'Murcia', '30600', 'Archena', 'rubensaorines@gmail.com', '697159646', 'villanueva', '2023-06-16 20:17:10', '2023-06-16 20:17:10');
+(2, '77856181P', 'Ruben Nuñez Campillo', 'palmar', '6414654654', 'murtcisad', '3886114@alu.murciaeduca.es', '6548948778', 'Calle Leon Nº 12', '2023-06-17 17:21:52', '2023-06-17 17:27:47'),
+(3, 'B45454574', 'oriol', 'palmar', '47852785', NULL, '3886114@alu.murciaeduca.es', '86', NULL, '2023-06-17 18:26:05', '2023-06-17 18:26:05');
 
 -- --------------------------------------------------------
 
@@ -136,15 +142,18 @@ CREATE TABLE IF NOT EXISTS `facturas` (
   KEY `facturas_cliente_id_foreign` (`cliente_id`),
   KEY `facturas_user_id_foreign` (`user_id`),
   KEY `facturas_emisor_id_foreign` (`emisor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `facturas`
 --
 
 INSERT INTO `facturas` (`id`, `ejercicio`, `serie`, `numero`, `fecha_emision`, `IVA`, `REQ`, `Observaciones`, `enviada`, `registro`, `cliente_id`, `user_id`, `emisor_id`, `created_at`, `updated_at`) VALUES
-(1, 2023, '01', 785, '2023-06-16', 4, 0.50, 'Segunda factura', 0, 'Error en el bloque de la Contraparte. El NIF tiene un formato erróneo. NIF:77856151P. NOMBRE_RAZON:Emilio Núñez Martínez. ', 1, 1, 1, '2023-06-16 20:17:34', '2023-06-16 20:26:58'),
-(2, 2023, '01', 333, '2023-06-16', 4, 0.50, 'Ninguna', 0, NULL, 1, NULL, 1, '2023-06-16 20:26:21', '2023-06-16 20:27:24');
+(1, 2023, '02', 785, '2023-06-16', 4, 0.50, 'Segunda fa', 0, 'Error en el bloque de la Contraparte. El NIF tiene un formato erróneo. NIF:77856151P. NOMBRE_RAZON:Emilio Núñez belmonte. ', 1, 1, 2, '2023-06-16 20:17:34', '2023-06-17 18:43:35'),
+(3, 2023, '2', 788, '2023-06-17', 4, 0.50, 'Segunda factura', 0, 'Valor del campo Periodo incorrecto', 2, 2, 2, '2023-06-17 17:22:42', '2023-06-17 17:53:02'),
+(4, 2023, '02', 1254, '2023-06-17', 4, 0.50, 'opiuhpuip', 1, 'Factura duplicada', 2, 1, 2, '2023-06-17 17:38:32', '2023-06-17 18:11:38'),
+(5, 2023, '41', 2543, '2023-06-17', 4, 0.50, 'Muchas', 0, 'Valor del campo Periodo incorrecto', 1, NULL, 2, '2023-06-17 17:41:58', '2023-06-17 17:53:12'),
+(7, 2023, '12', 145, '2023-06-29', 4, 0.50, 'Muchas', 0, NULL, 3, 1, 3, '2023-06-17 18:26:51', '2023-06-17 18:27:22');
 
 -- --------------------------------------------------------
 
@@ -302,14 +311,14 @@ CREATE TABLE IF NOT EXISTS `productos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `productos`
 --
 
 INSERT INTO `productos` (`id`, `nombre`, `precio`, `descripcion`, `created_at`, `updated_at`) VALUES
-(1, 'oriol', 200.00, 'Mesa para clase de Programacion', '2023-06-16 20:15:00', '2023-06-16 20:15:07');
+(3, 'coche', 100.00, 'Mesa para clase de Programacion', '2023-06-17 17:33:04', '2023-06-17 17:33:04');
 
 -- --------------------------------------------------------
 

@@ -291,19 +291,15 @@ class FacturaController extends Controller
     } catch (Exception $e) {
 
 
-     
-    
         // Puedes lanzar una nueva excepción o realizar otras acciones, como redireccionar o mostrar un mensaje de error al usuario.
         return view("factura\mensageFactura", ['msg' => "Facturas no enviadas informacion no compatible"] );
-
 
     }
 
        
-      
        $facturas2 = implode(",", $facturas2);
 
-        return view("factura\mensageFactura", ['msg' => "Facturas enviadas con exito"], compact('respuesta','facturas2'));
+      return view("factura\mensageFactura", ['msg' => "Facturas enviadas con exito"], compact('respuesta','facturas2'));
     }
 
 
